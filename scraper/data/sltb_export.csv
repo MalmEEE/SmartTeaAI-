@@ -1,0 +1,974 @@
+year_month,tea_category,package_type,quantity_kg,fob_rs_per_kg
+2020-01,Black,Bags,1438994.13,1512.77
+2020-01,Black,Bulk,9426976.84,697.87
+2020-01,Black,Packets (4g - 1kg),6822218.83,826.24
+2020-01,Black,Packets (1kg - 3kg),193325.68,607.52
+2020-01,Black,Packets (3kg - 5kg),929271.44,686.92
+2020-01,Black,Packets (5kg - 10kg),2175070.0,601.74
+2020-01,Green,Bags,62353.09,2817.74
+2020-01,Green,Bulk,44904.0,1086.66
+2020-01,Green,Packets (4g - 1kg),61059.84,1761.59
+2020-01,Green,Packets (5kg - 10kg),125.0,2261.21
+2020-01,Instant,Packets (>3kg),195447.5,1491.59
+2020-02,Black,Bags,1579401.37,1526.28
+2020-02,Black,Bulk,9606319.11,709.42
+2020-02,Black,Packets (4g - 1kg),6905464.33,834.72
+2020-02,Black,Packets (1kg - 3kg),131376.48,656.49
+2020-02,Black,Packets (3kg - 5kg),1281042.0,702.69
+2020-02,Black,Packets (5kg - 10kg),2956412.2,621.86
+2020-02,Green,Bags,63970.04,2890.67
+2020-02,Green,Bulk,13032.0,1355.43
+2020-02,Green,Packets (4g - 1kg),59240.02,1623.43
+2020-02,Green,Packets (3kg - 5kg),10.0,888.2
+2020-02,Green,Packets (5kg - 10kg),1340.0,1897.09
+2020-02,Instant,Packets (>3kg),223971.2,1453.05
+2020-03,Black,Bags,1114150.22,1429.83
+2020-03,Black,Bulk,5676628.01,721.29
+2020-03,Black,Packets (4g - 1kg),3701164.42,834.65
+2020-03,Black,Packets (1kg - 3kg),44342.43,790.22
+2020-03,Black,Packets (3kg - 5kg),965526.5,740.29
+2020-03,Black,Packets (5kg - 10kg),1472188.0,602.15
+2020-03,Green,Bags,44078.29,2729.26
+2020-03,Green,Bulk,23091.0,1148.85
+2020-03,Green,Packets (4g - 1kg),45822.69,1632.38
+2020-03,Green,Packets (1kg - 3kg),26.0,16160.08
+2020-03,Green,Packets (3kg - 5kg),3074.6,1422.23
+2020-03,Green,Packets (5kg - 10kg),2950.0,2068.16
+2020-03,Instant,Packets (>3kg),165710.0,1345.73
+2020-04,Black,Bags,754616.41,1507.65
+2020-04,Black,Bulk,10764306.33,764.31
+2020-04,Black,Packets (4g - 1kg),3716753.1,856.39
+2020-04,Black,Packets (1kg - 3kg),29912.96,778.92
+2020-04,Black,Packets (3kg - 5kg),669425.7,831.31
+2020-04,Black,Packets (5kg - 10kg),1394792.0,692.77
+2020-04,Green,Bags,33648.41,2475.42
+2020-04,Green,Bulk,27853.0,973.96
+2020-04,Green,Packets (4g - 1kg),16119.98,1565.81
+2020-04,Green,Packets (3kg - 5kg),250.0,835.78
+2020-04,Green,Packets (5kg - 10kg),600.0,1872.09
+2020-04,Instant,Packets (>3kg),314904.0,1304.86
+2020-05,Black,Bags,1264845.48,1413.58
+2020-05,Black,Bulk,10575116.61,814.89
+2020-05,Black,Packets (4g - 1kg),5985232.98,933.1
+2020-05,Black,Packets (1kg - 3kg),37587.1,821.68
+2020-05,Black,Packets (3kg - 5kg),1309419.08,839.79
+2020-05,Black,Packets (5kg - 10kg),2363967.0,703.19
+2020-05,Green,Bags,41667.13,3066.6
+2020-05,Green,Bulk,15259.0,1134.87
+2020-05,Green,Packets (4g - 1kg),65205.64,1760.31
+2020-05,Green,Packets (3kg - 5kg),201.2,5929.74
+2020-05,Green,Packets (5kg - 10kg),200.0,1411.76
+2020-05,Instant,Packets (>3kg),302527.0,1471.71
+2020-06,Black,Bags,1846614.14,1524.87
+2020-06,Black,Bulk,10257564.33,783.43
+2020-06,Black,Packets (4g - 1kg),6425190.42,917.54
+2020-06,Black,Packets (1kg - 3kg),58008.52,912.12
+2020-06,Black,Packets (3kg - 5kg),1189762.99,774.92
+2020-06,Black,Packets (5kg - 10kg),2611760.0,716.63
+2020-06,Green,Bags,66106.3,3170.27
+2020-06,Green,Bulk,48408.0,1263.98
+2020-06,Green,Packets (4g - 1kg),57364.33,1688.76
+2020-06,Green,Packets (5kg - 10kg),1120.0,1895.9
+2020-06,Instant,Packets (>3kg),249110.0,1505.84
+2020-07,Black,Bags,2191872.74,1507.67
+2020-07,Black,Bulk,11709927.61,740.34
+2020-07,Black,Packets (4g - 1kg),7079244.54,896.38
+2020-07,Black,Packets (1kg - 3kg),22854.16,889.14
+2020-07,Black,Packets (3kg - 5kg),2647187.0,753.85
+2020-07,Black,Packets (5kg - 10kg),2773841.7,663.49
+2020-07,Green,Bags,91937.92,3126.94
+2020-07,Green,Bulk,30067.0,1128.12
+2020-07,Green,Packets (4g - 1kg),132037.71,1296.32
+2020-07,Green,Packets (1kg - 3kg),2692.8,1617.66
+2020-07,Green,Packets (5kg - 10kg),3425.0,1810.86
+2020-07,Instant,Packets (>3kg),200928.5,1403.56
+2020-07,RTD,RTD ( Liters ),720.5,5508.38
+2020-08,Black,Bags,1602420.21,1409.78
+2020-08,Black,Bulk,9323208.61,739.33
+2020-08,Black,Packets (4g - 1kg),5753583.89,913.57
+2020-08,Black,Packets (1kg - 3kg),97211.27,920.26
+2020-08,Black,Packets (3kg - 5kg),2014717.94,810.52
+2020-08,Black,Packets (5kg - 10kg),2195083.64,640.97
+2020-08,Green,Bags,81174.22,3156.7
+2020-08,Green,Bulk,52100.0,1296.42
+2020-08,Green,Packets (4g - 1kg),119519.26,1546.87
+2020-08,Green,Packets (3kg - 5kg),508.5,1242.5
+2020-08,Green,Packets (5kg - 10kg),855.2,2018.68
+2020-08,Instant,Packets (>3kg),102174.0,1293.15
+2020-08,RTD,RTD ( Liters ),345.6,376.18
+2020-09,Black,Bags,1739436.06,1471.84
+2020-09,Black,Bulk,10760510.08,751.58
+2020-09,Black,Packets (4g - 1kg),6132233.81,914.94
+2020-09,Black,Packets (1kg - 3kg),131599.92,787.87
+2020-09,Black,Packets (3kg - 5kg),2273794.04,807.96
+2020-09,Black,Packets (5kg - 10kg),2008998.9,601.7
+2020-09,Green,Bags,63968.43,3388.45
+2020-09,Green,Bulk,18520.0,1256.87
+2020-09,Green,Packets (4g - 1kg),99853.51,1752.06
+2020-09,Green,Packets (3kg - 5kg),1601.8,3691.85
+2020-09,Green,Packets (5kg - 10kg),2870.0,1645.82
+2020-09,Instant,Packets (>3kg),234056.0,1325.63
+2020-09,Instant,Packets (4g - 1kg),250.0,1553.72
+2020-10,Black,Bags,1569666.49,1558.19
+2020-10,Black,Bulk,9774160.6,756.76
+2020-10,Black,Packets (4g - 1kg),6062436.16,928.12
+2020-10,Black,Packets (1kg - 3kg),68543.76,694.99
+2020-10,Black,Packets (3kg - 5kg),1974452.23,851.03
+2020-10,Black,Packets (5kg - 10kg),2309273.0,666.98
+2020-10,Green,Bags,74155.8,3086.7
+2020-10,Green,Bulk,19705.0,1307.4
+2020-10,Green,Packets (4g - 1kg),78739.92,1672.23
+2020-10,Green,Packets (1kg - 3kg),201.0,2972.34
+2020-10,Green,Packets (3kg - 5kg),27.9,1087.56
+2020-10,Green,Packets (5kg - 10kg),3570.0,2023.0
+2020-10,Instant,Packets (>3kg),334964.32,1539.59
+2020-10,Instant,Packets (4g - 1kg),250.0,1549.98
+2020-10,RTD,RTD ( Liters ),240.0,11.69
+2020-11,Black,Bags,1373555.92,1489.14
+2020-11,Black,Bulk,9060630.51,778.38
+2020-11,Black,Packets (4g - 1kg),4944282.66,891.81
+2020-11,Black,Packets (1kg - 3kg),34291.36,639.38
+2020-11,Black,Packets (3kg - 5kg),1253643.04,811.78
+2020-11,Black,Packets (5kg - 10kg),2294618.2,639.6
+2020-11,Green,Bags,60167.09,2647.97
+2020-11,Green,Bulk,17680.0,1323.52
+2020-11,Green,Packets (4g - 1kg),63388.43,1797.91
+2020-11,Green,Packets (5kg - 10kg),430.0,2071.39
+2020-11,Instant,Packets (>3kg),244873.6,1485.38
+2020-11,RTD,RTD ( Liters ),153.6,180.87
+2020-12,Black,Bags,1851850.25,1529.49
+2020-12,Black,Bulk,10025566.8,759.21
+2020-12,Black,Packets (4g - 1kg),6344915.06,915.09
+2020-12,Black,Packets (1kg - 3kg),168961.62,731.35
+2020-12,Black,Packets (3kg - 5kg),1788589.04,825.61
+2020-12,Black,Packets (5kg - 10kg),2745820.0,634.98
+2020-12,Green,Bags,68824.68,2828.03
+2020-12,Green,Bulk,47524.0,1120.46
+2020-12,Green,Packets (4g - 1kg),49061.92,1786.45
+2020-12,Green,Packets (1kg - 3kg),475.5,1017.45
+2020-12,Green,Packets (5kg - 10kg),2822.0,2167.12
+2020-12,Instant,Packets (>3kg),241367.15,1618.43
+2020-12,RTD,RTD ( Liters ),349.79,465.04
+2021-01,Black,Bags,1540579.05,1513.49
+2021-01,Black,Bulk,9905939.01,793.17
+2021-01,Black,Packets (4g - 1kg),4912998.49,981.48
+2021-01,Black,Packets (1kg - 3kg),42348.4,895.3
+2021-01,Black,Packets (3kg - 5kg),1393555.16,846.27
+2021-01,Black,Packets (5kg - 10kg),1885910.0,687.51
+2021-01,Black,Bags,65903.54,3030.11
+2021-01,Black,Bulk,48506.0,1141.99
+2021-01,Black,Packets (4g - 1kg),75413.89,1710.26
+2021-01,Black,Packets (3kg - 5kg),11.0,14163.91
+2021-01,Black,Packets (5kg - 10kg),7495.0,1589.37
+2021-01,Instant,Packets (>3kg),176807.2,1918.53
+2021-01,Instant,RTD ( Liters ),5.95,4718.32
+2021-02,Black,Bags,1702078.66,1603.17
+2021-02,Black,Bags,9755746.72,794.67
+2021-02,Black,Packets (4g - 1kg),7051983.87,946.86
+2021-02,Black,Packets (1kg - 3kg),89042.74,981.53
+2021-02,Black,Packets (3kg - 5kg),1454954.18,860.82
+2021-02,Black,Packets (5kg - 10kg),1940585.0,710.69
+2021-02,Green,Bags,55409.73,3219.04
+2021-02,Green,Bulk,12983.52,1475.11
+2021-02,Green,Packets (4g - 1kg),54866.18,1772.37
+2021-02,Green,Packets (3kg - 5kg),710.0,1698.18
+2021-02,Green,Packets (5kg - 10kg),1860.0,2000.78
+2021-02,Instant,Packets (>3kg),322300.0,1652.54
+2021-02,Instant,Packets (1kg - 3kg),9.0,1770.56
+2021-03,Black,Bags,2250822.81,1589.21
+2021-03,Black,Bulk,10112075.94,811.18
+2021-03,Black,Packets (4g - 1kg),8124448.55,926.29
+2021-03,Black,Packets (1kg - 3kg),53517.16,894.51
+2021-03,Black,Packets (3kg - 5kg),1374815.44,848.67
+2021-03,Black,Packets (5kg - 10kg),2453561.5,741.05
+2021-03,Green,Bags,80191.95,3196.86
+2021-03,Green,Bulk,23482.0,1105.01
+2021-03,Green,Packets (4g - 1kg),92400.24,1672.64
+2021-03,Green,Packets (3kg - 5kg),1010.0,981.65
+2021-03,Green,Packets (5kg - 10kg),2380.0,2143.54
+2021-03,Instant,Packets (>3kg),248475.2,1690.05
+2021-03,RTD,RTD ( Liters ),672.12,434.46
+2021-05,Black,Bags,1613627.9,1611.11
+2021-05,Black,Bulk,10413778.56,782.37
+2021-05,Black,Packets (4g - 1kg),6361051.02,937.66
+2021-05,Black,Packets (1kg - 3kg),139804.0,825.78
+2021-05,Black,Packets (3kg - 5kg),1025013.7,818.06
+2021-05,Black,Packets (5kg - 10kg),3064693.1,720.4
+2021-05,Green,Bags,73748.43,3116.74
+2021-05,Green,Bulk,41062.72,1135.89
+2021-05,Green,Packets (4g - 1kg),57019.29,1820.03
+2021-05,Green,Packets (3kg - 5kg),1000.0,3993.4
+2021-05,Green,Packets (5kg - 10kg),1300.0,2325.95
+2021-05,Instant,Packets (>3kg),168883.0,1941.32
+2021-05,Instant,Packets (4g - 1kg),76.0,622.79
+2021-06,Black,Bags,1812655.69,1652.97
+2021-06,Black,Bulk,11864133.77,788.12
+2021-06,Black,Packets (4g - 1kg),7442769.87,927.59
+2021-06,Black,Packets (1kg - 3kg),152474.08,780.37
+2021-06,Black,Packets (3kg - 5kg),1315211.04,782.02
+2021-06,Black,Packets (5kg - 10kg),2922887.4,725.01
+2021-06,Green,Bags,78940.73,2949.86
+2021-06,Green,Bulk,35158.16,980.11
+2021-06,Green,Packets (4g - 1kg),73505.22,1811.68
+2021-06,Green,Packets (3kg - 5kg),20.0,2211.5
+2021-06,Green,Packets (5kg - 10kg),780.0,1629.63
+2021-06,Instant,Packets (>3kg),346308.0,1742.69
+2021-07,Black,Bags,1691492.71,1771.84
+2021-07,Black,Bulk,11669547.61,755.99
+2021-07,Black,Packets (4g - 1kg),6044944.03,907.67
+2021-07,Black,Packets (1kg - 3kg),173594.92,779.01
+2021-07,Black,Packets (3kg - 5kg),1320982.86,863.76
+2021-07,Black,Packets (5kg - 10kg),3401948.5,682.92
+2021-07,Green,Bags,81069.97,3610.81
+2021-07,Green,Bulk,63489.0,1156.45
+2021-07,Green,Packets (4g - 1kg),88219.42,1482.48
+2021-07,Green,Packets (3kg - 5kg),108.5,1947.98
+2021-07,Green,Packets (5kg - 10kg),1500.0,1817.89
+2021-07,Instant,Packets (>3kg),233076.79,1775.88
+2021-08,Black,Bags,1579170.7,1790.47
+2021-08,Black,Bulk,12159944.83,763.8
+2021-08,Black,Packets (4g - 1kg),6425339.73,922.73
+2021-08,Black,Packets (1kg - 3kg),162812.74,797.65
+2021-08,Black,Packets (3kg - 5kg),1380420.0,820.97
+2021-08,Black,Packets (5kg - 10kg),2556004.0,720.66
+2021-08,Green,Bags,78215.08,3749.93
+2021-08,Green,Bulk,48583.0,1132.05
+2021-08,Green,Packets (4g - 1kg),83567.44,1605.2
+2021-08,Green,Packets (3kg - 5kg),14.0,2608.71
+2021-08,Green,Packets (5kg - 10kg),420.0,1374.77
+2021-08,Instant,Packets (>3kg),255745.0,1661.63
+2021-08,Instant,Packets (4g - 1kg),214.96,1477.12
+2021-09,Black,Bags,1374566.06,1762.54
+2021-09,Black,Bulk,10334772.58,750.51
+2021-09,Black,Packets (4g - 1kg),6294430.9,902.47
+2021-09,Black,Packets (1kg - 3kg),114069.3,817.07
+2021-09,Black,Packets (3kg - 5kg),1389083.16,840.44
+2021-09,Black,Packets (5kg - 10kg),2770201.0,694.55
+2021-09,Green,Bags,51467.98,3870.99
+2021-09,Green,Bulk,26125.56,1665.07
+2021-09,Green,Packets (4g - 1kg),74090.48,1974.18
+2021-09,Green,Packets (3kg - 5kg),40.0,1555.1
+2021-09,Green,Packets (5kg - 10kg),15575.0,850.77
+2021-09,Instant,Packets (>3kg),175611.8,1787.3
+2021-10,Black,Bags,1595032.72,1744.1
+2021-10,Black,Bulk,10150826.72,764.15
+2021-10,Black,Packets (4g - 1kg),6362062.02,913.14
+2021-10,Black,Packets (1kg - 3kg),250678.97,716.49
+2021-10,Black,Packets (3kg - 5kg),1654677.24,803.05
+2021-10,Black,Packets (5kg - 10kg),3086017.54,681.17
+2021-10,Green,Bags,84173.22,3437.56
+2021-10,Green,Bulk,24810.92,1135.91
+2021-10,Green,Packets (4g - 1kg),113046.04,1721.81
+2021-10,Green,Packets (1kg - 3kg),408.0,1843.41
+2021-10,Green,Packets (3kg - 5kg),100.0,1420.99
+2021-10,Green,Packets (5kg - 10kg),4380.0,2328.51
+2021-10,Instant,Packets (>3kg),264149.6,1752.93
+2021-10,Instant,Packets (4g - 1kg),0.5,394.0
+2021-11,Black,Bags,1834724.38,1729.92
+2021-11,Black,Bulk,9897696.95,780.97
+2021-11,Black,Packets (4g - 1kg),7157226.01,928.74
+2021-11,Black,Packets (1kg - 3kg),329770.03,802.75
+2021-11,Black,Packets (3kg - 5kg),1512297.64,843.93
+2021-11,Black,Packets (5kg - 10kg),3760301.5,655.33
+2021-11,Green,Bags,70905.03,3499.22
+2021-11,Green,Bulk,29825.22,1150.27
+2021-11,Green,Packets (4g - 1kg),102344.27,1861.97
+2021-11,Green,Packets (1kg - 3kg),805.0,2673.64
+2021-11,Green,Packets (3kg - 5kg),50.0,7689.9
+2021-11,Green,Packets (5kg - 10kg),3665.0,2456.95
+2021-11,Instant,Packets (>3kg),233452.3,1684.41
+2021-11,RTD,RTD ( Liters ),220.0,900.58
+2021-12,Black,Bags,1896603.14,1717.04
+2021-12,Black,Bulk,10362338.79,767.09
+2021-12,Black,Packets (4g - 1kg),5873569.01,929.7
+2021-12,Black,Packets (1kg - 3kg),334105.63,746.72
+2021-12,Black,Packets (3kg - 5kg),1118139.78,880.04
+2021-12,Black,Packets (5kg - 10kg),3226605.5,668.25
+2021-12,Green,Bags,74380.5,3656.42
+2021-12,Green,Bulk,45552.0,1046.79
+2021-12,Green,Packets (4g - 1kg),83315.51,1821.99
+2021-12,Green,Packets (1kg - 3kg),531.0,2126.65
+2021-12,Green,Packets (3kg - 5kg),12.0,203.0
+2021-12,Green,Packets (5kg - 10kg),3384.0,1543.07
+2021-12,Instant,Packets (>3kg),300094.07,1627.18
+2021-12,Instant,Packets (4g - 1kg),75.12,642.08
+2022-01,Black,Bags,1338819.24,1784.27
+2022-01,Black,Bulk,8245497.85,798.76
+2022-01,Black,Packets (4g - 1kg),5595974.3,947.52
+2022-01,Black,Packets (1kg - 3kg),177793.59,807.09
+2022-01,Black,Packets (3kg - 5kg),640200.0,816.42
+2022-01,Black,Packets (5kg - 10kg),2435449.05,705.07
+2022-01,Green,Bags,63215.31,3855.14
+2022-01,Green,Bulk,22180.0,1123.19
+2022-01,Green,Packets (4g - 1kg),75361.42,1865.42
+2022-01,Green,Packets (1kg - 3kg),678.0,1828.21
+2022-01,Green,Packets (3kg - 5kg),5.0,3753.4
+2022-01,Green,Packets (5kg - 10kg),440.0,1882.9
+2022-01,Instant,Packets (>3kg),178498.4,1580.49
+2022-02,Black,Bags,1296518.93,1745.15
+2022-02,Black,Bulk,9525915.18,853.71
+2022-02,Black,Packets (4g - 1kg),5988051.73,963.66
+2022-02,Black,Packets (1kg - 3kg),179551.75,832.97
+2022-02,Black,Packets (3kg - 5kg),1086310.74,803.78
+2022-02,Black,Packets (5kg - 10kg),2073265.5,726.43
+2022-02,Green,Bags,41747.56,3672.08
+2022-02,Green,Bulk,28941.0,1212.65
+2022-02,Green,Packets (4g - 1kg),63834.35,2040.99
+2022-02,Green,Packets (1kg - 3kg),762.0,1849.29
+2022-02,Green,Packets (3kg - 5kg),850.0,818.65
+2022-02,Green,Packets (5kg - 10kg),1082.48,3016.35
+2022-02,Instant,Packets (>3kg),240622.1,1798.42
+2022-03,Black,Bags,1777488.78,
+2022-03,Black,Bulk,9306317.6,
+2022-03,Black,Packets (4g - 1kg),6200960.13,
+2022-03,Black,Packets (1kg - 3kg),306990.63,
+2022-03,Black,Packets (3kg - 5kg),1109314.12,
+2022-03,Black,Packets (5kg - 10kg),3327773.25,
+2022-03,Green,Bags,61057.67,
+2022-03,Green,Bulk,16505.0,
+2022-03,Green,Packets (4g - 1kg),39370.76,
+2022-03,Green,Packets (1kg - 3kg),240.0,
+2022-03,Green,Packets (3kg - 5kg),5.0,
+2022-03,Green,Packets (5kg - 10kg),710.0,
+2022-03,Instant,Packets (>3kg),204944.8,
+2022-04,Black,Bags,1456515.88,
+2022-04,Black,Bulk,8288125.55,
+2022-04,Black,Packets (4g - 1kg),4716012.67,
+2022-04,Black,Packets (1kg - 3kg),229366.6,
+2022-04,Black,Packets (3kg - 5kg),902518.64,
+2022-04,Black,Packets (5kg - 10kg),1817632.0,
+2022-04,Green,Bags,46410.42,
+2022-04,Green,Bulk,21441.12,
+2022-04,Green,Packets (4g - 1kg),46559.08,
+2022-04,Green,Packets (1kg - 3kg),1155.0,
+2022-04,Green,Packets (5kg - 10kg),600.0,
+2022-04,Instant,Packets (>3kg),154002.6,
+2022-05,Black,Bags,1459561.36,
+2022-05,Black,Bulk,7840765.74,
+2022-05,Black,Packets (4g - 1kg),5955275.87,
+2022-05,Black,Packets (1kg - 3kg),147169.15,
+2022-05,Black,Packets (3kg - 5kg),903716.44,
+2022-05,Black,Packets (5kg - 10kg),2304215.12,
+2022-05,Green,Bags,62680.25,
+2022-05,Green,Bulk,25776.48,
+2022-05,Green,Packets (4g - 1kg),73292.25,
+2022-05,Green,Packets (3kg - 5kg),350.0,
+2022-05,Green,Packets (5kg - 10kg),400.0,
+2022-05,Instant,Packets (>3kg),254631.1,
+2022-06,Black,Bags,1660334.64,
+2022-06,Black,Bulk,10094103.67,
+2022-06,Black,Packets (4g - 1kg),7002072.46,
+2022-06,Black,Packets (1kg - 3kg),305719.88,
+2022-06,Black,Packets (3kg - 5kg),867571.04,
+2022-06,Black,Packets (5kg - 10kg),2370249.5,
+2022-06,Green,Bags,76208.2,
+2022-06,Green,Bulk,33510.68,
+2022-06,Green,Packets (4g - 1kg),82339.1,
+2022-06,Green,Packets (1kg - 3kg),1455.0,
+2022-06,Green,Packets (5kg - 10kg),14837.0,
+2022-06,Instant,Packets (>3kg),204398.2,
+2022-07,Black,Bags,1652226.85,
+2022-07,Black,Bulk,9767287.04,
+2022-07,Black,Packets (4g - 1kg),6771960.68,
+2022-07,Black,Packets (1kg - 3kg),83080.96,
+2022-07,Black,Packets (3kg - 5kg),759867.52,
+2022-07,Black,Packets (5kg - 10kg),2626594.0,
+2022-07,Green,Bags,56232.9,
+2022-07,Green,Bulk,17215.0,
+2022-07,Green,Packets (4g - 1kg),68889.79,
+2022-07,Green,Packets (5kg - 10kg),123.0,
+2022-07,Green,Packets (>3kg),266646.8,
+2022-07,Instant,Packets (4g - 1kg),0.2,
+2022-08,Black,Bags,1538250.83,
+2022-08,Black,Bulk,10676413.68,
+2022-08,Black,Packets (4g - 1kg),5462277.99,
+2022-08,Black,Packets (1kg - 3kg),292897.76,
+2022-08,Black,Packets (3kg - 5kg),992937.04,
+2022-08,Black,Packets (5kg - 10kg),2829119.6,
+2022-08,Green,Bags,75015.15,
+2022-08,Green,Bulk,35019.36,
+2022-08,Green,Packets (4g - 1kg),82915.13,
+2022-08,Green,Packets (1kg - 3kg),1000.0,
+2022-08,Green,Packets (3kg - 5kg),5320.0,
+2022-08,Green,Packets (5kg - 10kg),1743.0,
+2022-08,Instant,Packets (>3kg),221718.0,
+2022-08,Instant,Packets (4g - 1kg),0.2,
+2022-09,Black,Bags,1424140.43,
+2022-09,Black,Bulk,9638663.37,
+2022-09,Black,Packets (4g - 1kg),5662422.28,
+2022-09,Black,Packets (1kg - 3kg),357257.87,
+2022-09,Black,Packets (3kg - 5kg),1035590.84,
+2022-09,Black,Packets (5kg - 10kg),2134653.0,
+2022-09,Green,Bags,64073.94,
+2022-09,Green,Bulk,14517.32,
+2022-09,Green,Packets (3kg - 5kg),20.0,
+2022-09,Green,Packets (5kg - 10kg),130.0,
+2022-09,Instant,Bags,18.2,
+2022-09,Instant,Packets (4g - 1kg),275.5,
+2022-09,Instant,Packets (>3kg),379880.1,
+2022-09,RTD,RTD ( Liters ),360.0,
+2022-10,Black,Bags,1450504.67,
+2022-10,Black,Bulk,8565899.3,
+2022-10,Black,Packets (4g - 1kg),5115166.36,
+2022-10,Black,Packets (1kg - 3kg),181740.0,
+2022-10,Black,Packets (3kg - 5kg),960816.0,
+2022-10,Black,Packets (5kg - 10kg),1591814.5,
+2022-10,Green,Bags,59323.73,
+2022-10,Green,Bulk,22439.0,
+2022-10,Green,Packets (4g - 1kg),64780.26,
+2022-10,Green,Packets (1kg - 3kg),1722.0,
+2022-10,Green,Packets (3kg - 5kg),255.0,
+2022-10,Green,Packets (5kg - 10kg),2550.0,
+2022-10,Instant,Packets (>3kg),296374.7,
+2022-10,RTD,RTD ( Liters ),340.0,
+2022-11,Black,Bags,1436101.11,
+2022-11,Black,Bulk,8485155.56,
+2022-11,Black,Packets (4g - 1kg),5642009.98,
+2022-11,Black,Packets (1kg - 3kg),147794.73,
+2022-11,Black,Packets (3kg - 5kg),600016.0,
+2022-11,Black,Packets (5kg - 10kg),1816317.32,
+2022-11,Green,Bags,53644.48,
+2022-11,Green,Bulk,43165.0,
+2022-11,Green,Packets (4g - 1kg),55520.27,
+2022-11,Green,Packets (5kg - 10kg),1100.0,
+2022-11,Instant,Packets (>3kg),261105.4,
+2022-11,Instant,Packets (4g - 1kg),0.8,
+2022-11,RTD,RTD ( Liters ),24.0,
+2022-12,Black,Bags,1366104.31,
+2022-12,Black,Bulk,8892323.92,
+2022-12,Black,Packets (4g - 1kg),5252857.67,
+2022-12,Black,Packets (1kg - 3kg),109837.6,
+2022-12,Black,Packets (3kg - 5kg),637298.5,
+2022-12,Black,Packets (5kg - 10kg),1879840.85,
+2022-12,Green,Bags,59011.14,
+2022-12,Green,Bulk,35844.0,
+2022-12,Green,Packets (4g - 1kg),49849.58,
+2022-12,Green,Packets (1kg - 3kg),2895.0,
+2022-12,Green,Packets (3kg - 5kg),1004.0,
+2022-12,Green,Packets (5kg - 10kg),100.0,
+2022-12,Instant,Bags,60.0,
+2022-12,Instant,Packets (>3kg),360660.5,
+2022-12,Instant,Packets (4g - 1kg),0.2,
+2022-12,Instant,RTD ( Liters ),4033.0,
+2023-01,Black,Bags,1308927.43,
+2023-01,Black,Bulk,7416264.78,
+2023-01,Black,Packets (4g - 1kg),5267446.47,
+2023-01,Black,Packets (1kg - 3kg),160587.47,
+2023-01,Black,Packets (3kg - 5kg),577259.04,
+2023-01,Black,Packets (5kg - 10kg),1650799.81,
+2023-01,Green,Bags,77639.02,
+2023-01,Green,Bulk,27623.0,
+2023-01,Green,Packets (4g - 1kg),62128.95,
+2023-01,Green,Packets (3kg - 5kg),1030.0,
+2023-01,Green,Packets (5kg - 10kg),535.0,
+2023-01,Instant,Packets (>3kg),230742.0,
+2023-01,RTD,RTD ( Liters ),33.6,
+2023-02,,Black,,
+2023-02,,Green,,
+2023-02,,Instant,,
+2023-02,,RTD,,
+2023-03,Black,Bags,1872948.01,
+2023-03,Black,Bulk,7396007.27,
+2023-03,Black,Packets (4g - 1kg),5607559.59,
+2023-03,Black,Packets (1kg - 3kg),141024.6,
+2023-03,Black,Packets (3kg - 5kg),755545.37,
+2023-03,Black,Packets (5kg - 10kg),1104585.5,
+2023-03,Green,Bags,62916.55,
+2023-03,Green,Bulk,30891.0,
+2023-03,Green,Packets (4g - 1kg),95286.26,
+2023-03,Green,Packets (5kg - 10kg),275.0,
+2023-03,Instant,Packets (4g - 1kg),1.0,
+2023-03,Instant,Packets (>3kg),315858.3,
+2023-03,RTD,RTD ( Liters ),6193.2,
+2023-04,Black,Bags,1414763.98,
+2023-04,Black,Bulk,7190816.79,
+2023-04,Black,Packets (4g - 1kg),4954168.73,
+2023-04,Black,Packets (1kg - 3kg),50059.52,
+2023-04,Black,Packets (3kg - 5kg),347647.68,
+2023-04,Black,Packets (5kg - 10kg),1078075.0,
+2023-04,Green,Bags,64674.59,
+2023-04,Green,Bulk,20335.0,
+2023-04,Green,Packets (4g - 1kg),63918.57,
+2023-04,Green,Packets (5kg - 10kg),1650.0,
+2023-04,Instant,Packets (>3kg),92043.2,
+2023-04,Instant,Packets (4g - 1kg),0.6,
+2023-05,Black,Bags,1491461.11,
+2023-05,Black,Bulk,8302374.12,
+2023-05,Black,Packets (4g - 1kg),6142502.13,
+2023-05,Black,Packets (1kg - 3kg),217946.64,
+2023-05,Black,Packets (3kg - 5kg),689320.92,
+2023-05,Black,Packets (5kg - 10kg),1861798.3,
+2023-05,Green,Bags,75262.28,
+2023-05,Green,Bulk,48825.0,
+2023-05,Green,Packets (4g - 1kg),78381.0,
+2023-05,Green,Packets (5kg - 10kg),83.0,
+2023-05,Instant,Packets (>3kg),368021.57,
+2023-05,RTD,RTD ( Liters ),23501.0,
+2023-06,Black,Bags,1305023.75,
+2023-06,Black,Bulk,9361052.0,
+2023-06,Black,Packets (4g - 1kg),6334636.78,
+2023-06,Black,Packets (1kg - 3kg),122552.2,
+2023-06,Black,Packets (3kg - 5kg),921468.0,
+2023-06,Black,Packets (5kg - 10kg),2222902.0,
+2023-06,Green,Bags,55259.25,
+2023-06,Green,Bulk,36646.52,
+2023-06,Green,Packets (4g - 1kg),96405.11,
+2023-06,Green,Packets (1kg - 3kg),1.2,
+2023-06,Green,Packets (5kg - 10kg),855.0,
+2023-06,Instant,Packets (>3kg),288385.84,
+2023-07,Black,Bags,1630081.18,
+2023-07,Black,Bulk,10312978.12,
+2023-07,Black,Packets (4g - 1kg),6418287.35,
+2023-07,Black,Packets (1kg - 3kg),108662.71,
+2023-07,Black,Packets (3kg - 5kg),1150047.74,
+2023-07,Black,Packets (5kg - 10kg),2066572.0,
+2023-07,Green,Bags,60857.58,
+2023-07,Green,Bulk,58559.84,
+2023-07,Green,Packets (4g - 1kg),51824.17,
+2023-07,Green,Packets (3kg - 5kg),25.0,
+2023-07,Green,Packets (5kg - 10kg),505.0,
+2023-07,Instant,Packets (>3kg),80158.7,
+2023-07,RTD,RTD ( Liters ),145.2,
+2023-08,Black,Bags,1505037.86,
+2023-08,Black,Bulk,9518821.41,
+2023-08,Black,Packets (4g - 1kg),7149685.59,
+2023-08,Black,Packets (1kg - 3kg),226421.8,
+2023-08,Black,Packets (3kg - 5kg),1196808.32,
+2023-08,Black,Packets (5kg - 10kg),2633081.0,
+2023-08,Green,Bags,60223.98,
+2023-08,Green,Bulk,22111.0,
+2023-08,Green,Packets (4g - 1kg),47400.05,
+2023-08,Green,Packets (1Kg-3Kg),1164.0,
+2023-08,Green,Packets (5kg - 10kg),4900.0,
+2023-08,Instant,Packets (>3kg),102157.0,
+2023-08,Instant,Packets (4g-1Kg),0.2,
+2023-08,RTD,RTD ( Liters ),1989.56,
+2023-09,Black,Bags,1485057.72,
+2023-09,Black,Bulk,9410576.83,
+2023-09,Black,Packets (4g - 1kg),6910070.83,
+2023-09,Black,Packets (1kg - 3kg),262817.67,
+2023-09,Black,Packets (3kg - 5kg),1403813.52,
+2023-09,Black,Packets (5kg - 10kg),2433326.09,
+2023-09,Green,Bags,59595.95,
+2023-09,Green,Bulk,21630.0,
+2023-09,Green,Packets (4g - 1kg),42181.32,
+2023-09,Green,Packets (3Kg-5Kg),254.0,
+2023-09,Green,Packets (5kg - 10kg),1640.0,
+2023-09,Instant,Packets (>3kg),102241.8,
+2023-09,Instant,Packets (4g-1Kg),12.64,
+2023-09,RTD,RTD ( Liters ),162.15,
+2023-10,Black,Bags,1496083.45,
+2023-10,Black,Bulk,7567054.5,
+2023-10,Black,Packets (4g - 1kg),5404724.81,
+2023-10,Black,Packets (1kg - 3kg),188269.78,
+2023-10,Black,Packets (3kg - 5kg),945413.0,
+2023-10,Black,Packets (5kg - 10kg),1646224.18,
+2023-10,Green,Bags,75409.81,
+2023-10,Green,Bulk,36930.0,
+2023-10,Green,Packets (4g - 1kg),70276.57,
+2023-10,Green,Packets (1kg - 3kg),2748.0,
+2023-10,Green,Packets (5kg - 10kg),230.0,
+2023-10,Instant,Packets (>3kg),33806.0,
+2023-10,Instant,Packets (4g-1Kg),0.2,
+2023-10,RTD,RTD ( Liters ),100.2,
+2023-11,Black,Bags,1698884.7,
+2023-11,Black,Bulk,8910245.68,
+2023-11,Black,Packets (4g - 1kg),6301782.32,
+2023-11,Black,Packets (1kg - 3kg),194915.95,
+2023-11,Black,Packets (3kg - 5kg),1030158.66,
+2023-11,Black,Packets (5kg - 10kg),1480495.0,
+2023-11,Green,Bags,67480.05,
+2023-11,Green,Bulk,21205.36,
+2023-11,Green,Packets (1kg - 3kg),300.0,
+2023-11,Green,Packets (3kg - 5kg),5.0,
+2023-11,Green,Packets (4g - 1kg),66773.79,
+2023-11,Green,Packets (5kg - 10kg),800.0,
+2023-11,Instant,Packets (>3kg),637933.8,
+2023-11,RTD,RTD ( Liters ),1360.8,
+2023-12,Black,Bags,1494850.56,
+2023-12,Black,Bulk,8833837.0,
+2023-12,Black,Packets (4g - 1kg),6110060.92,
+2023-12,Black,Packets (1kg - 3kg),249669.59,
+2023-12,Black,Packets (3kg - 5kg),986974.6,
+2023-12,Black,Packets (5kg - 10kg),1830558.0,
+2023-12,Green,Bags,63982.54,
+2023-12,Green,Bulk,21039.48,
+2023-12,Green,Packets (4g - 1kg),63349.47,
+2023-12,Green,Packets (1kg - 3kg),3195.0,
+2023-12,Green,Packets (3kg - 5kg),14.0,
+2023-12,Green,Packets (5kg - 10kg),612.0,
+2023-12,Instant,Packets (>3kg),235120.0,
+2023-12,Instant,Bags,120.0,
+2023-12,RTD,RTD ( Liters ),4032.0,
+2024-01,Black,Bags,1430182.97,
+2024-01,Black,Bulk,8521889.49,
+2024-01,Black,Packets (4g - 1kg),4951600.13,
+2024-01,Black,Packets (1kg - 3kg),237245.52,
+2024-01,Black,Packets (3kg - 5kg),576203.23,
+2024-01,Black,Packets (5kg - 10kg),2039213.0,
+2024-01,Green,Bags,61972.85,
+2024-01,Green,Bulk,28428.0,
+2024-01,Green,Packets (4g - 1kg),70636.04,
+2024-01,Green,Packets (5kg - 10kg),500.0,
+2024-01,Instant,Packets (>3kg),147290.0,
+2024-01,RTD,RTD ( Liters ),1997.8,
+2024-02,Black,Bags,1624926.03,
+2024-02,Black,Bulk,10956516.4,
+2024-02,Black,Packets (4g - 1kg),5477155.81,
+2024-02,Black,Packets (1kg - 3kg),63711.02,
+2024-02,Black,Packets (3kg - 5kg),826384.4,
+2024-02,Black,Packets (5kg - 10kg),1897517.0,
+2024-02,Green,Bags,76696.49,
+2024-02,Green,Bulk,23583.0,
+2024-02,Green,Packets (4g - 1kg),69149.86,
+2024-02,Green,Packets (5kg - 10kg),1000.0,
+2024-02,Instant,Packets (>3kg),291335.0,
+2024-03,Black,Bags,1915518.09,
+2024-03,Black,Bulk,9317729.24,
+2024-03,Black,Packets (1kg - 3kg),181242.96,
+2024-03,Black,Packets (3kg - 5kg),993975.63,
+2024-03,Black,Packets (4g - 1kg),5907858.21,
+2024-03,Black,Packets (5kg - 10kg),1601620.86,
+2024-03,Green,Bags,83255.5,
+2024-03,Green,Bulk,33617.0,
+2024-03,Green,Packets (1kg - 3kg),1985.4,
+2024-03,Green,Packets (3kg - 5kg),1020.0,
+2024-03,Green,Packets (4g - 1kg),62799.25,
+2024-03,Green,Packets(5kg-10kg),770.0,
+2024-03,Instant,Packets (>3kg),53878.3,
+2024-03,RTD,RTD,3006.0,
+2024-04,Black,Bags,1226570.93,
+2024-04,Black,Bulk,7693670.96,
+2024-04,Black,Packets (1kg - 3kg),61204.04,
+2024-04,Black,Packets (3kg - 5kg),567410.0,
+2024-04,Black,Packets (4g - 1kg),4615694.62,
+2024-04,Black,Packets (5kg - 10kg),1182258.0,
+2024-04,Green,Bags,69488.42,
+2024-04,Green,Bulk,20026.32,
+2024-04,Green,Packets (1kg - 3kg),10.56,
+2024-04,Green,Packets (3kg - 5kg),1300.0,
+2024-04,Green,Packets (4g - 1kg),57292.88,
+2024-04,Green,Packets (5kg - 10kg),4220.0,
+2024-04,Instant,Packets (>3kg),28402.0,
+2024-04,RTD,RTD,12.2,
+2024-05,Black,Bags,1695701.32,
+2024-05,Black,Bulk,8901152.13,
+2024-05,Black,Packets (1kg - 3kg),151760.98,
+2024-05,Black,Packets (3kg - 5kg),691552.59,
+2024-05,Black,Packets (4g - 1kg),5589133.06,
+2024-05,Black,Packets (5kg - 10kg),1052878.0,
+2024-05,Green,Bags,72424.32,
+2024-05,Green,Bulk,4579.76,
+2024-05,Green,Packets (3kg - 5kg),4.0,
+2024-05,Green,Packets (4g - 1kg),68717.67,
+2024-05,Green,Packets (5kg - 10kg),3480.0,
+2024-05,Instant,Packets (>3kg),43521.3,
+2024-05,RTD,RTD,1679.4,
+2024-06,Black,Bags,1512108.29,
+2024-06,Black,Bulk,10200509.81,
+2024-06,Black,Packets (1Kg-3Kg),194858.0,
+2024-06,Black,Packets (3Kg-5Kg),683066.31,
+2024-06,Black,Packets (4g-1Kg),5727347.47,
+2024-06,Black,Packets (5Kg-10Kg),1117728.0,
+2024-06,Green,Bags,59976.43,
+2024-06,Green,Bulk,32202.16,
+2024-06,Green,Packets (1Kg-3Kg),1119.0,
+2024-06,Green,Packets (3Kg-5Kg),140.78,
+2024-06,Green,Packets (4g-1Kg),64212.75,
+2024-06,Green,Packets (5Kg-10Kg),10.0,
+2024-06,Instant,Packets (>3Kg),59181.98,
+2024-06,RTD,RTD,4002.17,
+2024-07,Black,Bags,1507516.68,
+2024-07,Black,Bulk,9403834.6,
+2024-07,Black,Packets (1kg - 3kg),211924.94,
+2024-07,Black,Packets (3kg - 5kg),638367.76,
+2024-07,Black,Packets (4g - 1kg),6086671.93,
+2024-07,Black,Packets (5kg - 10kg),1716012.4,
+2024-07,Green,Bags,65569.38,
+2024-07,Green,Bulk,31051.48,
+2024-07,Green,Packets (1kg - 3kg),36.0,
+2024-07,Green,Packets (4g - 1kg),58092.41,
+2024-07,Green,Packets (5kg - 10kg),250.0,
+2024-07,Instant,Packets (>3kg),42391.5,
+2024-07,RTD,RTD,6180.8,
+2024-08,Black,Bags,1659790.63,
+2024-08,Black,Bulk,9388590.05,
+2024-08,Black,Packets (1kg - 3kg),256291.97,
+2024-08,Black,Packets (3kg - 5kg),812824.08,
+2024-08,Black,Packets (4g - 1kg),6660359.28,
+2024-08,Black,Packets (5kg - 10kg),1573040.0,
+2024-08,Green,Bags,100220.93,
+2024-08,Green,Bulk,89802.0,
+2024-08,Green,Packets (1kg - 3kg),5.0,
+2024-08,Green,Packets (3kg - 5kg),5.0,
+2024-08,Green,Packets (4g - 1kg),52320.15,
+2024-08,Green,Packets (5kg - 10kg),190.0,
+2024-08,Instant,Packets (>3kg),58575.0,
+2024-08,RTD,RTD,1990.06,
+2024-09,Black,Bags,1451033.1,
+2024-09,Black,Bulk,8137711.79,
+2024-09,Black,Packets (1kg - 3kg),173913.0,
+2024-09,Black,Packets (3kg - 5kg),636151.84,
+2024-09,Black,Packets (4g - 1kg),6439286.91,
+2024-09,Black,Packets (5kg - 10kg),1350749.68,
+2024-09,Green,Bags,65876.69,
+2024-09,Green,Bulk,46966.0,
+2024-09,Green,Packets (1kg - 3kg),4037.0,
+2024-09,Green,Packets (3kg - 5kg),730.0,
+2024-09,Green,Packets (4g - 1kg),41778.99,
+2024-09,Green,Packets (5kg - 10kg),730.0,
+2024-09,Instant,Bags,375.0,
+2024-09,Instant,Packets (>3kg),27273.6,
+2024-09,Instant,Packets (4g - 1kg),75.0,
+2024-09,RTD,RTD,44.4,
+2024-10,Black,Bags,1859642.45,
+2024-10,Black,Bulk,8523317.15,
+2024-10,Black,Packets (1kg - 3kg),333921.85,
+2024-10,Black,Packets (3kg - 5kg),616827.18,
+2024-10,Black,Packets (4g - 1kg),5979112.05,
+2024-10,Black,Packets (5kg - 10kg),1649171.0,
+2024-10,Green,Bags,64693.19,
+2024-10,Green,Bulk,36236.0,
+2024-10,Green,Packets (1kg - 3kg),2.0,
+2024-10,Green,Packets (3kg - 5kg),1500.0,
+2024-10,Green,Packets (4g - 1kg),71749.09,
+2024-10,Green,Packets (5kg - 10kg),2440.0,
+2024-10,Instant,Packets (>3kg),39615.0,
+2024-10,RTD,RTD,235.5,
+2024-11,Black,Bags,1534265.09,
+2024-11,Black,Bulk,8118893.69,
+2024-11,Black,Packets (1kg - 3kg),262155.24,
+2024-11,Black,Packets (3kg - 5kg),839775.44,
+2024-11,Black,Packets (4g - 1kg),6454285.85,
+2024-11,Black,Packets (5kg - 10kg),1249315.93,
+2024-11,Green,Bags,46097.9,
+2024-11,Green,Bulk,9896.02,
+2024-11,Green,Packets (4g - 1kg),69084.95,
+2024-11,Green,Packets (5kg - 10kg),320.0,
+2024-11,Instant,Packets (>3kg),31519.4,
+2024-11,RTD,RTD,478.0,
+2024-12,Black,Bags,1648716.15,
+2024-12,Black,Bulk,9496427.25,
+2024-12,Black,Packets (1kg - 3kg),90105.65,
+2024-12,Black,Packets (3kg - 5kg),634138.0,
+2024-12,Black,Packets (4g - 1kg),7386589.84,
+2024-12,Black,Packets (5kg - 10kg),1306453.0,
+2024-12,Green,Bags,83342.87,
+2024-12,Green,Bulk,56126.0,
+2024-12,Green,Packets (1kg - 3kg),54.75,
+2024-12,Green,Packets (4g - 1kg),65361.36,
+2024-12,Green,Packets (3kg - 5kg),6.0,
+2024-12,Instant,Bags,300.0,
+2024-12,Instant,Packets (>3kg),87235.5,
+2024-12,RTD,RTD,833.4,
+2025-01,Black,Bags,1514506.09,
+2025-01,Black,Bulk,8004897.09,
+2025-01,Black,Packets (1kg - 3kg),111298.08,
+2025-01,Black,Packets (3kg - 5kg),508932.04,
+2025-01,Black,Packets (4g - 1kg),6798099.33,
+2025-01,Black,Packets (5kg - 10kg),831283.0,
+2025-01,Green,Bags,78094.27,
+2025-01,Green,Bulk,11515.0,
+2025-01,Green,Packets (1kg - 3kg),2618.6,
+2025-01,Green,Packets (4g - 1kg),64426.86,
+2025-01,Green,Packets (3kg - 5kg),5.0,
+2025-01,Instant,Bags,60.0,
+2025-01,Instant,Packets (>3kg),67495.0,
+2025-01,RTD,RTD,25.2,
+2025-02,Black,Bags,1443539.25,
+2025-02,Black,Bulk,8727908.77,
+2025-02,Black,Packets (1kg - 3kg),142396.56,
+2025-02,Black,Packets (3kg - 5kg),640671.0,
+2025-02,Black,Packets (4g - 1kg),6452985.42,
+2025-02,Black,Packets (5kg - 10kg),1034143.0,
+2025-02,Green,Bags,57369.15,
+2025-02,Green,Bulk,32417.0,
+2025-02,Green,Packets (1kg - 3kg),204.0,
+2025-02,Green,Packets (3kg - 5kg),450.0,
+2025-02,Green,Packets (4g - 1kg),55822.12,
+2025-02,Green,Packets (5kg - 10kg),180.0,
+2025-02,Instant,Packets (>3kg),41404.8,
+2025-03,Black,Bags,1718761.41,
+2025-03,Black,Bulk,10269254.22,
+2025-03,Black,Packets (1kg - 3kg),179811.29,
+2025-03,Black,Packets (3kg - 5kg),787066.8,
+2025-03,Black,Packets (4g - 1kg),7156950.02,
+2025-03,Black,Packets (5kg - 10kg),1409918.0,
+2025-03,Green,Bags,85086.68,
+2025-03,Green,Bulk,20290.0,
+2025-03,Green,Packets (1kg - 3kg),988.8,
+2025-03,Green,Packets (3kg - 5kg),4.0,
+2025-03,Green,Packets (4g - 1kg),70600.0,
+2025-03,Green,Packets (5kg - 10kg),3020.0,
+2025-03,Instant,Bags,540.0,
+2025-03,Instant,Packets (>3kg),69509.5,
+2025-03,RTD,RTD,10368.0,
+2025-04,Black,Bags,1398036.48,
+2025-04,Black,Bulk,6641105.57,
+2025-04,Black,Packets (1kg - 3kg),47783.2,
+2025-04,Black,Packets (3kg - 5kg),748746.68,
+2025-04,Black,Packets (4g - 1kg),6328780.38,
+2025-04,Black,Packets (5kg - 10kg),1399492.78,
+2025-04,Green,Bags,67907.51,
+2025-04,Green,Bulk,9222.2,
+2025-04,Green,Packets (1kg - 3kg),2265.0,
+2025-04,Green,Packets (3kg - 5kg),1195.0,
+2025-04,Green,Packets (4g - 1kg),63860.85,
+2025-04,Green,Packets (5kg - 10kg),430.0,
+2025-04,Instant,Packets (>3kg),82044.1,
+2025-04,Instant,Packets (4g - 1kg),0.2,
+2025-04,RTD,RTD,80.4,
+2025-05,Black,Bags,1431250.7,
+2025-05,Black,Bulk,9089363.55,
+2025-05,Black,Packets (1kg - 3kg),260996.56,
+2025-05,Black,Packets (3kg - 5kg),661965.2,
+2025-05,Black,Packets (4g - 1kg),7202965.0,
+2025-05,Black,Packets (5kg - 10kg),1812087.0,
+2025-05,Green,Bags,68494.92,
+2025-05,Green,Bulk,15500.0,
+2025-05,Green,Packets (3kg - 5kg),1180.0,
+2025-05,Green,Packets (4g - 1kg),73753.58,
+2025-05,Green,Packets (5kg - 10kg),250.0,
+2025-05,Instant,Packets (>3kg),111112.8,
+2025-05,RTD,RTD,29820.0,
+2025-06,Black,Bags,1481448.78,
+2025-06,Black,Bulk,8321427.86,
+2025-06,Black,Packets (1kg - 3kg),240492.27,
+2025-06,Black,Packets (3kg - 5kg),890605.44,
+2025-06,Black,Packets (4g - 1kg),7921100.02,
+2025-06,Black,Packets (5kg - 10kg),2396044.48,
+2025-06,Green,Bags,59456.62,
+2025-06,Green,Bulk,72825.72,
+2025-06,Green,Packets (1kg - 3kg),194.0,
+2025-06,Green,Packets (3kg - 5kg),165.9,
+2025-06,Green,Packets (4g - 1kg),54786.37,
+2025-06,Green,Packets (5kg - 10kg),8.0,
+2025-06,Instant,Packets (>3kg),80101.9,
+2025-07,Black,Bags,1626609.45,
+2025-07,Black,Bulk,9920736.92,
+2025-07,Black,Packets (1kg - 3kg),324219.08,
+2025-07,Black,Packets (3kg - 5kg),888605.54,
+2025-07,Black,Packets (4g - 1kg),7152365.38,
+2025-07,Black,Packets (5kg - 10kg),2145231.0,
+2025-07,Green,Bags,104492.06,
+2025-07,Green,Bulk,44160.8,
+2025-07,Green,Packets (1kg - 3kg),48.14,
+2025-07,Green,Packets (3kg - 5kg),4.0,
+2025-07,Green,Packets (4g - 1kg),84336.72,
+2025-07,Green,Packets (5kg - 10kg),170.0,
+2025-07,Instant,Bags,1080.0,
+2025-07,Instant,Packets (>3kg),96759.7,
+2025-08,Black,Bags,1750849.06,
+2025-08,Black,Bulk,10004633.25,
+2025-08,Black,Packets (1kg - 3kg),209133.74,
+2025-08,Black,Packets (3kg - 5kg),939152.78,
+2025-08,Black,Packets (4g - 1kg),6502848.0,
+2025-08,Black,Packets (5kg - 10kg),2101205.0,
+2025-08,Green,Bags,81653.59,
+2025-08,Green,Bulk,29536.36,
+2025-08,Green,Packets (3kg - 5kg),201.8,
+2025-08,Green,Packets (4g - 1kg),75783.81,
+2025-08,Green,Packets (5kg - 10kg),310.0,
+2025-08,Instant,Packets (>3kg),71141.0,
+2025-09,Black,Bags,1647119.52,
+2025-09,Black,Bulk,9780183.3,
+2025-09,Black,Packets (1kg - 3kg),212470.48,
+2025-09,Black,Packets (3kg - 5kg),781099.36,
+2025-09,Black,Packets (4g - 1kg),6934063.03,
+2025-09,Black,Packets (5kg - 10kg),2176538.0,
+2025-09,Green,Bags,93997.53,
+2025-09,Green,Bulk,25051.0,
+2025-09,Green,Packets (1kg - 3kg),3855.0,
+2025-09,Green,Packets (4g - 1kg),59767.47,
+2025-09,Green,Packets (5kg - 10kg),45.0,
+2025-09,Instant,Packets (>3kg),108539.92,
+2025-10,Black,Bags,1637185.9,
+2025-10,Black,Bulk,7972315.46,
+2025-10,Black,Packets (1kg - 3kg),302728.97,
+2025-10,Black,Packets (3kg - 5kg),1067729.14,
+2025-10,Black,Packets (4g - 1kg),7089031.38,
+2025-10,Black,Packets (5kg - 10kg),1697729.2,
+2025-10,Green,Bags,84196.11,
+2025-10,Green,Bulk,45315.0,
+2025-10,Green,Packets (3kg - 5kg),200.0,
+2025-10,Green,Packets (4g - 1kg),82690.32,
+2025-10,Green,Packets (5kg - 10kg),130.0,
+2025-10,Instant,Packets (>3kg),33723.6,
+2025-11,Black,Bags,1348308.43,
+2025-11,Black,Bulk,7334770.36,
+2025-11,Black,Packets (1kg - 3kg),318639.39,
+2025-11,Black,Packets (3kg - 5kg),611741.58,
+2025-11,Black,Packets (4g - 1kg),6544038.39,
+2025-11,Black,Packets (5kg - 10kg),1311734.6,
+2025-11,Green,Bags,64175.57,
+2025-11,Green,Bulk,65221.0,
+2025-11,Green,Packets (1kg - 3kg),1602.0,
+2025-11,Green,Packets (3kg - 5kg),1036.0,
+2025-11,Green,Packets (4g - 1kg),48661.09,
+2025-11,Green,Packets (5kg - 10kg),4100.0,
+2025-11,Instant,Bags,300.0,
+2025-11,Instant,Packets (>3kg),66197.2,
+2025-11,Instant,Packets (1kg - 3kg),1008.0,
+2025-12,Black,Bags,1437780.93,
+2025-12,Black,Bulk,7686839.78,
+2025-12,Black,Packets (1kg - 3kg),257351.85,
+2025-12,Black,Packets (3kg - 5kg),287968.0,
+2025-12,Black,Packets (4g - 1kg),5223429.47,
+2025-12,Black,Packets (5kg - 10kg),1026334.0,
+2025-12,Green,Bags,64006.59,
+2025-12,Green,Bulk,7210.0,
+2025-12,Green,Packets (3kg - 5kg),486.0,
+2025-12,Green,Packets (4g - 1kg),63630.96,
+2025-12,Instant,Bags,60.0,
+2025-12,Instant,Packets (>3kg),69747.6,
+2026-01,Black,Bags,1456992.67,
+2026-01,Black,Bulk,8626430.34,
+2026-01,Black,Packets (1kg - 3kg),399560.3,
+2026-01,Black,Packets (3kg - 5kg),788366.08,
+2026-01,Black,Packets (4g - 1kg),6477630.72,
+2026-01,Black,Packets (5kg - 10kg),947270.0,
+2026-01,Green,Bags,62880.44,
+2026-01,Green,Bulk,24992.16,
+2026-01,Green,Packets (1kg - 3kg),4648.5,
+2026-01,Green,Packets (4g - 1kg),70740.43,
+2026-01,Green,Packets (5kg - 10kg),150.0,
+2026-01,Instant,Packets (>3kg),98517.2,
+2026-02,Black,Bags,1417826.2,
+2026-02,Black,Bulk,8182033.63,
+2026-02,Black,Packets (1kg - 3kg),182431.22,
+2026-02,Black,Packets (3kg - 5kg),635222.48,
+2026-02,Black,Packets (4g - 1kg),5832946.19,
+2026-02,Black,Packets (5kg - 10kg),1727316.7,
+2026-02,Green,Bags,55466.9,
+2026-02,Green,Bulk,8081.0,
+2026-02,Green,Packets (3kg - 5kg),407.0,
+2026-02,Green,Packets (4g - 1kg),50308.7,
+2026-02,Instant,Bags,90.0,
+2026-02,Instant,Packets (>3kg),117110.2,
+2026-03,Black,Bags,1525520.37,
+2026-03,Black,Bulk,7333736.35,
+2026-03,Black,Packets (1kg - 3kg),233105.29,
+2026-03,Black,Packets (3kg - 5kg),767041.62,
+2026-03,Black,Packets (4g - 1kg),6442009.27,
+2026-03,Black,Packets (5kg - 10kg),1536311.6,
+2026-03,Green,Bags,75395.74,
+2026-03,Green,Bulk,38457.0,
+2026-03,Green,Packets (1kg - 3kg),27.22,
+2026-03,Green,Packets (4g - 1kg),65773.38,
+2026-03,Green,Packets (5kg - 10kg),4150.0,
+2026-03,Instant,Bags,120.0,
+2026-03,Instant,Packets (>3kg),126767.5,
+2026-04,Black,Bags,1148886.02,
+2026-04,Black,Bulk,7111474.24,
+2026-04,Black,Packets (1kg - 3kg),256150.91,
+2026-04,Black,Packets (3kg - 5kg),458082.4,
+2026-04,Black,Packets (4g - 1kg),6177862.11,
+2026-04,Black,Packets (5kg - 10kg),1204628.0,
+2026-04,Green,Bags,60412.84,
+2026-04,Green,Bulk,16840.36,
+2026-04,Green,Packets (1kg - 3kg),27.22,
+2026-04,Green,Packets (3kg - 5kg),845.53,
+2026-04,Green,Packets (4g - 1kg),33178.03,
+2026-04,Green,Packets (5kg - 10kg),180.0,
+2026-04,Instant,Bags,360.0,
+2026-04,Instant,Packets (>3kg),140508.4,

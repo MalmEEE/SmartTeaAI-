@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(& \"C:\\\\Program Files\\\\Python314\\\\python.exe\" \"c:\\\\MyDocs\\\\BSC DS\\\\SmartTeaAI\\\\scraper\\\\_probe_sltb.py\")"
+    ]
+  }
+}
