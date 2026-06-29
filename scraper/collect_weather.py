@@ -115,7 +115,7 @@ def fetch_region_monthly(region, start_year, start_month, end_year, end_month):
         resp.raise_for_status()
         data = resp.json()
     except requests.RequestException as e:
-        print(f"    ✗ Failed to fetch {region['name']}: {e}")
+        print(f"    [FAIL] Failed to fetch {region['name']}: {e}", file=sys.stderr)
         return pd.DataFrame()
 
     daily = data.get("daily", {})
@@ -237,13 +237,13 @@ def collect_weather(csv_only=False):
     all_frames = []
 
     for region in REGIONS:
-        print(f"  → {region['name']} ({region['elevation']} Grown)...", end=" ", flush=True)
+        print(f"  -> {region['name']} ({region['elevation']} Grown)...", end=" ", flush=True, file=sys.stderr)
         df = fetch_region_monthly(region, start_y, start_m, end_y, end_m)
         if not df.empty:
             all_frames.append(df)
-            print(f"✓  ({len(df)} months)")
+            print(f"OK  ({len(df)} months)", file=sys.stderr)
         else:
-            print("✗  no data")
+            print("FAIL  no data", file=sys.stderr)
         time.sleep(DELAY_SECONDS)
 
     if not all_frames:
@@ -259,8 +259,11 @@ def collect_weather(csv_only=False):
             existing = existing[existing["year_month"] != last_ym]
             new_data = pd.concat([existing, new_data], ignore_index=True)
 
+    for col in ("rainfall_mm", "avg_temp_c", "min_temp_c", "max_temp_c"):
+        new_data[col] = pd.to_numeric(new_data[col], errors="coerce")
+
     new_data.to_csv(csv_path, index=False)
-    print(f"\n  ✓ Weather CSV saved: {len(new_data)} rows → {csv_path}")
+    print(f"\n  OK Weather CSV saved: {len(new_data)} rows -> {csv_path}", file=sys.stderr)
 
     # Compute national monthly average (across all regions) for raw_sltb_features
     monthly_avg = new_data.groupby("year_month").agg(

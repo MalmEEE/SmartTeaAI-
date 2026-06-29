@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(\"/c/Program Files/Python314/python.exe\" collect_weather.py)",
+      "Bash('/c/Program Files/Python314/python.exe' -c ' *)"
+    ]
+  }
+}
