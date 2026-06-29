@@ -46,6 +46,11 @@ import requests
 import pandas as pd
 import os, sys, json, re
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load DB credentials from the NestJS backend's .env so this script works
+# whether it's invoked by the backend or run standalone (e.g. python collect_oil.py)
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", "backend", ".env"))
 
 # ---------------------------------------------------------------------------
 # CONFIG
@@ -196,7 +201,7 @@ def upsert_fuel_price(df):
     conn = get_db()
     cursor = conn.cursor()
     sql = """
-        INSERT INTO raw_fuel_price (year_month, oil_brent_usd_bbl)
+        INSERT INTO raw_fuel_price (`year_month`, oil_brent_usd_bbl)
         VALUES (%s, %s)
         ON DUPLICATE KEY UPDATE
             oil_brent_usd_bbl = VALUES(oil_brent_usd_bbl)
@@ -218,7 +223,7 @@ def upsert_competitor_prices(df):
     conn = get_db()
     cursor = conn.cursor()
     sql = """
-        INSERT INTO raw_competitor_prices (year_month, mombasa_usd_kg)
+        INSERT INTO raw_competitor_prices (`year_month`, mombasa_usd_kg)
         VALUES (%s, %s)
         ON DUPLICATE KEY UPDATE
             mombasa_usd_kg = VALUES(mombasa_usd_kg)
@@ -243,7 +248,7 @@ def update_features_table(df):
     sql = """
         UPDATE raw_sltb_features
         SET oil_price = %s
-        WHERE year_month = %s
+        WHERE `year_month` = %s
     """
     count = 0
     for _, row in df.iterrows():

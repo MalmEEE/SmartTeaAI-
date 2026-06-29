@@ -27,6 +27,11 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import os, sys, json
 from datetime import date, datetime
+from dotenv import load_dotenv
+
+# Load DB credentials from the NestJS backend's .env so this script works
+# whether it's invoked by the backend or run standalone (e.g. python process_fx.py)
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", "backend", ".env"))
 
 # ---------------------------------------------------------------------------
 # CONFIG
@@ -140,7 +145,7 @@ def insert_raw_fx(df):
         return 0
     conn   = get_db()
     cursor = conn.cursor()
-    sql = "INSERT IGNORE INTO raw_fx_daily (date, usd_lkr) VALUES (%s, %s)"
+    sql = "INSERT IGNORE INTO raw_fx_daily (`date`, usd_lkr) VALUES (%s, %s)"
     count = 0
     for _, row in df.iterrows():
         cursor.execute(sql, (row["date"], row.get("usd_lkr")))
@@ -157,7 +162,7 @@ def update_features_table(monthly):
         return 0
     conn   = get_db()
     cursor = conn.cursor()
-    sql = "UPDATE raw_sltb_features SET usd_lkr_avg = %s WHERE year_month = %s"
+    sql = "UPDATE raw_sltb_features SET usd_lkr_avg = %s WHERE `year_month` = %s"
     count = 0
     for _, row in monthly.iterrows():
         cursor.execute(sql, (row.get("usd_lkr_avg"), row["year_month"]))
@@ -208,7 +213,10 @@ def collect_fx(csv_only=False):
     rows_updated  = 0
 
     if not csv_only:
-        rows_inserted = insert_raw_fx(new_df)
+        # Insert the FULL history (not just new_df) — the CSV may already hold
+        # dates that were never written to MySQL (e.g. from earlier --csv-only runs).
+        # INSERT IGNORE + the table's UNIQUE KEY makes this safe to repeat every run.
+        rows_inserted = insert_raw_fx(combined)
         rows_updated  = update_features_table(monthly)
 
     return rows_inserted, rows_updated

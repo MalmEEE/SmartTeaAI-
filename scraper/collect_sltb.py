@@ -29,6 +29,11 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import time, os, sys, json
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load DB credentials from the NestJS backend's .env so this script works
+# whether it's invoked by the backend or run standalone (e.g. python collect_sltb.py)
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", "backend", ".env"))
 
 # ---------------------------------------------------------------------------
 # CONFIG
@@ -511,7 +516,11 @@ def collect_category(category_key, category_id, session, nonce, csv_only=False):
     combined.to_csv(csv_path, index=False)
 
     if not csv_only:
-        insert_ignore(new_records, table_name)
+        # Insert the FULL history (not just new_records) — the CSV may already hold
+        # months that were never written to MySQL (e.g. from earlier --csv-only runs).
+        # INSERT IGNORE + the table's UNIQUE KEY makes this safe to repeat every run.
+        all_records = combined.where(pd.notna(combined), None).to_dict("records")
+        insert_ignore(all_records, table_name)
 
     return len(new_records)
 

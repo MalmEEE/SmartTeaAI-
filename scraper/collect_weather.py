@@ -26,6 +26,11 @@ import pandas as pd
 import os, sys, json, time
 from datetime import datetime
 from regions import TEA_REGIONS
+from dotenv import load_dotenv
+
+# Load DB credentials from the NestJS backend's .env so this script works
+# whether it's invoked by the backend or run standalone (e.g. python collect_weather.py)
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", "backend", ".env"))
 
 # ---------------------------------------------------------------------------
 # CONFIG
@@ -165,7 +170,7 @@ def insert_raw_weather(df):
     cursor = conn.cursor()
     sql = """
         INSERT IGNORE INTO raw_weather
-            (year_month, region, elevation, rainfall_mm, avg_temp_c, min_temp_c, max_temp_c)
+            (`year_month`, region, elevation, rainfall_mm, avg_temp_c, min_temp_c, max_temp_c)
         VALUES (%s, %s, %s, %s, %s, %s, %s)
     """
     count = 0
@@ -195,7 +200,7 @@ def update_features_table(monthly_avg):
         UPDATE raw_sltb_features
         SET rainfall_mm = %s,
             avg_temp_c  = %s
-        WHERE year_month = %s
+        WHERE `year_month` = %s
     """
     count = 0
     for _, row in monthly_avg.iterrows():
