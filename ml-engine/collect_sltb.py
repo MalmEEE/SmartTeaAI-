@@ -467,6 +467,21 @@ def build_features(csv_only=False):
     merged["quarter"]         = pd.to_datetime(merged["year_month"]).dt.quarter
     merged["is_peak_season"]  = merged["month"].isin([2, 3, 8, 9]).astype(int)
 
+    # ── Join external data (weather, FX, oil) ─────────────────────────────────
+    def load_ext(filename, cols):
+        p = os.path.join(DATA_DIR, filename)
+        return pd.read_csv(p, usecols=cols) if os.path.exists(p) else pd.DataFrame()
+
+    weather_df = load_ext("weather_national_avg.csv", ["year_month", "rainfall_mm", "avg_temp_c"])
+    fx_df      = load_ext("usd_lkr_monthly.csv",      ["year_month", "usd_lkr_avg"])
+    oil_df     = load_ext("oil_price_monthly.csv",     ["year_month", "oil_brent_usd_bbl"])
+    if not oil_df.empty:
+        oil_df = oil_df.rename(columns={"oil_brent_usd_bbl": "oil_price"})
+
+    for ext_df in [weather_df, fx_df, oil_df]:
+        if not ext_df.empty:
+            merged = merged.merge(ext_df, on="year_month", how="left")
+
     # ── Save CSV ──────────────────────────────────────────────────────────────
     out_path = os.path.join(DATA_DIR, "raw_sltb_features.csv")
     merged.to_csv(out_path, index=False)
