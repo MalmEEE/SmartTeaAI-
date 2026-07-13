@@ -95,6 +95,24 @@ def clean_number(val):
         return None
 
 
+def pick(row, *names, pos=None):
+    """
+    Resilient column lookup: tries each name variant in order, then falls back
+    to column position. Guards against SLTB silently renaming table headers.
+
+    Usage:  pick(row, "Processing Method", "Process", pos=1)
+    """
+    for name in names:
+        val = row.get(name)
+        if val is not None and str(val).strip() not in ("", "-"):
+            return val
+    if pos is not None:
+        cols = list(row.values())
+        if pos < len(cols) and str(cols[pos]).strip() not in ("", "-"):
+            return cols[pos]
+    return None
+
+
 def normalise_elevation(raw):
     """Map any SLTB elevation label to High / Medium / Low / Total"""
     if not raw:
@@ -205,110 +223,107 @@ def fetch_table_for_month(session, nonce, category_id, year_month):
 
 def parse_sub_district_price(rows, year_month):
     """
-    Actual columns: Year | Sub District | Month Price (Rs) | Cumulative Price (Rs)
-    - Year cell is repeated across rows → forward fill
-    - Skip Total rows
-    - monthly_avg = Month Price (Rs) — the ML prediction TARGET
+    Col 0: Year (repeated)  Col 1: Sub District
+    Col 2: Monthly price    Col 3: Cumulative price
+    Known name variants for col 2: "Month Price (Rs)", "Monthly AVG (kg/Rs)"
+    Known name variants for col 3: "Cumulative Price (Rs)", "CUM AVG (kg/Rs)"
     """
     records, last_date = [], year_month
     for row in rows:
-        d = row.get("Year", "").strip()
+        d = (pick(row, "Year", pos=0) or "").strip()
         if d:
             last_date = d
-        sub = row.get("Sub District", "").strip()
+        sub = (pick(row, "Sub District", pos=1) or "").strip()
         if not sub or sub.lower() == "total":
             continue
         records.append({
             "year_month":   last_date,
             "sub_district": sub,
-            "monthly_avg":  clean_number(row.get("Month Price (Rs)")),
-            "cum_avg":      clean_number(row.get("Cumulative Price (Rs)")),
+            "monthly_avg":  clean_number(pick(row, "Month Price (Rs)", "Monthly AVG (kg/Rs)", pos=2)),
+            "cum_avg":      clean_number(pick(row, "Cumulative Price (Rs)", "CUM AVG (kg/Rs)", pos=3)),
         })
     return records
 
 
 def parse_production_volume_elevation(rows, year_month):
     """
-    Actual columns: Year | Elevation | Quantity (Kg)
-    Elevations: High / Medium / Low / Total
+    Col 0: Year  Col 1: Elevation  Col 2: Quantity (Kg)
     """
     records = []
     for row in rows:
-        elev = normalise_elevation(row.get("Elevation", ""))
+        elev = normalise_elevation(pick(row, "Elevation", pos=1) or "")
         if not elev:
             continue
         records.append({
             "year_month":  year_month,
             "elevation":   elev,
-            "quantity_kg": clean_number(row.get("Quantity (Kg)")),
+            "quantity_kg": clean_number(pick(row, "Quantity (Kg)", pos=2)),
         })
     return records
 
 
 def parse_production_volume_process(rows, year_month):
     """
-    Actual columns: Year | Processing Method | Quantity (Kg)
-    Methods: ORTHODOX / CTC / Green Tea / Total
+    Col 0: Year  Col 1: Process name  Col 2: Quantity (Kg)
+    Known name variants for col 1: "Processing Method", "Process"
     """
     records = []
     for row in rows:
-        process = row.get("Processing Method", "").strip()
-        if not process:
+        process = (pick(row, "Processing Method", "Process", pos=1) or "").strip()
+        if not process or process.upper() == "TOTAL":
             continue
         records.append({
             "year_month":  year_month,
             "process":     process,
-            "quantity_kg": clean_number(row.get("Quantity (Kg)")),
+            "quantity_kg": clean_number(pick(row, "Quantity (Kg)", pos=2)),
         })
     return records
 
 
 def parse_sales_volume_direct(rows, year_month):
     """
-    Actual columns: Year | Sale Type | Elevation | Quantity (Kg) | Price (Rs.)
-    - Sale Type is merged across rows → forward fill
-    - Skip Total rows
-    - price_rs = direct sales price per elevation (strong ML feature)
+    Col 0: Year/Sale Type (merged)  Col 1: Elevation
+    Col 2: Quantity (Kg)            Col 3: Price
+    Known name variants for price col: "Price (Rs.)", "Price (Rs)"
     """
     records, last_sale_type = [], ""
     for row in rows:
-        p = row.get("Sale Type", "").strip()
+        p = (pick(row, "Sale Type", pos=0) or "").strip()
         if p:
             last_sale_type = p
-        elev = normalise_elevation(row.get("Elevation", ""))
+        elev = normalise_elevation(pick(row, "Elevation", pos=1) or "")
         if not elev or elev == "Total":
             continue
         records.append({
             "year_month":  year_month,
             "process":     last_sale_type,
             "elevation":   elev,
-            "quantity_kg": clean_number(row.get("Quantity (Kg)")),
-            "price_rs":    clean_number(row.get("Price (Rs.)")),
+            "quantity_kg": clean_number(pick(row, "Quantity (Kg)", pos=2)),
+            "price_rs":    clean_number(pick(row, "Price (Rs.)", "Price (Rs)", pos=3)),
         })
     return records
 
 
 def parse_export(rows, year_month):
     """
-    Actual columns: Year | Category | Package Type | Quantity (Kg) | Price (Rs.)
-    - Category (Black/Green/...) is merged → forward fill
-    - Skip Sub Total / Total rows
-    - fob_rs_per_kg = Price (Rs.) — export demand drives auction prices
+    Col 0: Year/Category (merged)  Col 1: Package Type
+    Col 2: Quantity (Kg)           Col 3: Price (FOB)
+    Known name variants for price col: "Price (Rs.)", "Price (Rs)"
     """
     records, last_cat = [], ""
     for row in rows:
-        c = row.get("Category", "").strip()
+        c = (pick(row, "Category", pos=0) or "").strip()
         if c:
             last_cat = c
-        pkg = row.get("Package Type", "").strip()
+        pkg = (pick(row, "Package Type", pos=1) or "").strip()
         if not pkg or "total" in pkg.lower():
             continue
         records.append({
             "year_month":    year_month,
             "tea_category":  last_cat,
             "package_type":  pkg,
-            "quantity_kg":   clean_number(row.get("Quantity (Kg)")),
-            "fob_rs_per_kg": clean_number(row.get("Price (Rs.)")),
+            "quantity_kg":   clean_number(pick(row, "Quantity (Kg)", pos=2)),
+            "fob_rs_per_kg": clean_number(pick(row, "Price (Rs.)", "Price (Rs)", pos=3)),
         })
     return records
 
@@ -401,20 +416,108 @@ def build_features(csv_only=False):
     if price_df.empty:
         return 0  # nothing to build yet
 
-    # ── Sales Volume: pivot elevation → columns ───────────────────────────────
+    # ── Sub-district price → elevation-aggregated auction price ───────────────
+    # SLTB stopped publishing price_rs in the Sales Volume Direct table from
+    # 2022-02 onwards. sltb_sub_district_price has full 2020-2026 coverage and
+    # is the authoritative auction price source. We map sub-districts to the
+    # three standard elevation tiers and compute a mean monthly price per tier.
+    SUBDISTRICT_ELEVATION = {
+        # High Grown (>1200m)
+        "NUWARA ELIYA":                     "High",
+        "RAMBODA":                          "High",
+        "PUNDALUOYA":                       "High",
+        "AGARAPATANA":                      "High",
+        "NANUOYA LINDULA TALAWAKELE":       "High",
+        "NANUOYA/LINDULA/TALAWAKELE":       "High",
+        "PATANA KOTAGALA":                  "High",
+        "HATTON DICKOYA":                   "High",
+        "HATTON/DICKOYA":                   "High",
+        "BOGAWANTALAWA":                    "High",
+        "UPCOT MASKELIYAB8":                "High",
+        "UPCOT/MASKELIYA":                  "High",
+        "WATAWALA GINIGAT NOTRON":          "High",
+        "WATAWALA/GINIGAT/NORTON":          "High",
+        "MATURATA":                         "High",
+        "KOTHMALE":                         "High",
+        "KOTMALE":                          "High",
+        # Medium Grown (600-1200m)
+        "KANDY MATALE KURUNEGALA":          "Medium",
+        "KANDY/MATALE/KURUNEGALA":          "Medium",
+        "GAMPOLA NAWALAPITIYA DOLOSBAGE":   "Medium",
+        "GAMPOLA/NAWALAPITIYA/DOLOSBAGE":   "Medium",
+        "PUSSELLAWA HEWAHETA":              "Medium",
+        "PUSSELLAWA/HEWAHETA":              "Medium",
+        "BANDARAWELA POONAGALLA":           "Medium",
+        "BANDARAWELA/POONAGALLA":           "Medium",
+        "UDAPUSSELLAWA HALGRANOYA":         "Medium",
+        "UDAPUSSELLAWA/HALGRANOYA":         "Medium",
+        "NILAMBE HANTANE GALAHA":           "Medium",
+        "NILAMBE/HANTANE/GALAHA":           "Medium",
+        "HAPUTALE":                         "Medium",
+        "ELLA NAMUNUKULA":                  "Medium",
+        "ELLA/NAMUNUKULA":                  "Medium",
+        "DEMODARA HALIELLA BADULLA":        "Medium",
+        "DEMODARA/HALIELLA/BADULLA":        "Medium",
+        "MALWATTE WELIMADA":                "Medium",
+        "MALWATTE/WELIMADA":                "Medium",
+        "KOSLANDA HALDUMULLA":              "Medium",
+        "KOSLANDA/HALDUMULLA":              "Medium",
+        "MADULKELLE KNUCKLES":              "Medium",
+        "MADULKELLE KNUCKLES RANGA":        "Medium",
+        "PASSARA LUNUGALLA":                "Medium",
+        "PASSARA/LUNUGALLA":                "Medium",
+        "MADULSIMA":                        "Medium",
+        "HUNASGIRIYA MATALE YAKDESSA":      "Medium",
+        "HUNASGIRIYA/MATALE":              "Medium",
+        "KADUGANNAWA":                      "Medium",
+        # Low Grown (<600m)
+        "GALLE":                            "Low",
+        "KALUTARA":                         "Low",
+        "KEGALLE":                          "Low",
+        "RATNAPURA":                        "Low",
+        "MATARA":                           "Low",
+        "DENIYAYA":                         "Low",
+        "MORAWAKA":                         "Low",
+        "MORAWAKE":                         "Low",
+        "BALANGODA":                        "Low",
+        "BALANGODA RAKWANA":                "Low",
+        "BALANGODA/RAKWANA":                "Low",
+        "KELLANI VELLI":                    "Low",
+        "KALANY VELLY":                     "Low",
+        "COLOMBO":                          "Low",
+    }
+
+    price_elev = price_df.copy()
+    price_elev["elevation"] = price_elev["sub_district"].map(SUBDISTRICT_ELEVATION)
+    unmapped = price_elev[price_elev["elevation"].isna()]["sub_district"].unique()
+    if len(unmapped):
+        print(f"  [WARN] {len(unmapped)} unmapped sub-districts (excluded from price avg): "
+              f"{list(unmapped)}", file=sys.stderr)
+    price_elev = price_elev[price_elev["elevation"].notna()]
+
+    price_pivot = price_elev.groupby(["year_month", "elevation"]).agg(
+        monthly_avg=("monthly_avg", "mean")
+    ).reset_index()
+    price_pivot = price_pivot.pivot(index="year_month", columns="elevation",
+                                    values="monthly_avg")
+    price_pivot.columns = [f"price_{e.lower()}_rs" for e in price_pivot.columns]
+    price_pivot = price_pivot.reset_index()
+
+    # ── Sales Volume: quantity pivot only (price_rs unusable post-2022) ───────
     sales_pivot = pd.DataFrame()
     if not sales_df.empty:
-        sv = sales_df[sales_df["elevation"] != "Total"].copy()
-        sv["elevation"] = sv["elevation"].str.strip()
-        sales_pivot = sv.pivot_table(
+        sv = sales_df[
+            (sales_df["elevation"].isin(["High", "Medium", "Low"])) &
+            (sales_df["quantity_kg"].notna())
+        ].copy()
+        qty_pivot = sv.pivot_table(
             index="year_month",
             columns="elevation",
-            values=["quantity_kg", "price_rs"],
+            values="quantity_kg",
             aggfunc="sum"
         )
-        sales_pivot.columns = [f"sales_{v}_{e.lower().replace(' ','_')}"
-                               for v, e in sales_pivot.columns]
-        sales_pivot = sales_pivot.reset_index()
+        qty_pivot.columns = [f"sales_qty_{e.lower()}_kg" for e in qty_pivot.columns]
+        sales_pivot = qty_pivot.reset_index()
 
     # ── Production by Elevation: pivot ───────────────────────────────────────
     prod_elev_pivot = pd.DataFrame()
@@ -445,19 +548,19 @@ def build_features(csv_only=False):
         exp_pivot = exp_agg
 
     # ── Merge everything on year_month ────────────────────────────────────────
-    if sales_pivot.empty:
+    if price_pivot.empty:
         return 0
 
-    merged = sales_pivot.copy()
+    merged = price_pivot.copy()
 
-    for df in [prod_elev_pivot, prod_proc_pivot, exp_pivot]:
+    for df in [sales_pivot, prod_elev_pivot, prod_proc_pivot, exp_pivot]:
         if not df.empty:
             merged = merged.merge(df, on="year_month", how="left")
 
     # ── Add lag features (previous month prices — key ML signal) ─────────────
     merged = merged.sort_values("year_month").reset_index(drop=True)
 
-    for col in [c for c in merged.columns if "price_rs" in c]:
+    for col in [c for c in merged.columns if "price_" in c and "_rs" in c]:
         merged[f"{col}_lag1"]  = merged[col].shift(1)
         merged[f"{col}_lag3"]  = merged[col].shift(3)
         merged[f"{col}_roll3"] = merged[col].rolling(3).mean()
@@ -472,9 +575,35 @@ def build_features(csv_only=False):
         p = os.path.join(DATA_DIR, filename)
         return pd.read_csv(p, usecols=cols) if os.path.exists(p) else pd.DataFrame()
 
-    weather_df = load_ext("weather_national_avg.csv", ["year_month", "rainfall_mm", "avg_temp_c"])
-    fx_df      = load_ext("usd_lkr_monthly.csv",      ["year_month", "usd_lkr_avg"])
-    oil_df     = load_ext("oil_price_monthly.csv",     ["year_month", "oil_brent_usd_bbl"])
+    # Build elevation-specific weather from weather_regions.csv.
+    # Rainfall has opposite effects per elevation tier (Ariyaratne et al. 2024,
+    # Tables X/XI: Uva Medium coefficient is negative while all others positive),
+    # so a single national average masks this opposing signal.
+    # We produce per-elevation averages across the sub-districts in each tier
+    # (10 High, 7 Medium, 6 Low) PLUS the national mean for backward compatibility.
+    weather_regions_path = os.path.join(DATA_DIR, "weather_regions.csv")
+    if os.path.exists(weather_regions_path):
+        wr = pd.read_csv(weather_regions_path,
+                         usecols=["year_month", "elevation", "rainfall_mm", "avg_temp_c"])
+        wr_elev = wr.groupby(["year_month", "elevation"]).agg(
+            rainfall_mm=("rainfall_mm", "mean"),
+            avg_temp_c =("avg_temp_c",  "mean"),
+        ).reset_index()
+        wr_pivot = wr_elev.pivot(index="year_month", columns="elevation",
+                                 values=["rainfall_mm", "avg_temp_c"])
+        wr_pivot.columns = [f"{v}_{e.lower()}" for v, e in wr_pivot.columns]
+        wr_pivot = wr_pivot.reset_index()
+        # National average (mean across all sub-districts, all elevations)
+        wr_national = wr.groupby("year_month").agg(
+            rainfall_mm=("rainfall_mm", "mean"),
+            avg_temp_c =("avg_temp_c",  "mean"),
+        ).reset_index()
+        weather_df = wr_pivot.merge(wr_national, on="year_month", how="left")
+    else:
+        weather_df = pd.DataFrame()
+
+    fx_df  = load_ext("usd_lkr_monthly.csv",  ["year_month", "usd_lkr_avg"])
+    oil_df = load_ext("oil_price_monthly.csv", ["year_month", "oil_brent_usd_bbl"])
     if not oil_df.empty:
         oil_df = oil_df.rename(columns={"oil_brent_usd_bbl": "oil_price"})
 
