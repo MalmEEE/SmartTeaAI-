@@ -88,7 +88,7 @@ DB_USER = os.environ.get("DB_USER", "root")
 DB_PASS = os.environ.get("DB_PASS", "")
 DB_NAME = os.environ.get("DB_NAME", "smartteaai")
 
-START_YEAR_MONTH = "2020-01"   # matches the rest of your dataset
+START_YEAR_MONTH = "2015-01"   # matches extended dataset start
 HEADERS = {"User-Agent": "Mozilla/5.0 (SmartTeaAI/FYP research collector)"}
 
 

@@ -50,8 +50,8 @@ DAILY_VARIABLES = [
     "precipitation_sum",     # daily total rainfall mm
 ]
 
-# Scrape from Jan 2020 to match SLTB data range
-INITIAL_START_YEAR  = 2020
+# Scrape from Jan 2015 to match extended SLTB data range
+INITIAL_START_YEAR  = 2015
 INITIAL_START_MONTH = 1
 
 DATA_DIR = os.environ.get("SLTB_DATA_DIR", os.path.join(os.path.dirname(__file__), "data"))
@@ -62,7 +62,7 @@ DB_USER = os.environ.get("DB_USER", "root")
 DB_PASS = os.environ.get("DB_PASS", "")
 DB_NAME = os.environ.get("DB_NAME", "smartteaai")
 
-DELAY_SECONDS = 1.0  # be polite to Open-Meteo
+DELAY_SECONDS = 3.0  # 3s gap prevents 429s from Open-Meteo on large date ranges
 
 # ---------------------------------------------------------------------------
 # HELPERS
@@ -110,12 +110,24 @@ def fetch_region_monthly(region, start_year, start_month, end_year, end_month):
         "timezone":   "Asia/Colombo",
     }
 
-    try:
-        resp = requests.get(ARCHIVE_URL, params=params, timeout=30)
-        resp.raise_for_status()
-        data = resp.json()
-    except requests.RequestException as e:
-        print(f"    [FAIL] Failed to fetch {region['name']}: {e}", file=sys.stderr)
+    # Retry with exponential backoff on 429 (Open-Meteo free-tier burst limit)
+    for attempt in range(4):
+        try:
+            resp = requests.get(ARCHIVE_URL, params=params, timeout=30)
+            if resp.status_code == 429:
+                wait = 60 * (attempt + 1)   # 60s, 120s, 180s, 240s
+                print(f"    [429] rate-limited, waiting {wait}s …", file=sys.stderr)
+                time.sleep(wait)
+                continue
+            resp.raise_for_status()
+            data = resp.json()
+            break
+        except requests.RequestException as e:
+            if attempt == 3:
+                print(f"    [FAIL] Failed to fetch {region['name']}: {e}", file=sys.stderr)
+                return pd.DataFrame()
+    else:
+        print(f"    [FAIL] {region['name']} gave 429 on all retries", file=sys.stderr)
         return pd.DataFrame()
 
     daily = data.get("daily", {})
