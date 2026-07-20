@@ -1,0 +1,81 @@
+{
+  "timestamp": "2026-07-20T06:49:34.175462",
+  "total_rows": 138,
+  "total_columns": 38,
+  "date_range": {
+    "start": "2015-01",
+    "end": "2026-06"
+  },
+  "missing_values": {
+    "sales_qty_high_kg": {
+      "count": 9,
+      "percent": 6.52
+    },
+    "sales_qty_low_kg": {
+      "count": 5,
+      "percent": 3.62
+    },
+    "sales_qty_medium_kg": {
+      "count": 3,
+      "percent": 2.17
+    },
+    "prod_ctc_kg": {
+      "count": 1,
+      "percent": 0.72
+    },
+    "prod_green_tea_kg": {
+      "count": 1,
+      "percent": 0.72
+    },
+    "prod_orthodox_kg": {
+      "count": 1,
+      "percent": 0.72
+    },
+    "export_black_qty_kg": {
+      "count": 3,
+      "percent": 2.17
+    },
+    "export_black_fob_avg": {
+      "count": 3,
+      "percent": 2.17
+    },
+    "price_high_rs_lag1": {
+      "count": 1,
+      "percent": 0.72
+    },
+    "price_high_rs_lag3": {
+      "count": 3,
+      "percent": 2.17
+    },
+    "price_high_rs_roll3": {
+      "count": 2,
+      "percent": 1.45
+    },
+    "price_low_rs_lag1": {
+      "count": 1,
+      "percent": 0.72
+    },
+    "price_low_rs_lag3": {
+      "count": 3,
+      "percent": 2.17
+    },
+    "price_low_rs_roll3": {
+      "count": 2,
+      "percent": 1.45
+    },
+    "price_medium_rs_lag1": {
+      "count": 1,
+      "percent": 0.72
+    },
+    "price_medium_rs_lag3": {
+      "count": 3,
+      "percent": 2.17
+    },
+    "price_medium_rs_roll3": {
+      "count": 2,
+      "percent": 1.45
+    }
+  },
+  "duplicate_year_months": 0,
+  "date_gaps": []
+}

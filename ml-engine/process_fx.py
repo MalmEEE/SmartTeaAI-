@@ -54,8 +54,8 @@ DB_USER = os.environ.get("DB_USER", "root")
 DB_PASS = os.environ.get("DB_PASS", "")
 DB_NAME = os.environ.get("DB_NAME", "smartteaai")
 
-# Scrape from Jan 2020 — matches SLTB/weather data range
-INITIAL_START_DATE = date(2020, 1, 1)
+# Scrape from Jan 2015 — matches extended SLTB data range
+INITIAL_START_DATE = date(2015, 1, 1)
 
 # ---------------------------------------------------------------------------
 # UTILITIES

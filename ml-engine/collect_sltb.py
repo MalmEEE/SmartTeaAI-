@@ -74,8 +74,8 @@ DB_USER = os.environ.get("DB_USER", "root")
 DB_PASS = os.environ.get("DB_PASS", "")
 DB_NAME = os.environ.get("DB_NAME", "smartteaai")
 
-# Scrape from Jan 2020 — enough historical data for ML training
-INITIAL_START_YEAR  = 2020
+# Scrape from Jan 2015 — 11 years gives ~130 training rows after lag-trimming
+INITIAL_START_YEAR  = 2015
 INITIAL_START_MONTH = 1
 
 DELAY_SECONDS = 1.5
@@ -171,10 +171,18 @@ def fetch_available_months(session, nonce, category_id):
     if not opts_html:
         return []
     soup = BeautifulSoup(opts_html, "html.parser")
-    return sorted(
-        o["value"] for o in soup.find_all("option")
-        if o.get("value") and o["value"].strip()
-    )
+    # Normalise to zero-padded YYYY-MM (SLTB sometimes returns '2024-8')
+    result = []
+    for o in soup.find_all("option"):
+        raw = (o.get("value") or "").strip()
+        if not raw:
+            continue
+        try:
+            y, m = raw.split("-")
+            result.append(f"{int(y):04d}-{int(m):02d}")
+        except ValueError:
+            pass
+    return sorted(set(result))
 
 
 def fetch_table_for_month(session, nonce, category_id, year_month):
@@ -268,10 +276,15 @@ def parse_production_volume_process(rows, year_month):
     Known name variants for col 1: "Processing Method", "Process"
     """
     records = []
+    # Elevation labels that can leak into this table when SLTB returns wrong data
+    _ELEVATION_LABELS = {"high", "medium", "low", "high grown", "medium grown", "low grown",
+                         "high growns", "medium growns", "low growns"}
     for row in rows:
         process = (pick(row, "Processing Method", "Process", pos=1) or "").strip()
         if not process or process.upper() == "TOTAL":
             continue
+        if process.lower() in _ELEVATION_LABELS:
+            continue  # SLTB sometimes returns elevation data in this table (e.g. 2022-02)
         records.append({
             "year_month":  year_month,
             "process":     process,
@@ -407,11 +420,21 @@ def build_features(csv_only=False):
         path = os.path.join(DATA_DIR, f"sltb_{key}.csv")
         return pd.read_csv(path) if os.path.exists(path) else pd.DataFrame()
 
-    price_df  = load("sub_district_price")
-    sales_df  = load("sales_volume_direct")
-    elev_df   = load("production_volume_elevation")
-    proc_df   = load("production_volume_process")
-    exp_df    = load("export")
+    def normalise_ym(df):
+        """Normalise year_month to zero-padded YYYY-MM ('2024-8' → '2024-08')."""
+        if not df.empty and "year_month" in df.columns:
+            df = df.copy()
+            df["year_month"] = (
+                pd.to_datetime(df["year_month"].astype(str) + "-01", errors="coerce")
+                .dt.strftime("%Y-%m")
+            )
+        return df
+
+    price_df  = normalise_ym(load("sub_district_price"))
+    sales_df  = normalise_ym(load("sales_volume_direct"))
+    elev_df   = normalise_ym(load("production_volume_elevation"))
+    proc_df   = normalise_ym(load("production_volume_process"))
+    exp_df    = normalise_ym(load("export"))
 
     if price_df.empty:
         return 0  # nothing to build yet
@@ -429,7 +452,9 @@ def build_features(csv_only=False):
         "AGARAPATANA":                      "High",
         "NANUOYA LINDULA TALAWAKELE":       "High",
         "NANUOYA/LINDULA/TALAWAKELE":       "High",
+        "NANUOYA/LINDULA/TALA":             "High",   # SLTB truncated form (2015-2019)
         "PATANA KOTAGALA":                  "High",
+        "PATANA/KOTAGALA":                  "High",   # slash variant
         "HATTON DICKOYA":                   "High",
         "HATTON/DICKOYA":                   "High",
         "BOGAWANTALAWA":                    "High",
@@ -437,38 +462,49 @@ def build_features(csv_only=False):
         "UPCOT/MASKELIYA":                  "High",
         "WATAWALA GINIGAT NOTRON":          "High",
         "WATAWALA/GINIGAT/NORTON":          "High",
+        "WATAWALA/GINIGAT/NOT":             "High",   # SLTB truncated form (2015-2019)
         "MATURATA":                         "High",
         "KOTHMALE":                         "High",
         "KOTMALE":                          "High",
         # Medium Grown (600-1200m)
         "KANDY MATALE KURUNEGALA":          "Medium",
         "KANDY/MATALE/KURUNEGALA":          "Medium",
+        "KANDY/MATALE/KURUNEG":             "Medium",  # SLTB truncated form (2015-2019)
         "GAMPOLA NAWALAPITIYA DOLOSBAGE":   "Medium",
         "GAMPOLA/NAWALAPITIYA/DOLOSBAGE":   "Medium",
+        "GAMPOLA/NAWALAPITIYA":             "Medium",  # SLTB truncated form (2015-2019)
         "PUSSELLAWA HEWAHETA":              "Medium",
         "PUSSELLAWA/HEWAHETA":              "Medium",
         "BANDARAWELA POONAGALLA":           "Medium",
         "BANDARAWELA/POONAGALLA":           "Medium",
+        "BANDARAWELA/POONAGAL":             "Medium",  # SLTB truncated form (2015-2019)
         "UDAPUSSELLAWA HALGRANOYA":         "Medium",
         "UDAPUSSELLAWA/HALGRANOYA":         "Medium",
+        "UDAPUSSELLAWA/HALGRA":             "Medium",  # SLTB truncated form (2015-2019)
         "NILAMBE HANTANE GALAHA":           "Medium",
         "NILAMBE/HANTANE/GALAHA":           "Medium",
+        "NILAMBE/HANTANE/GALA":             "Medium",  # SLTB truncated form (2015-2019)
         "HAPUTALE":                         "Medium",
         "ELLA NAMUNUKULA":                  "Medium",
         "ELLA/NAMUNUKULA":                  "Medium",
+        "ELLA / NAMUNUKULA":                "Medium",  # space-padded slash variant
         "DEMODARA HALIELLA BADULLA":        "Medium",
         "DEMODARA/HALIELLA/BADULLA":        "Medium",
+        "DEMODARA/HALIELLA/BA":             "Medium",  # SLTB truncated form (2015-2019)
         "MALWATTE WELIMADA":                "Medium",
         "MALWATTE/WELIMADA":                "Medium",
         "KOSLANDA HALDUMULLA":              "Medium",
         "KOSLANDA/HALDUMULLA":              "Medium",
         "MADULKELLE KNUCKLES":              "Medium",
+        "MADULKELLE/KNUCKLES":              "Medium",  # slash variant
+        "MADULKELLE/KNUCKLES/":             "Medium",  # slash variant with trailing slash
         "MADULKELLE KNUCKLES RANGA":        "Medium",
         "PASSARA LUNUGALLA":                "Medium",
         "PASSARA/LUNUGALLA":                "Medium",
         "MADULSIMA":                        "Medium",
         "HUNASGIRIYA MATALE YAKDESSA":      "Medium",
-        "HUNASGIRIYA/MATALE":              "Medium",
+        "HUNASGIRIYA/MATALE":               "Medium",
+        "HUNASGIRIYA/MATALE/Y":             "Medium",  # SLTB truncated form (2015-2019)
         "KADUGANNAWA":                      "Medium",
         # Low Grown (<600m)
         "GALLE":                            "Low",
@@ -484,7 +520,10 @@ def build_features(csv_only=False):
         "BALANGODA/RAKWANA":                "Low",
         "KELLANI VELLI":                    "Low",
         "KALANY VELLY":                     "Low",
-        "COLOMBO":                          "Low",
+        "KELANI VELLY":                     "Low",   # alternate spelling variant
+        # COLOMBO intentionally excluded — appeared from 2024 with prices of
+        # Rs 30,000-34,000/kg (20x other Low sub-districts). It is not a
+        # tea-growing sub-district and its price unit/meaning is unclear.
     }
 
     price_elev = price_df.copy()
@@ -531,7 +570,14 @@ def build_features(csv_only=False):
     # ── Production by Process: pivot ─────────────────────────────────────────
     prod_proc_pivot = pd.DataFrame()
     if not proc_df.empty:
-        pp = proc_df[proc_df["process"].str.upper() != "TOTAL"].copy()
+        _ELEV_LABELS = {"High", "Medium", "Low", "High Grown", "Medium Grown", "Low Grown"}
+        pp = proc_df[
+            (proc_df["process"].str.upper() != "TOTAL") &
+            (~proc_df["process"].isin(_ELEV_LABELS))   # exclude mis-classified elevation rows
+        ].copy()
+        # Normalise casing before pivot: "ORTHODOX" and "Orthodox" → "Orthodox"
+        # so they aggregate into one column instead of producing duplicate column names
+        pp["process"] = pp["process"].str.strip().str.title()
         pp = pp.pivot_table(index="year_month", columns="process",
                             values="quantity_kg", aggfunc="sum")
         pp.columns = [f"prod_{p.lower().replace(' ','_')}_kg" for p in pp.columns]
@@ -555,7 +601,9 @@ def build_features(csv_only=False):
 
     for df in [sales_pivot, prod_elev_pivot, prod_proc_pivot, exp_pivot]:
         if not df.empty:
-            merged = merged.merge(df, on="year_month", how="left")
+            merged = merged.merge(df, on="year_month", how="left", suffixes=("", "_drop"))
+    # Drop any _drop columns that arose from accidental column-name collisions
+    merged = merged[[c for c in merged.columns if not c.endswith("_drop")]]
 
     # ── Add lag features (previous month prices — key ML signal) ─────────────
     merged = merged.sort_values("year_month").reset_index(drop=True)
@@ -609,7 +657,14 @@ def build_features(csv_only=False):
 
     for ext_df in [weather_df, fx_df, oil_df]:
         if not ext_df.empty:
-            merged = merged.merge(ext_df, on="year_month", how="left")
+            merged = merged.merge(ext_df, on="year_month", how="left", suffixes=("", "_drop"))
+    merged = merged[[c for c in merged.columns if not c.endswith("_drop")]]
+
+    # ── Drop any accidental duplicate columns before saving ───────────────────
+    if merged.columns.duplicated().any():
+        dupes = [c for c, d in zip(merged.columns, merged.columns.duplicated()) if d]
+        print(f"  [WARN] dropping {len(dupes)} duplicate column(s): {dupes}", file=sys.stderr)
+        merged = merged.loc[:, ~merged.columns.duplicated(keep="first")]
 
     # ── Save CSV ──────────────────────────────────────────────────────────────
     out_path = os.path.join(DATA_DIR, "raw_sltb_features.csv")

@@ -434,6 +434,12 @@ def engineer_features(df):
         df["price_national_avg"] = numerator / denominator.replace(0, np.nan)
         print("  price_national_avg: volume-weighted (Ariyaratne et al. 2024 Eq. 1)",
               file=sys.stderr)
+        # Fallback for months where sales qty is unavailable (e.g. early SLTB history)
+        null_mask = df["price_national_avg"].isna()
+        if null_mask.any():
+            df.loc[null_mask, "price_national_avg"] = df.loc[null_mask, elev_cols].mean(axis=1)
+            print(f"  price_national_avg: filled {null_mask.sum()} rows with arithmetic "
+                  f"mean (sales qty unavailable for those months)", file=sys.stderr)
     else:
         # Fallback if quantity columns are missing — arithmetic mean with warning
         df["price_national_avg"] = df[elev_cols].mean(axis=1)
@@ -507,9 +513,6 @@ def engineer_features(df):
     if elev_prod:
         df["prod_total_kg"] = df[elev_prod].sum(axis=1, min_count=1)
 
-    newly_added = sorted(set(df.columns) - set(df.columns[:len(df.columns) - len([
-        c for c in df.columns if c not in df.columns
-    ])]))
     print(f"  Feature engineering complete. Total columns: {len(df.columns)}",
           file=sys.stderr)
 
