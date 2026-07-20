@@ -616,7 +616,7 @@ def build_features(csv_only=False):
     # ── Add time features ─────────────────────────────────────────────────────
     merged["month"]           = pd.to_datetime(merged["year_month"]).dt.month
     merged["quarter"]         = pd.to_datetime(merged["year_month"]).dt.quarter
-    merged["is_peak_season"]  = merged["month"].isin([2, 3, 8, 9]).astype(int)
+    merged["is_peak_season"] = merged["month"].isin([1, 2, 3, 4]).astype(int)
 
     # ── Join external data (weather, FX, oil) ─────────────────────────────────
     def load_ext(filename, cols):
