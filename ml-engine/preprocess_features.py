@@ -328,6 +328,44 @@ def clean_dataset(df):
                         file=sys.stderr
                     )
 
+    # --- Seasonal mean imputation for production volume columns ---
+    # Same rationale as weather: tea production is strongly seasonal, so a
+    # missing March value is better estimated from other Marches than from
+    # the previous month's value (which may be peak or trough season).
+    for col in ["prod_ctc_kg", "prod_orthodox_kg", "prod_green_tea_kg",
+                "prod_total_kg", "prod_high_kg", "prod_medium_kg", "prod_low_kg"]:
+        if col in df.columns:
+            n_before = int(df[col].isna().sum())
+            if n_before > 0:
+                month_means = df.groupby("_month_num")[col].mean()
+                df[col] = df.apply(
+                    lambda row, c=col: month_means.get(row["_month_num"]) if pd.isna(row[c]) else row[c],
+                    axis=1,
+                )
+                n_after = int(df[col].isna().sum())
+                print(
+                    f"  Seasonal mean imputation for {col}: "
+                    f"{n_before} missing -> {n_after} remaining",
+                    file=sys.stderr,
+                )
+
+    # --- Linear interpolation for sales and export quantity columns ---
+    # These columns are smooth trends (volume traded / export shipments),
+    # so a missing month is well-approximated by the midpoint of its
+    # neighbours. Interpolation respects the temporal ordering of the data.
+    for col in ["sales_qty_high_kg", "sales_qty_low_kg", "sales_qty_medium_kg",
+                "export_black_qty_kg", "export_black_fob_avg"]:
+        if col in df.columns:
+            n_before = int(df[col].isna().sum())
+            if n_before > 0:
+                df[col] = df[col].interpolate(method="linear")
+                n_after = int(df[col].isna().sum())
+                print(
+                    f"  Linear interpolation for {col}: "
+                    f"{n_before} missing -> {n_after} remaining",
+                    file=sys.stderr,
+                )
+
     df = df.drop(columns=["_month_num"])
 
     # --- Forward-fill FX gap ---
