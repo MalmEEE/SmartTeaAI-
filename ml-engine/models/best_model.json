@@ -1,0 +1,76 @@
+{
+  "best_model": "LSTM",
+  "model_file": "lstm_model.keras",
+  "feature_set": "lstm",
+  "mape_pct": 3.22,
+  "rmse": 44.78,
+  "r2": -0.5289,
+  "trained_on": "2026-07-25T06:09:51.404232",
+  "test_period": "2024-10 to 2026-06",
+  "test_rows": 21,
+  "all_results": [
+    {
+      "Model": "ARIMA",
+      "MAE": 45.62,
+      "RMSE": 61.52,
+      "MAPE(%)": 4.26,
+      "R2": -1.8859
+    },
+    {
+      "Model": "SARIMAX",
+      "MAE": 79.59,
+      "RMSE": 90.64,
+      "MAPE(%)": 7.44,
+      "R2": -5.264
+    },
+    {
+      "Model": "SARIMAX (+usd_lkr)",
+      "MAE": 59.29,
+      "RMSE": 88.0,
+      "MAPE(%)": 5.59,
+      "R2": -4.904
+    },
+    {
+      "Model": "Random Forest",
+      "MAE": 252.38,
+      "RMSE": 255.3,
+      "MAPE(%)": 23.76,
+      "R2": -48.6894
+    },
+    {
+      "Model": "XGBoost",
+      "MAE": 180.51,
+      "RMSE": 184.25,
+      "MAPE(%)": 17.03,
+      "R2": -24.8827
+    },
+    {
+      "Model": "RF (core)",
+      "MAE": 225.74,
+      "RMSE": 229.21,
+      "MAPE(%)": 21.26,
+      "R2": -39.0527
+    },
+    {
+      "Model": "XGBoost (core)",
+      "MAE": 34.91,
+      "RMSE": 43.36,
+      "MAPE(%)": 3.28,
+      "R2": -0.4332
+    },
+    {
+      "Model": "SARIMAX (+crisis)",
+      "MAE": 55.45,
+      "RMSE": 70.07,
+      "MAPE(%)": 5.22,
+      "R2": -2.7432
+    },
+    {
+      "Model": "LSTM",
+      "MAE": 33.82,
+      "RMSE": 44.78,
+      "MAPE(%)": 3.22,
+      "R2": -0.5289
+    }
+  ]
+}
