@@ -200,6 +200,18 @@ def load_raw_features():
               "mombasa_usd_kg set to NaN (run collect_oil.py to generate it)",
               file=sys.stderr)
 
+    # Add sentiment score (from collect_sentiment.py's monthly aggregate)
+    sentiment_path = os.path.join(DATA_DIR, "sentiment_monthly.csv")
+    if os.path.exists(sentiment_path):
+        sent_df = pd.read_csv(sentiment_path, usecols=["year_month", "sentiment_score"])
+        df = df.merge(sent_df, on="year_month", how="left")
+        print(f"  Merged {sent_df['sentiment_score'].notna().sum()} months of "
+              f"real sentiment scores", file=sys.stderr)
+    else:
+        print("  [SKIP] sentiment_monthly.csv not found -- "
+              "sentiment_score will be placeholder 0.0 for all months "
+              "(run collect_sentiment.py to generate it)", file=sys.stderr)
+
     return df
 
 
@@ -327,6 +339,44 @@ def clean_dataset(df):
                         f"{n_after} residual NaN (month had no observations)",
                         file=sys.stderr
                     )
+
+    # --- Seasonal mean imputation for production volume columns ---
+    # Same rationale as weather: tea production is strongly seasonal, so a
+    # missing March value is better estimated from other Marches than from
+    # the previous month's value (which may be peak or trough season).
+    for col in ["prod_ctc_kg", "prod_orthodox_kg", "prod_green_tea_kg",
+                "prod_total_kg", "prod_high_kg", "prod_medium_kg", "prod_low_kg"]:
+        if col in df.columns:
+            n_before = int(df[col].isna().sum())
+            if n_before > 0:
+                month_means = df.groupby("_month_num")[col].mean()
+                df[col] = df.apply(
+                    lambda row, c=col: month_means.get(row["_month_num"]) if pd.isna(row[c]) else row[c],
+                    axis=1,
+                )
+                n_after = int(df[col].isna().sum())
+                print(
+                    f"  Seasonal mean imputation for {col}: "
+                    f"{n_before} missing -> {n_after} remaining",
+                    file=sys.stderr,
+                )
+
+    # --- Linear interpolation for sales and export quantity columns ---
+    # These columns are smooth trends (volume traded / export shipments),
+    # so a missing month is well-approximated by the midpoint of its
+    # neighbours. Interpolation respects the temporal ordering of the data.
+    for col in ["sales_qty_high_kg", "sales_qty_low_kg", "sales_qty_medium_kg",
+                "export_black_qty_kg", "export_black_fob_avg"]:
+        if col in df.columns:
+            n_before = int(df[col].isna().sum())
+            if n_before > 0:
+                df[col] = df[col].interpolate(method="linear")
+                n_after = int(df[col].isna().sum())
+                print(
+                    f"  Linear interpolation for {col}: "
+                    f"{n_before} missing -> {n_after} remaining",
+                    file=sys.stderr,
+                )
 
     df = df.drop(columns=["_month_num"])
 
@@ -547,13 +597,35 @@ def finalise_and_split(df):
 
     df = df.sort_values("year_month").reset_index(drop=True)
 
-    n         = len(df)
-    train_end = int(n * TRAIN_RATIO)
-    val_end   = int(n * (TRAIN_RATIO + VAL_RATIO))
+    # n         = len(df)
+    # train_end = int(n * TRAIN_RATIO)
+    # val_end   = int(n * (TRAIN_RATIO + VAL_RATIO))
 
-    train_df = df.iloc[:train_end].copy()
-    val_df   = df.iloc[train_end:val_end].copy()
-    test_df  = df.iloc[val_end:].copy()
+    # train_df = df.iloc[:train_end].copy()
+    # val_df   = df.iloc[train_end:val_end].copy()
+    # test_df  = df.iloc[val_end:].copy()
+
+    # Split is FROZEN at fixed row counts (not recalculated percentages).
+    # This locks train/val to the exact 94/20 rows the current best model
+    # (LSTM, MAPE=3.22%) was trained and validated on, matching the numbers
+    # already reported in the dissertation. New months only ever extend the
+    # test set going forward -- they do not reshuffle train/val boundaries.
+    # If a future full retrain is deliberately undertaken (a new model
+    # version), these fixed counts should be revisited intentionally.
+    FIXED_TRAIN_ROWS = 94
+    FIXED_VAL_ROWS   = 20
+
+    n = len(df)
+    if n < FIXED_TRAIN_ROWS + FIXED_VAL_ROWS:
+        raise RuntimeError(
+            f"Only {n} rows available, but frozen split requires at least "
+            f"{FIXED_TRAIN_ROWS + FIXED_VAL_ROWS} for train+val. "
+            "Check that raw_sltb_features.csv loaded correctly."
+        )
+
+    train_df = df.iloc[:FIXED_TRAIN_ROWS].copy()
+    val_df   = df.iloc[FIXED_TRAIN_ROWS:FIXED_TRAIN_ROWS + FIXED_VAL_ROWS].copy()
+    test_df  = df.iloc[FIXED_TRAIN_ROWS + FIXED_VAL_ROWS:].copy()
 
     train_df["split_set"] = "train"
     val_df["split_set"]   = "validation"
