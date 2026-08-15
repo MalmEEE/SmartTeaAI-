@@ -1,0 +1,124 @@
+{
+  "xgboost_core": {
+    "feature_names": [
+      "price_national_avg_lag1",
+      "price_national_avg_lag3",
+      "rainfall_mm",
+      "rainfall_mm_lag1",
+      "rainfall_mm_lag2",
+      "avg_temp_c",
+      "usd_lkr_avg",
+      "fx_change_pct",
+      "oil_price",
+      "mombasa_usd_kg",
+      "export_black_qty_kg",
+      "export_black_fob_avg",
+      "prod_total_kg",
+      "month",
+      "is_peak_season",
+      "is_post_crisis",
+      "sentiment_score"
+    ],
+    "mean_abs_shap": {
+      "price_national_avg_lag1": 341.69561767578125,
+      "price_national_avg_lag3": 95.85746765136719,
+      "rainfall_mm": 0.155345618724823,
+      "rainfall_mm_lag1": 1.6781878471374512,
+      "rainfall_mm_lag2": 0.061451468616724014,
+      "avg_temp_c": 0.2667264938354492,
+      "usd_lkr_avg": 12.426033973693848,
+      "fx_change_pct": 0.176508367061615,
+      "oil_price": 2.3165524005889893,
+      "mombasa_usd_kg": 0.4354930818080902,
+      "export_black_qty_kg": 1.474666714668274,
+      "export_black_fob_avg": 11.152560234069824,
+      "prod_total_kg": 0.5095528960227966,
+      "month": 1.842997431755066,
+      "is_peak_season": 0.0,
+      "is_post_crisis": 0.0,
+      "sentiment_score": 0.0
+    },
+    "top_5": [
+      [
+        "price_national_avg_lag1",
+        341.69561767578125
+      ],
+      [
+        "price_national_avg_lag3",
+        95.85746765136719
+      ],
+      [
+        "usd_lkr_avg",
+        12.426033973693848
+      ],
+      [
+        "export_black_fob_avg",
+        11.152560234069824
+      ],
+      [
+        "oil_price",
+        2.3165524005889893
+      ]
+    ]
+  },
+  "lstm": {
+    "feature_names": [
+      "price_national_avg_lag1",
+      "price_national_avg_lag3",
+      "rainfall_mm_lag1",
+      "rainfall_mm_lag2",
+      "rainfall_mm_roll3",
+      "avg_temp_c",
+      "usd_lkr_avg",
+      "fx_change_pct",
+      "oil_price",
+      "oil_change_pct",
+      "mombasa_usd_kg",
+      "export_black_qty_kg",
+      "prod_total_kg",
+      "month",
+      "is_peak_season",
+      "is_post_crisis"
+    ],
+    "mean_abs_shap": {
+      "price_national_avg_lag1": 171.7858762741089,
+      "price_national_avg_lag3": 101.66118916598234,
+      "rainfall_mm_lag1": 11.65206509286707,
+      "rainfall_mm_lag2": 0.6503836345668375,
+      "rainfall_mm_roll3": 16.784761501306836,
+      "avg_temp_c": 13.333522256125104,
+      "usd_lkr_avg": 206.11560197310015,
+      "fx_change_pct": 3.3171528344127266,
+      "oil_price": 16.809235925024208,
+      "oil_change_pct": 4.770131076940081,
+      "mombasa_usd_kg": 10.121936961331151,
+      "export_black_qty_kg": 429.2382417158647,
+      "prod_total_kg": 38.65437190808271,
+      "month": 4.173927326771346,
+      "is_peak_season": 9.868849795650352,
+      "is_post_crisis": 456.0010265003551
+    },
+    "top_5": [
+      [
+        "is_post_crisis",
+        456.0010265003551
+      ],
+      [
+        "export_black_qty_kg",
+        429.2382417158647
+      ],
+      [
+        "usd_lkr_avg",
+        206.11560197310015
+      ],
+      [
+        "price_national_avg_lag1",
+        171.7858762741089
+      ],
+      [
+        "price_national_avg_lag3",
+        101.66118916598234
+      ]
+    ]
+  }
+}

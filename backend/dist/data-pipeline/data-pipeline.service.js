@@ -38,65 +38,106 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 var DataPipelineService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DataPipelineService = void 0;
 const common_1 = require("@nestjs/common");
-const schedule_1 = require("@nestjs/schedule");
 const child_process_1 = require("child_process");
 const path = __importStar(require("path"));
 const PYTHON = process.env.PYTHON_BIN || 'python';
-const SCRAPER_DIR = path.resolve(__dirname, '../../../../scraper');
+const ML_ENGINE = path.resolve(__dirname, '../../../ml-engine');
 let DataPipelineService = DataPipelineService_1 = class DataPipelineService {
     logger = new common_1.Logger(DataPipelineService_1.name);
-    async runWeeklyScrape() {
-        this.logger.log('Weekly scrape started');
-        const [sltb, weather] = await Promise.all([
-            this.runScraper('collect_sltb.py'),
-            this.runScraper('collect_weather.py'),
-        ]);
-        this.logger.log(`SLTB: ${sltb['total_rows_added']} rows added, ${sltb['feature_rows']} feature rows`);
-        this.logger.log(`Weather: ${weather['rows_inserted']} rows inserted, ${weather['features_updated']} features updated`);
-        return { sltb, weather };
+    lastRun = null;
+    async runWeeklyPipeline() {
+        return this.runPipeline();
     }
-    async runScraper(scriptName) {
-        return new Promise((resolve, reject) => {
-            const scriptPath = path.join(SCRAPER_DIR, scriptName);
-            const proc = (0, child_process_1.spawn)(PYTHON, [scriptPath], {
-                env: { ...process.env },
-            });
+    async runPipeline() {
+        const startedAt = new Date().toISOString();
+        this.logger.log('Data pipeline started');
+        const steps = [];
+        const [sltb, weather] = await Promise.all([
+            this.runScript('collect_sltb.py'),
+            this.runScript('collect_weather.py'),
+        ]);
+        steps.push(sltb, weather);
+        if (sltb.status === 'error' || weather.status === 'error') {
+            this.logger.error('SLTB or weather collection failed — aborting pipeline');
+            const summary = this.buildSummary(startedAt, steps, false);
+            this.lastRun = summary;
+            return summary;
+        }
+        const [oil, fx, sentiment] = await Promise.all([
+            this.runScript('collect_oil.py'),
+            this.runScript('process_fx.py'),
+            this.runScript('collect_sentiment.py'),
+        ]);
+        steps.push(oil, fx, sentiment);
+        if (oil.status === 'error' || fx.status === 'error') {
+            this.logger.error('Oil or FX collection failed — aborting pipeline');
+            const summary = this.buildSummary(startedAt, steps, false);
+            this.lastRun = summary;
+            return summary;
+        }
+        if (sentiment.status === 'error') {
+            this.logger.warn(`Sentiment collection failed (non-blocking, supplementary feature): ${sentiment.message}. ` +
+                `Continuing pipeline — affected months keep neutral placeholder (0.0).`);
+        }
+        const preprocess = await this.runScript('preprocess_features.py');
+        steps.push(preprocess);
+        const success = preprocess.status === 'ok';
+        const summary = this.buildSummary(startedAt, steps, success);
+        this.lastRun = summary;
+        if (success) {
+            this.logger.log('Pipeline complete — feature matrix updated');
+        }
+        else {
+            this.logger.error('Preprocessing failed');
+        }
+        return summary;
+    }
+    getLastRun() {
+        return this.lastRun;
+    }
+    buildSummary(startedAt, steps, success) {
+        return { startedAt, finishedAt: new Date().toISOString(), steps, success };
+    }
+    runScript(scriptName) {
+        const scriptPath = path.join(ML_ENGINE, scriptName);
+        const start = Date.now();
+        return new Promise((resolve) => {
+            const proc = (0, child_process_1.spawn)(PYTHON, [scriptPath], { env: { ...process.env } });
             let stdout = '';
             let stderr = '';
             proc.stdout.on('data', (chunk) => { stdout += chunk.toString(); });
             proc.stderr.on('data', (chunk) => { stderr += chunk.toString(); });
             proc.on('close', (code) => {
+                const durationMs = Date.now() - start;
                 if (stderr)
                     this.logger.debug(`[${scriptName}] ${stderr.trim()}`);
                 try {
-                    const result = JSON.parse(stdout.trim());
-                    if (result.status === 'error') {
-                        this.logger.error(`[${scriptName}] ${result.message}`);
+                    const data = JSON.parse(stdout.trim());
+                    if (data.status === 'error') {
+                        this.logger.error(`[${scriptName}] ${data.message}`);
+                        resolve({ script: scriptName, status: 'error', durationMs, message: data.message });
                     }
-                    resolve(result);
+                    else {
+                        resolve({ script: scriptName, status: 'ok', durationMs, data });
+                    }
                 }
                 catch {
-                    reject(new Error(`[${scriptName}] bad output (exit ${code}): ${stdout.slice(0, 200)}`));
+                    const message = `bad JSON output (exit ${code}): ${stdout.slice(0, 200)}`;
+                    this.logger.error(`[${scriptName}] ${message}`);
+                    resolve({ script: scriptName, status: 'error', durationMs, message });
                 }
             });
-            proc.on('error', reject);
+            proc.on('error', (err) => {
+                resolve({ script: scriptName, status: 'error', durationMs: Date.now() - start, message: err.message });
+            });
         });
     }
 };
 exports.DataPipelineService = DataPipelineService;
-__decorate([
-    (0, schedule_1.Cron)('0 2 * * 0'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], DataPipelineService.prototype, "runWeeklyScrape", null);
 exports.DataPipelineService = DataPipelineService = DataPipelineService_1 = __decorate([
     (0, common_1.Injectable)()
 ], DataPipelineService);

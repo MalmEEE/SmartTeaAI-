@@ -1,8 +1,22 @@
+export interface PipelineResult {
+    script: string;
+    status: 'ok' | 'error';
+    durationMs: number;
+    data?: Record<string, unknown>;
+    message?: string;
+}
+export interface RunSummary {
+    startedAt: string;
+    finishedAt: string;
+    steps: PipelineResult[];
+    success: boolean;
+}
 export declare class DataPipelineService {
     private readonly logger;
-    runWeeklyScrape(): Promise<{
-        sltb: Record<string, unknown>;
-        weather: Record<string, unknown>;
-    }>;
-    runScraper(scriptName: string): Promise<Record<string, unknown>>;
+    private lastRun;
+    runWeeklyPipeline(): Promise<RunSummary>;
+    runPipeline(): Promise<RunSummary>;
+    getLastRun(): RunSummary | null;
+    private buildSummary;
+    private runScript;
 }

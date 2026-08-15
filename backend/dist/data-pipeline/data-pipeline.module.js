@@ -9,12 +9,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DataPipelineModule = void 0;
 const common_1 = require("@nestjs/common");
 const data_pipeline_service_1 = require("./data-pipeline.service");
+const data_pipeline_controller_1 = require("./data-pipeline.controller");
 let DataPipelineModule = class DataPipelineModule {
 };
 exports.DataPipelineModule = DataPipelineModule;
 exports.DataPipelineModule = DataPipelineModule = __decorate([
     (0, common_1.Module)({
-        providers: [data_pipeline_service_1.DataPipelineService]
+        providers: [data_pipeline_service_1.DataPipelineService],
+        controllers: [data_pipeline_controller_1.DataPipelineController],
+        exports: [data_pipeline_service_1.DataPipelineService],
     })
 ], DataPipelineModule);
 //# sourceMappingURL=data-pipeline.module.js.map
