@@ -1,0 +1,83 @@
+{
+  "high": {
+    "target": "price_high_rs",
+    "best_model": "XGBoost",
+    "mape_pct": 4.6787,
+    "rmse": 64.93,
+    "r2": -0.9291,
+    "xgb_file": "xgb_elevation_high.json",
+    "xgb_features_file": "elevation_features_high.json",
+    "lstm_file": "lstm_model_high.keras",
+    "lstm_scaler_file": "lstm_scaler_high.joblib",
+    "lstm_meta_file": "lstm_meta_high.json",
+    "trained_on": "2026-08-16T07:18:16.982066",
+    "xgb_metrics": {
+      "Model": "XGBoost (high)",
+      "MAE": 49.32,
+      "RMSE": 64.93,
+      "MAPE(%)": 4.6787,
+      "R2": -0.9291
+    },
+    "lstm_metrics": {
+      "Model": "LSTM (high)",
+      "MAE": 506.54,
+      "RMSE": 508.7,
+      "MAPE(%)": 46.8487,
+      "R2": -117.4108
+    }
+  },
+  "medium": {
+    "target": "price_medium_rs",
+    "best_model": "XGBoost",
+    "mape_pct": 3.9551,
+    "rmse": 49.14,
+    "r2": -1.1801,
+    "xgb_file": "xgb_elevation_medium.json",
+    "xgb_features_file": "elevation_features_medium.json",
+    "lstm_file": "lstm_model_medium.keras",
+    "lstm_scaler_file": "lstm_scaler_medium.joblib",
+    "lstm_meta_file": "lstm_meta_medium.json",
+    "trained_on": "2026-08-16T07:19:27.055132",
+    "xgb_metrics": {
+      "Model": "XGBoost (medium)",
+      "MAE": 40.23,
+      "RMSE": 49.14,
+      "MAPE(%)": 3.9551,
+      "R2": -1.1801
+    },
+    "lstm_metrics": {
+      "Model": "LSTM (medium)",
+      "MAE": 494.88,
+      "RMSE": 496.0,
+      "MAPE(%)": 47.7748,
+      "R2": -221.0942
+    }
+  },
+  "low": {
+    "target": "price_low_rs",
+    "best_model": "XGBoost",
+    "mape_pct": 3.3568,
+    "rmse": 48.53,
+    "r2": -2.0381,
+    "xgb_file": "xgb_elevation_low.json",
+    "xgb_features_file": "elevation_features_low.json",
+    "lstm_file": "lstm_model_low.keras",
+    "lstm_scaler_file": "lstm_scaler_low.joblib",
+    "lstm_meta_file": "lstm_meta_low.json",
+    "trained_on": "2026-08-16T07:20:36.272959",
+    "xgb_metrics": {
+      "Model": "XGBoost (low)",
+      "MAE": 41.9,
+      "RMSE": 48.53,
+      "MAPE(%)": 3.3568,
+      "R2": -2.0381
+    },
+    "lstm_metrics": {
+      "Model": "LSTM (low)",
+      "MAE": 657.15,
+      "RMSE": 657.73,
+      "MAPE(%)": 53.1685,
+      "R2": -557.0185
+    }
+  }
+}
