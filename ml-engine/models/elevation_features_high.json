@@ -1,0 +1,19 @@
+[
+  "price_high_rs_lag1",
+  "price_high_rs_lag3",
+  "rainfall_mm_high",
+  "rainfall_mm_high_lag1",
+  "rainfall_mm_high_lag2",
+  "avg_temp_c_high",
+  "usd_lkr_avg",
+  "fx_change_pct",
+  "oil_price",
+  "mombasa_usd_kg",
+  "export_black_qty_kg",
+  "export_black_fob_avg",
+  "prod_high_kg",
+  "month",
+  "is_peak_season",
+  "sentiment_score",
+  "is_post_crisis"
+]

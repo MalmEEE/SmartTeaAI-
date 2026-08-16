@@ -7,12 +7,22 @@ const ML_ENGINE = path.resolve(__dirname, '../../../ml-engine');
 
 export interface PredictionResult {
   status:              'ok' | 'error';
+  elevation?:          string;
+  target?:             string;
   predicted_price_rs:  number;
   predicted_month:     string;
   last_known_month:    string;
   last_known_price_rs: number;
   change_rs:           number;
   change_pct:          number;
+  price_range_low:     number;
+  price_range_high:    number;
+  range_basis:         string;
+  risk_level:          'Low' | 'Medium' | 'High';
+  recommendation: {
+    signal: 'Sell' | 'Hold' | 'Monitor';
+    justification: string;
+  };
   model:               string;
   mape_pct:            number;
   rmse:                number;
@@ -22,11 +32,14 @@ export interface PredictionResult {
 export class PredictionService {
   private readonly logger = new Logger(PredictionService.name);
 
-  async predict(): Promise<PredictionResult> {
+  async predict(elevation?: string): Promise<PredictionResult> {
     const scriptPath = path.join(ML_ENGINE, 'predict.py');
+    const args       = elevation
+      ? [scriptPath, `--elevation=${elevation}`]
+      : [scriptPath];
 
     return new Promise((resolve, reject) => {
-      const proc = spawn(PYTHON, [scriptPath], { env: { ...process.env } });
+      const proc = spawn(PYTHON, args, { env: { ...process.env } });
 
       let stdout = '';
       let stderr = '';
