@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, BadRequestException } from '@nestjs/common';
 import { PredictionService } from './prediction.service';
 
 @Controller('predict')
@@ -7,6 +7,11 @@ export class PredictionController {
 
   @Get()
   predict(@Query('elevation') elevation?: string) {
-    return this.prediction.predict(elevation);
+    if (elevation && !['high', 'medium', 'low'].includes(elevation.toLowerCase())) {
+      throw new BadRequestException(
+        `Invalid elevation '${elevation}'. Must be one of: high, medium, low`,
+      );
+    }
+    return this.prediction.predict(elevation?.toLowerCase());
   }
 }

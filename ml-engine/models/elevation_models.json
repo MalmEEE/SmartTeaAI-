@@ -10,7 +10,7 @@
     "lstm_file": "lstm_model_high.keras",
     "lstm_scaler_file": "lstm_scaler_high.joblib",
     "lstm_meta_file": "lstm_meta_high.json",
-    "trained_on": "2026-08-16T07:18:16.982066",
+    "trained_on": "2026-08-19T19:02:19.222918",
     "xgb_metrics": {
       "Model": "XGBoost (high)",
       "MAE": 49.32,
@@ -20,10 +20,10 @@
     },
     "lstm_metrics": {
       "Model": "LSTM (high)",
-      "MAE": 506.54,
-      "RMSE": 508.7,
-      "MAPE(%)": 46.8487,
-      "R2": -117.4108
+      "MAE": 493.04,
+      "RMSE": 495.25,
+      "MAPE(%)": 45.5942,
+      "R2": -111.2323
     }
   },
   "medium": {
@@ -37,7 +37,7 @@
     "lstm_file": "lstm_model_medium.keras",
     "lstm_scaler_file": "lstm_scaler_medium.joblib",
     "lstm_meta_file": "lstm_meta_medium.json",
-    "trained_on": "2026-08-16T07:19:27.055132",
+    "trained_on": "2026-08-19T19:02:48.324512",
     "xgb_metrics": {
       "Model": "XGBoost (medium)",
       "MAE": 40.23,
@@ -47,10 +47,10 @@
     },
     "lstm_metrics": {
       "Model": "LSTM (medium)",
-      "MAE": 494.88,
-      "RMSE": 496.0,
-      "MAPE(%)": 47.7748,
-      "R2": -221.0942
+      "MAE": 484.75,
+      "RMSE": 485.89,
+      "MAPE(%)": 46.7948,
+      "R2": -212.1357
     }
   },
   "low": {
@@ -64,7 +64,7 @@
     "lstm_file": "lstm_model_low.keras",
     "lstm_scaler_file": "lstm_scaler_low.joblib",
     "lstm_meta_file": "lstm_meta_low.json",
-    "trained_on": "2026-08-16T07:20:36.272959",
+    "trained_on": "2026-08-19T19:03:16.428468",
     "xgb_metrics": {
       "Model": "XGBoost (low)",
       "MAE": 41.9,
@@ -74,10 +74,10 @@
     },
     "lstm_metrics": {
       "Model": "LSTM (low)",
-      "MAE": 657.15,
-      "RMSE": 657.73,
-      "MAPE(%)": 53.1685,
-      "R2": -557.0185
+      "MAE": 612.85,
+      "RMSE": 613.49,
+      "MAPE(%)": 49.5814,
+      "R2": -484.4626
     }
   }
 }
