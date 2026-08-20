@@ -129,9 +129,16 @@ export class HistoryService {
     return result.sort((a, b) => a.month.localeCompare(b.month));
   }
 
-  getModelInfo(): ModelInfo {
-    const filePath = path.join(MODEL_DIR, 'best_model.json');
-    const raw      = fs.readFileSync(filePath, 'utf-8');
-    return JSON.parse(raw) as ModelInfo;
-  }
+    getModelInfo(): ModelInfo | { status: string; message: string } {
+      const filePath = path.join(MODEL_DIR, 'best_model.json');
+      try {
+        if (!fs.existsSync(filePath)) {
+          return { status: 'not_available', message: 'best_model.json not found — run model training first' };
+        }
+        const raw = fs.readFileSync(filePath, 'utf-8');
+        return JSON.parse(raw) as ModelInfo;
+      } catch (err) {
+        return { status: 'error', message: `Failed to read model info: ${(err as Error).message}` };
+      }
+    }
 }
