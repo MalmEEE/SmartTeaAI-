@@ -67,4 +67,37 @@ export class PredictionService {
       proc.on('error', (err) => reject(new InternalServerErrorException(err.message)));
     });
   }
+
+  async whatIf(
+    overrides: Record<string, number>,
+    elevation?: string,
+  ): Promise<PredictionResult> {
+    const scriptPath = path.join(ML_ENGINE, 'predict.py');
+    const args = [scriptPath, `--whatif=${JSON.stringify(overrides)}`];
+    if (elevation) args.push(`--elevation=${elevation}`);
+
+    return new Promise((resolve, reject) => {
+      const proc = spawn(PYTHON, args, { env: { ...process.env } });
+      let stdout = '';
+      let stderr = '';
+      proc.stdout.on('data', (c: Buffer) => { stdout += c.toString(); });
+      proc.stderr.on('data', (c: Buffer) => { stderr += c.toString(); });
+      proc.on('close', (code) => {
+        if (stderr) this.logger.debug(`[predict.py whatif] ${stderr.trim()}`);
+        try {
+          const result = JSON.parse(stdout.trim());
+          if (result.status === 'error') {
+            reject(new InternalServerErrorException(result.message));
+          } else {
+            resolve(result);
+          }
+        } catch {
+          reject(new InternalServerErrorException(
+            `predict.py bad output (exit ${code}): ${stdout.slice(0, 200)}`
+          ));
+        }
+      });
+      proc.on('error', (err) => reject(new InternalServerErrorException(err.message)));
+    });
+  }
 }

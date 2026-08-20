@@ -32,6 +32,18 @@ def load_data() -> pd.DataFrame:
     df['is_post_crisis'] = (pd.to_datetime(df['year_month']) >= '2022-04-01').astype(int)
     return df
 
+def _national_features_and_predict(df: pd.DataFrame, best: dict) -> float:
+    """Predict national price using whatever model best_model.json specifies."""
+    feature_set = best['feature_set']
+    model_file  = best['model_file']
+    if feature_set == 'lstm':
+        return predict_lstm(df)
+    elif model_file.endswith('.json'):
+        return predict_xgb(df, feature_set, model_file)
+    elif model_file.endswith('.joblib'):
+        return predict_rf(df, feature_set, model_file)
+    else:
+        raise ValueError(f'Unknown model type: {model_file}')
 
 def predict_lstm(df: pd.DataFrame) -> float:
     import tensorflow as tf
@@ -168,19 +180,113 @@ def predict_elevation(df: pd.DataFrame, elevation: str) -> tuple:
 
     return price, cfg
 
+def predict_whatif(df: pd.DataFrame, overrides: dict, elevation: str = None) -> dict:
+    """
+    What-if simulation. `overrides` is a dict of feature -> percentage change,
+    e.g. {"usd_lkr_avg": 10, "rainfall_mm": -30} means +10% FX, -30% rainfall.
 
-def parse_elevation_arg() -> str | None:
-    """Extract --elevation=<value> from sys.argv, or None."""
+    Applies each percentage change to the most recent month's value for that
+    feature, then re-predicts. Returns baseline vs what-if comparison plus
+    the original/new absolute values so the frontend can display them.
+    """
+    last_idx = df.index[-1]
+
+    # --- Baseline prediction (unchanged data) ---
+    if elevation:
+        baseline_price, cfg = predict_elevation(df, elevation)
+        target_col = cfg['target']
+        model_name = cfg['best_model']
+    else:
+        with open(os.path.join(MODEL_DIR, 'best_model.json')) as f:
+            cfg = json.load(f)
+        baseline_price = _national_features_and_predict(df, cfg)
+        target_col = 'price_national_avg'
+        model_name = cfg['best_model']
+
+    # --- Apply percentage overrides to a copy of the latest row ---
+    df_whatif = df.copy()
+    applied = []
+    for feat, pct_change in overrides.items():
+        if feat not in df_whatif.columns:
+            applied.append({
+                'feature': feat, 'status': 'ignored',
+                'reason': 'feature not in dataset'
+            })
+            continue
+        original = float(df_whatif.loc[last_idx, feat])
+        new_value = original * (1 + float(pct_change) / 100.0)
+        df_whatif.loc[last_idx, feat] = new_value
+        applied.append({
+            'feature':      feat,
+            'pct_change':   float(pct_change),
+            'original':     round(original, 4),
+            'new_value':    round(new_value, 4),
+            'status':       'applied',
+        })
+
+    # --- Re-predict with modified data ---
+    if elevation:
+        whatif_price, _ = predict_elevation(df_whatif, elevation)
+    else:
+        whatif_price = _national_features_and_predict(df_whatif, cfg)
+
+    price_impact_rs  = whatif_price - baseline_price
+    price_impact_pct = (price_impact_rs / baseline_price * 100) if baseline_price else 0.0
+
+    return {
+        'status':             'ok',
+        'mode':               'what-if',
+        'elevation':          elevation,
+        'target':             target_col,
+        'model':              model_name,
+        'baseline_price_rs':  round(baseline_price, 2),
+        'whatif_price_rs':    round(whatif_price, 2),
+        'price_impact_rs':    round(price_impact_rs, 2),
+        'price_impact_pct':   round(price_impact_pct, 2),
+        'risk_level':         classify_risk(price_impact_pct),
+        'overrides_applied':  applied,
+        'interpretation':     _whatif_interpretation(price_impact_pct, applied),
+    }
+
+
+def _whatif_interpretation(impact_pct: float, applied: list) -> str:
+    """Plain-language summary of the what-if result."""
+    changes = ", ".join(
+        f"{a['feature']} {a['pct_change']:+.0f}%"
+        for a in applied if a['status'] == 'applied'
+    )
+    if not changes:
+        return "No valid changes were applied."
+    direction = "increase" if impact_pct > 0 else "decrease" if impact_pct < 0 else "no change in"
+    return (f"Under the scenario ({changes}), the model predicts a "
+            f"{abs(impact_pct):.1f}% {direction} in price compared to the baseline forecast.")
+
+
+def parse_args() -> dict:
+    """Parse --elevation= and --whatif= (JSON string) from argv."""
+    result = {'elevation': None, 'whatif': None}
     for arg in sys.argv[1:]:
         if arg.startswith('--elevation='):
-            return arg.split('=', 1)[1].strip().lower()
-    return None
+            result['elevation'] = arg.split('=', 1)[1].strip().lower()
+        elif arg.startswith('--whatif='):
+            raw = arg.split('=', 1)[1]
+            result['whatif'] = json.loads(raw)  # expects a JSON object string
+    return result
 
 
 def main():
     try:
-        elevation = parse_elevation_arg()
+        args      = parse_args()
+        elevation = args['elevation']
+        whatif    = args['whatif']
         df        = load_data()
+
+        # --- What-if branch ---
+        if whatif:
+            result = predict_whatif(df, whatif, elevation)
+            print(json.dumps(result))
+            return
+
         last_month = str(df['year_month'].iloc[-1])
 
         if elevation:
