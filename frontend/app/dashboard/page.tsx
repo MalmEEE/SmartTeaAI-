@@ -24,9 +24,9 @@ export default function OverviewPage() {
   useEffect(() => {
     Promise.all([
       cachedGet<ForecastResult>('/predict'),
-      cachedGet<{ data: PricePoint[] }>('/history'),
+      cachedGet<PricePoint[]>('/history'),
     ])
-      .then(([fc, hist]) => { setForecast(fc); setHistory(hist.data ?? []); })
+      .then(([fc, hist]) => { setForecast(fc); setHistory(hist); })
       .catch(() => setError('Could not load dashboard data.'))
       .finally(() => setLoading(false));
   }, []);
@@ -64,7 +64,14 @@ export default function OverviewPage() {
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         {forecast && (
-          <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 space-y-4">
+          <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 space-y-4 relative overflow-hidden">
+            {/* Decorative leaf */}
+            <img
+              src="/tea-leaf2.png"
+              alt=""
+              aria-hidden
+              className="pointer-events-none absolute -bottom-4 -right-4 w-48 opacity-50 rotate-6 select-none drop-shadow-lg"
+            />
             <h3 className="font-semibold text-white">Market Signal</h3>
             <div className="flex items-center gap-3 flex-wrap">
               <SignalBadge signal={forecast.recommendation.signal} />
@@ -90,7 +97,7 @@ export default function OverviewPage() {
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
               <XAxis dataKey="month" tick={{ fontSize: 10, fill: 'rgba(255,255,255,0.4)' }} interval={3} />
-              <YAxis tick={{ fontSize: 10, fill: 'rgba(255,255,255,0.4)' }} />
+              <YAxis tick={{ fontSize: 10, fill: 'rgba(255,255,255,0.4)' }} domain={['auto', 'auto']} />
               <Tooltip
                 contentStyle={{ background: 'rgba(10,30,10,0.85)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 10, fontSize: 12, color: '#fff' }}
                 formatter={(v) => [`LKR ${Number(v).toLocaleString()}`, 'Price']}

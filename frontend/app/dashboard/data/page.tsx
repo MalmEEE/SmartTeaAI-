@@ -18,12 +18,12 @@ export default function DataPage() {
 
   useEffect(() => {
     Promise.all([
-      cachedGet<{ data: PricePoint[] }>('/history'),
-      cachedGet<{ data: ElevationPricePoint[] }>('/history/elevation'),
+      cachedGet<PricePoint[]>('/history'),
+      cachedGet<ElevationPricePoint[]>('/history/elevation'),
     ])
       .then(([nat, elev]) => {
-        setNational((nat.data ?? []).slice().reverse());
-        setElevation((elev.data ?? []).slice().reverse());
+        setNational([...nat].reverse());
+        setElevation([...elev].reverse());
       })
       .catch(() => setError('Failed to load historical data.'))
       .finally(() => setLoading(false));

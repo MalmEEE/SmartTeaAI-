@@ -24,8 +24,8 @@ export default function EconomicPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    cachedGet<{ data: WeatherEconomicPoint[] }>('/history/weather-economic')
-      .then(r => setData(r.data ?? []))
+    cachedGet<WeatherEconomicPoint[]>('/history/weather-economic')
+      .then(r => setData(r))
       .catch(() => setError('Failed to load economic data.'))
       .finally(() => setLoading(false));
   }, []);
@@ -58,7 +58,7 @@ export default function EconomicPage() {
             <ComposedChart data={recent}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
               <XAxis dataKey="month" tick={{ fontSize: 9, fill: 'rgba(255,255,255,0.4)' }} interval={3} />
-              <YAxis tick={{ fontSize: 9, fill: 'rgba(255,255,255,0.4)' }} />
+              <YAxis tick={{ fontSize: 9, fill: 'rgba(255,255,255,0.4)' }} domain={['auto', 'auto']} />
               <Tooltip contentStyle={TOOLTIP_STYLE} />
               <Bar dataKey="rainfall_mm" fill="#6ee7b7" radius={[3,3,0,0]} name="Rainfall mm" />
             </ComposedChart>

@@ -26,8 +26,8 @@ export default function SeasonalPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    cachedGet<{ data: PricePoint[] }>('/history')
-      .then(r => setData(r.data ?? []))
+    cachedGet<PricePoint[]>('/history')
+      .then(r => setData(r))
       .catch(() => setError('Failed to load seasonal data.'))
       .finally(() => setLoading(false));
   }, []);
@@ -85,7 +85,7 @@ export default function SeasonalPage() {
           <BarChart data={monthlyAvg}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
             <XAxis dataKey="month" tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.4)' }} />
-            <YAxis tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.4)' }} />
+            <YAxis tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.4)' }} domain={['auto', 'auto']} />
             <Tooltip
               contentStyle={TOOLTIP_STYLE}
               formatter={(v) => [`LKR ${Number(v).toFixed(0)}`, 'Avg Price']}
@@ -102,7 +102,7 @@ export default function SeasonalPage() {
           <LineChart data={yoyData}>
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
             <XAxis dataKey="month" tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.4)' }} />
-            <YAxis tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.4)' }} />
+            <YAxis tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.4)' }} domain={['auto', 'auto']} />
             <Tooltip contentStyle={TOOLTIP_STYLE} />
             <Legend />
             {recentYears.map((y, i) => (

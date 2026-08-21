@@ -31,8 +31,8 @@ export default function SentimentPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    cachedGet<{ data: SentimentPoint[] }>('/history/sentiment')
-      .then(r => setData(r.data ?? []))
+    cachedGet<SentimentPoint[]>('/history/sentiment')
+      .then(r => setData(Array.isArray(r) ? r : []))
       .catch(() => setError('Failed to load sentiment data.'))
       .finally(() => setLoading(false));
   }, []);

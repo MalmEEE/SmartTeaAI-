@@ -29,11 +29,11 @@ export default function ForecastPage() {
   useEffect(() => {
     Promise.all([
       cachedGet<ForecastResult>('/predict'),
-      cachedGet<{ data: PricePoint[] }>('/history'),
+      cachedGet<PricePoint[]>('/history'),
     ])
       .then(([forecast, hist]) => {
         setForecast(forecast);
-        setHistory(hist.data ?? []);
+        setHistory(hist);
       })
       .catch(() => setError('Failed to load forecast data.'))
       .finally(() => setLoading(false));
@@ -129,7 +129,7 @@ export default function ForecastPage() {
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
                   <XAxis dataKey="month" tick={{ fontSize: 10, fill: 'rgba(255,255,255,0.4)' }} interval={2} />
-                  <YAxis tick={{ fontSize: 10, fill: 'rgba(255,255,255,0.4)' }} />
+                  <YAxis tick={{ fontSize: 10, fill: 'rgba(255,255,255,0.4)' }} domain={['auto', 'auto']} />
                   <Tooltip contentStyle={TOOLTIP_STYLE} />
                   <Legend />
                   <Area

@@ -42,11 +42,11 @@ export default function ElevationPage() {
       cachedGet<ForecastResult>('/predict?elevation=high'),
       cachedGet<ForecastResult>('/predict?elevation=medium'),
       cachedGet<ForecastResult>('/predict?elevation=low'),
-      cachedGet<{ data: ElevationPricePoint[] }>('/history/elevation'),
+      cachedGet<ElevationPricePoint[]>('/history/elevation'),
     ])
       .then(([hi, me, lo, hist]) => {
         setForecasts({ high: hi, medium: me, low: lo });
-        setHistory(hist.data ?? []);
+        setHistory(hist);
       })
       .catch(() => setError('Failed to load elevation forecasts.'))
       .finally(() => setLoading(false));
@@ -136,7 +136,7 @@ export default function ElevationPage() {
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
               <XAxis dataKey="month" tick={{ fontSize: 10, fill: 'rgba(255,255,255,0.4)' }} interval={3} />
-              <YAxis tick={{ fontSize: 10, fill: 'rgba(255,255,255,0.4)' }} />
+              <YAxis tick={{ fontSize: 10, fill: 'rgba(255,255,255,0.4)' }} domain={['auto', 'auto']} />
               <Tooltip contentStyle={TOOLTIP_STYLE} />
               <Legend />
               <Line type="monotone" dataKey="price_high"   stroke="#6ee7b7" strokeWidth={2} dot={false} name="High Grown" />
