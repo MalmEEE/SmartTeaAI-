@@ -41,6 +41,13 @@ export interface WeatherEconomicPoint {
   split: 'train' | 'val' | 'test';
 }
 
+export interface SentimentPoint {
+  month: string;
+  sentiment_score: number;
+  article_count: number;
+}
+
+
 @Injectable()
 export class HistoryService {
 
@@ -141,4 +148,31 @@ export class HistoryService {
         return { status: 'error', message: `Failed to read model info: ${(err as Error).message}` };
       }
     }
+
+    getSentimentHistory(): SentimentPoint[] | { status: string; message: string } {
+    const filePath = path.join(DATA_DIR, 'sentiment_monthly.csv');
+    try {
+      if (!fs.existsSync(filePath)) {
+        return {
+          status: 'not_available',
+          message: 'No sentiment data yet — run collect_sentiment.py to generate it',
+        };
+      }
+
+      const raw = fs.readFileSync(filePath, 'utf-8');
+      const records = parse(raw, { columns: true, skip_empty_lines: true }) as Record<string, string>[];
+
+      const result: SentimentPoint[] = records
+        .filter((row) => row['year_month'])
+        .map((row) => ({
+          month: row['year_month'].slice(0, 7),
+          sentiment_score: parseFloat(row['sentiment_score']),
+          article_count: parseInt(row['article_count'], 10),
+        }));
+
+      return result.sort((a, b) => a.month.localeCompare(b.month));
+    } catch (err) {
+      return { status: 'error', message: `Failed to read sentiment data: ${(err as Error).message}` };
+    }
+  }
 }

@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { AdminModule } from './admin/admin.module';
 import { User } from './users/user.entity';
 import { RoleRequest } from './users/role-request.entity';
+import { ReportsModule } from './reports/reports.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { RoleRequest } from './users/role-request.entity';
     PredictionModule,
     HistoryModule,
     ExplainabilityModule,
+    ReportsModule,
   ],
   controllers: [AppController],
   providers:   [AppService],
