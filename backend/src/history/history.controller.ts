@@ -31,4 +31,10 @@ export class HistoryController {
   getModelInfo() {
     return this.history.getModelInfo();
   }
+
+  @Get('history/sentiment')
+  @Roles(UserRole.BROKER, UserRole.EXPORTER, UserRole.BUYER, UserRole.ANALYST, UserRole.ADMIN)
+  getSentimentHistory() {
+    return this.history.getSentimentHistory();
+  }
 }
