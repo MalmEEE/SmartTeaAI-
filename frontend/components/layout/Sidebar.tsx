@@ -13,18 +13,18 @@ interface NavItem {
 }
 
 const NAV: NavItem[] = [
-  { href: '/dashboard',              label: 'Overview',        icon: '🏠' },
-  { href: '/dashboard/forecast',     label: 'Forecast',        icon: '📈' },
-  { href: '/dashboard/elevation',    label: 'Elevation Levels',icon: '⛰️' },
-  { href: '/dashboard/seasonal',     label: 'Seasonal Trends', icon: '📅' },
-  { href: '/dashboard/economic',     label: 'Economic Factors',icon: '💱' },
-  { href: '/dashboard/whatif',       label: 'What-If',         icon: '🔬', roles: ['broker','exporter','buyer','analyst','admin'] },
-  { href: '/dashboard/sentiment',    label: 'Sentiment',       icon: '📰', roles: ['broker','exporter','buyer','analyst','admin'] },
-  { href: '/dashboard/model',        label: 'Model Info',      icon: '🤖', roles: ['analyst','admin'] },
-  { href: '/dashboard/reports',      label: 'Reports',         icon: '📄' },
-  { href: '/dashboard/data',         label: 'Historical Data', icon: '🗄️' },
-  { href: '/dashboard/alerts',       label: 'Alerts',          icon: '🔔' },
-  { href: '/dashboard/admin',        label: 'Admin',           icon: '⚙️', roles: ['admin'] },
+  { href: '/dashboard',              label: 'Overview',         icon: '🏠' },
+  { href: '/dashboard/forecast',     label: 'Forecast',         icon: '📈' },
+  { href: '/dashboard/elevation',    label: 'Elevation Levels', icon: '⛰️' },
+  { href: '/dashboard/seasonal',     label: 'Seasonal Trends',  icon: '📅' },
+  { href: '/dashboard/economic',     label: 'Economic Factors', icon: '💱' },
+  { href: '/dashboard/whatif',       label: 'What-If',          icon: '🔬', roles: ['broker','exporter','buyer','analyst','admin'] },
+  { href: '/dashboard/sentiment',    label: 'Sentiment',        icon: '📰', roles: ['broker','exporter','buyer','analyst','admin'] },
+  { href: '/dashboard/model',        label: 'Model Info',       icon: '🤖', roles: ['analyst','admin'] },
+  { href: '/dashboard/reports',      label: 'Reports',          icon: '📄' },
+  { href: '/dashboard/data',         label: 'Historical Data',  icon: '🗄️' },
+  { href: '/dashboard/alerts',       label: 'Alerts',           icon: '🔔' },
+  { href: '/dashboard/admin',        label: 'Admin',            icon: '⚙️', roles: ['admin'] },
 ];
 
 export function Sidebar() {
@@ -34,15 +34,17 @@ export function Sidebar() {
   const visible = NAV.filter(n => !n.roles || can(...n.roles));
 
   return (
-    <aside className="w-64 shrink-0 h-screen sticky top-0 flex flex-col bg-[var(--tea-dark)] text-white overflow-y-auto">
+    <aside
+      className="w-64 shrink-0 h-screen sticky top-0 flex flex-col overflow-y-auto z-20
+        border-r border-white/10"
+      style={{ background: 'rgba(10, 30, 10, 0.55)', backdropFilter: 'blur(20px)' }}
+    >
       {/* Logo */}
-      <div className="px-5 py-5 border-b border-white/10">
-        <div className="flex items-center gap-3">
-          <span className="text-2xl">🍃</span>
-          <div>
-            <p className="font-bold text-lg leading-tight">SmartTeaAI</p>
-            <p className="text-xs text-white/50">Price Intelligence</p>
-          </div>
+      <div className="px-5 py-5 border-b border-white/10 flex items-center gap-3">
+        <img src="/tea-leaf.png" alt="" className="w-9 h-9 object-contain" />
+        <div>
+          <p className="font-bold text-white text-base leading-tight">SmartTeaAI</p>
+          <p className="text-[10px] text-white/40 uppercase tracking-wider">Price Intelligence</p>
         </div>
       </div>
 
@@ -56,10 +58,10 @@ export function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150
                 ${active
-                  ? 'bg-white/15 text-white'
-                  : 'text-white/70 hover:text-white hover:bg-white/8'
+                  ? 'bg-white/15 text-white shadow-sm backdrop-blur-sm'
+                  : 'text-white/60 hover:text-white hover:bg-white/8'
                 }`}
             >
               <span className="text-base w-5 text-center shrink-0">{item.icon}</span>
@@ -73,13 +75,13 @@ export function Sidebar() {
       {user && (
         <div className="px-4 py-4 border-t border-white/10 space-y-3">
           <div>
-            <p className="text-xs font-medium text-white/90 truncate">{user.name || user.email}</p>
-            <p className="text-xs text-white/50 capitalize mt-0.5">{user.role}</p>
+            <p className="text-sm font-medium text-white truncate">{user.name || user.email}</p>
+            <p className="text-xs text-white/40 capitalize mt-0.5">{user.role}</p>
           </div>
           <button
             onClick={logout}
-            className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm
-              text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+            className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm
+              text-white/60 hover:text-white hover:bg-white/10 transition-colors"
           >
             <span className="text-base">↩</span>
             Sign out

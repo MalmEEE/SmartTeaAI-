@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { cachedGet } from '@/lib/cache';
 import type { ForecastResult, PricePoint } from '@/types';
-import { Card, CardHeader, CardBody, KpiCard } from '@/components/ui/Card';
+import { KpiCard } from '@/components/ui/Card';
 import { RiskBadge, SignalBadge } from '@/components/ui/Badge';
 import { CardSkeleton, ChartSkeleton } from '@/components/ui/Skeleton';
 import { ErrorState } from '@/components/ui/NotAvailable';
@@ -11,6 +11,14 @@ import {
   ResponsiveContainer, ComposedChart, Line, Area, Bar,
   XAxis, YAxis, Tooltip, CartesianGrid, Legend,
 } from 'recharts';
+
+const TOOLTIP_STYLE = {
+  background: 'rgba(10,30,10,0.85)',
+  border: '1px solid rgba(255,255,255,0.15)',
+  borderRadius: 10,
+  fontSize: 12,
+  color: '#fff',
+};
 
 export default function ForecastPage() {
   const [forecast, setForecast] = useState<ForecastResult | null>(null);
@@ -52,7 +60,7 @@ export default function ForecastPage() {
 
   if (loading) return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-[var(--text)]">National Price Forecast</h1>
+      <h1 className="text-2xl font-bold text-white">National Price Forecast</h1>
       <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
         {[1,2,3,4].map(i => <CardSkeleton key={i} />)}
       </div>
@@ -65,8 +73,8 @@ export default function ForecastPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[var(--text)]">National Price Forecast</h1>
-        <p className="text-sm text-[var(--muted)] mt-0.5">Sri Lanka tea auction — national average</p>
+        <h1 className="text-2xl font-bold text-white">National Price Forecast</h1>
+        <p className="text-sm text-white/50 mt-0.5">Sri Lanka tea auction — national average</p>
       </div>
 
       {forecast && (
@@ -96,40 +104,39 @@ export default function ForecastPage() {
             />
           </div>
 
-          {/* Signal card */}
+          {/* Signal card + chart */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-white rounded-xl border border-[var(--border)] shadow-sm p-5 space-y-3 md:col-span-1">
-              <h3 className="font-semibold text-[var(--text)]">Recommendation</h3>
+            <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-5 space-y-3 md:col-span-1">
+              <h3 className="font-semibold text-white">Recommendation</h3>
               <div className="flex gap-2 flex-wrap">
                 <SignalBadge signal={forecast.recommendation.signal} />
                 <RiskBadge level={forecast.risk_level} />
               </div>
-              <p className="text-sm text-[var(--muted)] leading-relaxed">
+              <p className="text-sm text-white/60 leading-relaxed">
                 {forecast.recommendation.justification}
               </p>
             </div>
 
-            {/* Chart */}
-            <div className="bg-white rounded-xl border border-[var(--border)] shadow-sm p-5 md:col-span-2">
-              <h3 className="font-semibold text-[var(--text)] mb-4">Price History + Forecast</h3>
+            <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-5 md:col-span-2">
+              <h3 className="font-semibold text-white mb-4">Price History + Forecast</h3>
               <ResponsiveContainer width="100%" height={260}>
                 <ComposedChart data={chartData}>
                   <defs>
                     <linearGradient id="histGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#2D6A2D" stopOpacity={0.15} />
-                      <stop offset="95%" stopColor="#2D6A2D" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#6ee7b7" stopOpacity={0.25} />
+                      <stop offset="95%" stopColor="#6ee7b7" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#EDE9E2" />
-                  <XAxis dataKey="month" tick={{ fontSize: 10, fill: '#6B7280' }} interval={2} />
-                  <YAxis tick={{ fontSize: 10, fill: '#6B7280' }} />
-                  <Tooltip contentStyle={{ fontSize: 12, borderColor: '#DDD8CF', borderRadius: 8 }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
+                  <XAxis dataKey="month" tick={{ fontSize: 10, fill: 'rgba(255,255,255,0.4)' }} interval={2} />
+                  <YAxis tick={{ fontSize: 10, fill: 'rgba(255,255,255,0.4)' }} />
+                  <Tooltip contentStyle={TOOLTIP_STYLE} />
                   <Legend />
                   <Area
-                    type="monotone" dataKey="historical" stroke="#2D6A2D" strokeWidth={2}
+                    type="monotone" dataKey="historical" stroke="#6ee7b7" strokeWidth={2}
                     fill="url(#histGrad)" name="Historical" connectNulls
                   />
-                  <Bar dataKey="forecast" fill="#C49A00" name="Forecast" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="forecast" fill="#fde68a" name="Forecast" radius={[4, 4, 0, 0]} />
                 </ComposedChart>
               </ResponsiveContainer>
             </div>

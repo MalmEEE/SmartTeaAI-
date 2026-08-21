@@ -25,10 +25,10 @@ const DEFAULTS: WhatIfParams = {
 };
 
 const FIELDS: { key: keyof WhatIfParams; label: string; unit: string; step: string }[] = [
-  { key: 'usd_lkr_avg',   label: 'USD/LKR Rate',       unit: 'LKR',  step: '1'   },
-  { key: 'oil_price',      label: 'Oil Price',           unit: 'USD/bbl', step: '1' },
-  { key: 'mombasa_usd_kg', label: 'Mombasa Tea Price',  unit: 'USD/kg', step: '0.01' },
-  { key: 'rainfall_mm',   label: 'Rainfall',             unit: 'mm',   step: '5'   },
+  { key: 'usd_lkr_avg',   label: 'USD/LKR Rate',       unit: 'LKR',     step: '1'    },
+  { key: 'oil_price',      label: 'Oil Price',           unit: 'USD/bbl', step: '1'    },
+  { key: 'mombasa_usd_kg', label: 'Mombasa Tea Price',  unit: 'USD/kg',  step: '0.01' },
+  { key: 'rainfall_mm',   label: 'Rainfall',             unit: 'mm',      step: '5'    },
 ];
 
 export default function WhatIfPage() {
@@ -47,10 +47,10 @@ export default function WhatIfPage() {
     setLoading(true);
     try {
       const body: Record<string, unknown> = {
-        usd_lkr_avg:   parseFloat(params.usd_lkr_avg),
-        oil_price:     parseFloat(params.oil_price),
-        mombasa_usd_kg:parseFloat(params.mombasa_usd_kg),
-        rainfall_mm:   parseFloat(params.rainfall_mm),
+        usd_lkr_avg:    parseFloat(params.usd_lkr_avg),
+        oil_price:      parseFloat(params.oil_price),
+        mombasa_usd_kg: parseFloat(params.mombasa_usd_kg),
+        rainfall_mm:    parseFloat(params.rainfall_mm),
       };
       if (params.elevation !== 'none') body.elevation = params.elevation;
       const r = await api.post<ForecastResult>('/predict/whatif', body);
@@ -65,51 +65,54 @@ export default function WhatIfPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[var(--text)]">What-If Simulator</h1>
-        <p className="text-sm text-[var(--muted)] mt-0.5">Adjust economic and weather inputs to simulate price scenarios</p>
+        <h1 className="text-2xl font-bold text-white">What-If Simulator</h1>
+        <p className="text-sm text-white/50 mt-0.5">Adjust economic and weather inputs to simulate price scenarios</p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
         {/* Input form */}
-        <form onSubmit={run} className="bg-white rounded-xl border border-[var(--border)] shadow-sm p-6 space-y-5">
-          <h3 className="font-semibold text-[var(--text)]">Scenario Parameters</h3>
+        <form onSubmit={run} className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 space-y-5">
+          <h3 className="font-semibold text-white">Scenario Parameters</h3>
 
           {FIELDS.map(f => (
             <div key={f.key}>
-              <label className="block text-sm font-medium text-[var(--text)] mb-1">
-                {f.label} <span className="text-[var(--muted)] font-normal">({f.unit})</span>
+              <label className="block text-sm font-medium text-white mb-1">
+                {f.label} <span className="text-white/50 font-normal">({f.unit})</span>
               </label>
               <input
                 type="number"
                 step={f.step}
                 value={params[f.key]}
                 onChange={e => update(f.key, e.target.value)}
-                className="w-full px-3.5 py-2 rounded-lg border border-[var(--border)] text-sm
-                  focus:outline-none focus:ring-2 focus:ring-[var(--tea)]/30 focus:border-[var(--tea)]"
+                className="w-full px-3.5 py-2 bg-white/10 border border-white/20 text-white placeholder-white/30 rounded-xl focus:border-white/40 focus:bg-white/15 focus:outline-none text-sm"
               />
             </div>
           ))}
 
           <div>
-            <label className="block text-sm font-medium text-[var(--text)] mb-1">Elevation (optional)</label>
+            <label className="block text-sm font-medium text-white mb-1">Elevation (optional)</label>
             <select
               value={params.elevation}
               onChange={e => update('elevation', e.target.value)}
-              className="w-full px-3.5 py-2 rounded-lg border border-[var(--border)] text-sm
-                focus:outline-none focus:ring-2 focus:ring-[var(--tea)]/30 focus:border-[var(--tea)] bg-white"
+              className="w-full px-3.5 py-2 bg-white/10 border border-white/20 text-white rounded-xl focus:border-white/40 focus:bg-white/15 focus:outline-none text-sm"
             >
-              <option value="none">National average</option>
-              <option value="high">High Grown</option>
-              <option value="medium">Medium Grown</option>
-              <option value="low">Low Grown</option>
+              <option value="none" className="bg-[#1a3d1a]">National average</option>
+              <option value="high" className="bg-[#1a3d1a]">High Grown</option>
+              <option value="medium" className="bg-[#1a3d1a]">Medium Grown</option>
+              <option value="low" className="bg-[#1a3d1a]">Low Grown</option>
             </select>
           </div>
 
           {error && (
-            <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm">{error}</div>
+            <div className="p-3 rounded-xl bg-red-400/10 border border-red-400/20 text-red-300 text-sm">{error}</div>
           )}
 
-          <Button type="submit" loading={loading} className="w-full justify-center" size="lg">
+          <Button
+            type="submit"
+            loading={loading}
+            className="w-full justify-center bg-white text-[#1e4a1e] font-semibold hover:bg-white/90"
+            size="lg"
+          >
             Run Simulation
           </Button>
         </form>
@@ -117,10 +120,10 @@ export default function WhatIfPage() {
         {/* Result */}
         <div>
           {!result ? (
-            <div className="h-full flex items-center justify-center rounded-xl border-2 border-dashed border-[var(--border)] p-10 text-center">
+            <div className="h-full flex items-center justify-center rounded-2xl border-2 border-dashed border-white/15 p-10 text-center">
               <div>
                 <span className="text-4xl block mb-3">🔬</span>
-                <p className="text-[var(--muted)] text-sm">Set your parameters and run the simulation to see results</p>
+                <p className="text-white/50 text-sm">Set your parameters and run the simulation to see results</p>
               </div>
             </div>
           ) : (
@@ -148,12 +151,12 @@ export default function WhatIfPage() {
                   sub={result.model}
                 />
               </div>
-              <div className="bg-white rounded-xl border border-[var(--border)] shadow-sm p-5 space-y-3">
+              <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-5 space-y-3">
                 <div className="flex gap-2 flex-wrap">
                   <SignalBadge signal={result.recommendation.signal} />
                   <RiskBadge level={result.risk_level} />
                 </div>
-                <p className="text-sm text-[var(--muted)] leading-relaxed">
+                <p className="text-sm text-white/60 leading-relaxed">
                   {result.recommendation.justification}
                 </p>
               </div>

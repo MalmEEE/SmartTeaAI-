@@ -12,6 +12,14 @@ import {
 
 const MONTH_LABELS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
+const TOOLTIP_STYLE = {
+  background: 'rgba(10,30,10,0.85)',
+  border: '1px solid rgba(255,255,255,0.15)',
+  borderRadius: 10,
+  fontSize: 12,
+  color: '#fff',
+};
+
 export default function SeasonalPage() {
   const [data, setData] = useState<PricePoint[]>([]);
   const [loading, setLoading] = useState(true);
@@ -51,11 +59,11 @@ export default function SeasonalPage() {
   }, [data]);
 
   const recentYears = [...new Set(data.map(p => p.month.slice(0, 4)))].slice(-3);
-  const yearColors = ['#2D6A2D', '#C49A00', '#C0392B'];
+  const yearColors = ['#6ee7b7', '#fde68a', '#fca5a5'];
 
   if (loading) return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-[var(--text)]">Seasonal Trends</h1>
+      <h1 className="text-2xl font-bold text-white">Seasonal Trends</h1>
       <ChartSkeleton height="h-72" />
       <ChartSkeleton height="h-72" />
     </div>
@@ -66,36 +74,36 @@ export default function SeasonalPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[var(--text)]">Seasonal Trends</h1>
-        <p className="text-sm text-[var(--muted)] mt-0.5">Average price by month and year-over-year comparison</p>
+        <h1 className="text-2xl font-bold text-white">Seasonal Trends</h1>
+        <p className="text-sm text-white/50 mt-0.5">Average price by month and year-over-year comparison</p>
       </div>
 
       {/* Monthly avg bar */}
-      <div className="bg-white rounded-xl border border-[var(--border)] shadow-sm p-6">
-        <h3 className="font-semibold text-[var(--text)] mb-4">Average Price by Month (all years)</h3>
+      <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6">
+        <h3 className="font-semibold text-white mb-4">Average Price by Month (all years)</h3>
         <ResponsiveContainer width="100%" height={260}>
           <BarChart data={monthlyAvg}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#EDE9E2" />
-            <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#6B7280' }} />
-            <YAxis tick={{ fontSize: 11, fill: '#6B7280' }} />
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
+            <XAxis dataKey="month" tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.4)' }} />
+            <YAxis tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.4)' }} />
             <Tooltip
-              contentStyle={{ fontSize: 12, borderColor: '#DDD8CF', borderRadius: 8 }}
+              contentStyle={TOOLTIP_STYLE}
               formatter={(v) => [`LKR ${Number(v).toFixed(0)}`, 'Avg Price']}
             />
-            <Bar dataKey="avg" fill="#2D6A2D" radius={[4, 4, 0, 0]} name="Avg Price" />
+            <Bar dataKey="avg" fill="#6ee7b7" radius={[4, 4, 0, 0]} name="Avg Price" />
           </BarChart>
         </ResponsiveContainer>
       </div>
 
       {/* YoY line */}
-      <div className="bg-white rounded-xl border border-[var(--border)] shadow-sm p-6">
-        <h3 className="font-semibold text-[var(--text)] mb-4">Year-over-Year Comparison</h3>
+      <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6">
+        <h3 className="font-semibold text-white mb-4">Year-over-Year Comparison</h3>
         <ResponsiveContainer width="100%" height={260}>
           <LineChart data={yoyData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#EDE9E2" />
-            <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#6B7280' }} />
-            <YAxis tick={{ fontSize: 11, fill: '#6B7280' }} />
-            <Tooltip contentStyle={{ fontSize: 12, borderColor: '#DDD8CF', borderRadius: 8 }} />
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" />
+            <XAxis dataKey="month" tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.4)' }} />
+            <YAxis tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.4)' }} />
+            <Tooltip contentStyle={TOOLTIP_STYLE} />
             <Legend />
             {recentYears.map((y, i) => (
               <Line
@@ -106,7 +114,7 @@ export default function SeasonalPage() {
             ))}
           </LineChart>
         </ResponsiveContainer>
-        <p className="text-xs text-[var(--muted)] mt-2">Showing last 3 years</p>
+        <p className="text-xs text-white/50 mt-2">Showing last 3 years</p>
       </div>
     </div>
   );

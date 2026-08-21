@@ -56,29 +56,29 @@ export default function ReportsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[var(--text)]">Reports</h1>
-        <p className="text-sm text-[var(--muted)] mt-0.5">Export PDF and CSV reports for offline use</p>
+        <h1 className="text-2xl font-bold text-white">Reports</h1>
+        <p className="text-sm text-white/50 mt-0.5">Export PDF and CSV reports for offline use</p>
       </div>
 
       {error && (
-        <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm">{error}</div>
+        <div className="p-3 rounded-xl bg-red-400/10 border border-red-400/20 text-red-300 text-sm">{error}</div>
       )}
 
       <div className="grid md:grid-cols-3 gap-5">
         {REPORTS.map(r => (
-          <div key={r.key} className="bg-white rounded-xl border border-[var(--border)] shadow-sm p-6 flex flex-col gap-4">
-            <div className="w-12 h-12 rounded-xl bg-[var(--cream)] flex items-center justify-center text-2xl">
+          <div key={r.key} className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 flex flex-col gap-4">
+            <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-2xl">
               {r.icon}
             </div>
             <div>
-              <h3 className="font-semibold text-[var(--text)]">{r.label}</h3>
-              <p className="text-sm text-[var(--muted)] mt-1 leading-relaxed">{r.desc}</p>
+              <h3 className="font-semibold text-white">{r.label}</h3>
+              <p className="text-sm text-white/60 mt-1 leading-relaxed">{r.desc}</p>
             </div>
             <Button
               variant="secondary"
               loading={loading === r.key}
               onClick={() => download(r.key)}
-              className="mt-auto"
+              className="mt-auto bg-white/15 border border-white/25 text-white hover:bg-white/25"
             >
               {r.key === 'history' ? '↓ Download CSV' : '↓ Download PDF'}
             </Button>
@@ -86,10 +86,10 @@ export default function ReportsPage() {
         ))}
       </div>
 
-      <div className="bg-[var(--cream-d)] rounded-xl p-5 text-sm text-[var(--muted)] space-y-1">
-        <p className="font-medium text-[var(--text)]">Note</p>
-        <p>Reports are generated on-demand from the latest model predictions and historical data.</p>
-        <p>CSV exports open in Excel or Google Sheets. PDF reports include charts and analysis summaries.</p>
+      <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-5 text-sm space-y-1">
+        <p className="font-medium text-white">Note</p>
+        <p className="text-white/60">Reports are generated on-demand from the latest model predictions and historical data.</p>
+        <p className="text-white/60">CSV exports open in Excel or Google Sheets. PDF reports include charts and analysis summaries.</p>
       </div>
     </div>
   );

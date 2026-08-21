@@ -45,7 +45,7 @@ function buildAlerts(f: ForecastResult): Alert[] {
   if (Math.abs(f.change_pct) > 10) {
     alerts.push({
       id: 'swing',
-      title: `Large Price Movement Detected`,
+      title: 'Large Price Movement Detected',
       body: `Forecast shows ${Math.abs(f.change_pct).toFixed(1)}% ${f.change_pct > 0 ? 'increase' : 'decline'} from last known price of LKR ${f.last_known_price_rs.toFixed(0)}.`,
       ts: now,
       type: 'risk',
@@ -81,14 +81,14 @@ export default function AlertsPage() {
     info:  'ℹ️',
   };
   const typeBg: Record<Alert['type'], string> = {
-    price: 'bg-[#e8f4e8]',
-    risk:  'bg-[#fdf6d8]',
-    info:  'bg-[var(--cream-d)]',
+    price: 'bg-emerald-400/10',
+    risk:  'bg-yellow-400/10',
+    info:  'bg-white/5',
   };
 
   if (loading) return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-[var(--text)]">Alerts</h1>
+      <h1 className="text-2xl font-bold text-white">Alerts</h1>
       {[1,2,3].map(i => <CardSkeleton key={i} />)}
     </div>
   );
@@ -98,32 +98,32 @@ export default function AlertsPage() {
   return (
     <div className="space-y-5">
       <div>
-        <h1 className="text-2xl font-bold text-[var(--text)]">Alerts</h1>
-        <p className="text-sm text-[var(--muted)] mt-0.5">Real-time market signals and forecast alerts</p>
+        <h1 className="text-2xl font-bold text-white">Alerts</h1>
+        <p className="text-sm text-white/50 mt-0.5">Real-time market signals and forecast alerts</p>
       </div>
 
       {alerts.length === 0 && (
-        <div className="text-center py-20 text-[var(--muted)]">No alerts at this time.</div>
+        <div className="text-center py-20 text-white/50">No alerts at this time.</div>
       )}
 
       <div className="space-y-3">
         {alerts.map(a => (
           <div
             key={a.id}
-            className="bg-white rounded-xl border border-[var(--border)] shadow-sm p-5 flex gap-4"
+            className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-5 flex gap-4"
           >
-            <div className={`w-10 h-10 rounded-lg ${typeBg[a.type]} flex items-center justify-center text-lg shrink-0`}>
+            <div className={`w-10 h-10 rounded-xl ${typeBg[a.type]} flex items-center justify-center text-lg shrink-0`}>
               {typeIcon[a.type]}
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-start justify-between gap-2">
-                <p className="font-medium text-[var(--text)] text-sm">{a.title}</p>
+                <p className="font-medium text-white text-sm">{a.title}</p>
                 <div className="flex gap-1.5 shrink-0">
                   {a.signal && <SignalBadge signal={a.signal} />}
                   {a.risk && <RiskBadge level={a.risk} />}
                 </div>
               </div>
-              <p className="text-sm text-[var(--muted)] mt-1 leading-relaxed">{a.body}</p>
+              <p className="text-sm text-white/60 mt-1 leading-relaxed">{a.body}</p>
             </div>
           </div>
         ))}

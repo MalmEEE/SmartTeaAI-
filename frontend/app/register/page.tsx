@@ -38,7 +38,7 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-[var(--cream)] flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <span className="text-5xl">🍃</span>
+          <img src="/tea-leaf.png" alt="SmartTeaAI" className="w-40 h-40 object-contain mx-auto" />
           <h1 className="text-2xl font-bold text-[var(--tea-dark)] mt-3">Create Account</h1>
           <p className="text-[var(--muted)] text-sm mt-1">Join SmartTeaAI as a Farmer (default role)</p>
         </div>

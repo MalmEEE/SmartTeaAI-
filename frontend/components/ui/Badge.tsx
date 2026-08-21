@@ -1,13 +1,13 @@
 type Variant = 'tea' | 'gold' | 'red' | 'gray' | 'risk-low' | 'risk-mid' | 'risk-high';
 
 const styles: Record<Variant, string> = {
-  tea:        'bg-[#e8f4e8] text-[#2D6A2D] border border-[#2D6A2D]/20',
-  gold:       'bg-[#fdf6d8] text-[#8a6d00] border border-[#C49A00]/30',
-  red:        'bg-[#fdecea] text-[#C0392B] border border-[#C0392B]/20',
-  gray:       'bg-[var(--cream-d)] text-[var(--muted)] border border-[var(--border)]',
-  'risk-low': 'bg-[#e8f4e8] text-[#2D6A2D] border border-[#2D6A2D]/20',
-  'risk-mid': 'bg-[#fdf6d8] text-[#8a6d00] border border-[#C49A00]/30',
-  'risk-high':'bg-[#fdecea] text-[#C0392B] border border-[#C0392B]/20',
+  tea:         'bg-emerald-400/20 text-emerald-300 border border-emerald-400/30',
+  gold:        'bg-yellow-400/20  text-yellow-300  border border-yellow-400/30',
+  red:         'bg-red-400/20     text-red-300     border border-red-400/30',
+  gray:        'bg-white/10       text-white/60    border border-white/15',
+  'risk-low':  'bg-emerald-400/20 text-emerald-300 border border-emerald-400/30',
+  'risk-mid':  'bg-yellow-400/20  text-yellow-300  border border-yellow-400/30',
+  'risk-high': 'bg-red-400/20     text-red-300     border border-red-400/30',
 };
 
 export function Badge({ children, variant = 'gray' }: { children: React.ReactNode; variant?: Variant }) {
@@ -20,7 +20,7 @@ export function Badge({ children, variant = 'gray' }: { children: React.ReactNod
 
 export function RiskBadge({ level }: { level: 'Low' | 'Medium' | 'High' }) {
   const v = level === 'Low' ? 'risk-low' : level === 'Medium' ? 'risk-mid' : 'risk-high';
-  const dot = level === 'Low' ? '#2D6A2D' : level === 'Medium' ? '#C49A00' : '#C0392B';
+  const dot = level === 'Low' ? '#6ee7b7' : level === 'Medium' ? '#fde68a' : '#fca5a5';
   return (
     <Badge variant={v}>
       <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: dot }} />

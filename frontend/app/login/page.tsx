@@ -34,8 +34,8 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <span className="text-5xl">🍃</span>
-          <h1 className="text-2xl font-bold text-[var(--tea-dark)] mt-3">SmartTeaAI</h1>
+          <img src="/tea-leaf.png" alt="SmartTeaAI" className="w-40 h-40 object-contain mx-auto" />
+          <h1 className="text-2xl font-bold text-[var(--tea-dark)] -mt-10">SmartTeaAI</h1>
           <p className="text-[var(--muted)] text-sm mt-1">Sign in to your account</p>
         </div>
 
