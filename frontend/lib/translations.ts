@@ -108,6 +108,53 @@ export const T: Record<string, Tr> = {
   alerts:      { en: 'Alerts',       si: 'දැනුම්දීම්',       ta: 'எச்சரிக்கைகள்'     },
   reports:     { en: 'Reports',      si: 'වාර්තා',           ta: 'அறிக்கைகள்'        },
   signOut:     { en: 'Sign out',     si: 'ඉවත් වෙන්න',       ta: 'வெளியேறு'          },
+
+  // ── Alerts page (farmer-specific) ──────────────────────────────
+  alertsSubtitle: {
+    en: 'Price signals for your tea',
+    si: 'ඔබේ තේ සඳහා මිල සංඥා',
+    ta: 'உங்கள் தேயிலைக்கான விலை சமிக்ஞைகள்',
+  },
+  alertRiskHTitle: {
+    en: 'High Price Risk',
+    si: 'ඉහළ මිල අවදානම',
+    ta: 'அதிக விலை ஆபத்து',
+  },
+  alertRiskHBody: {
+    en: 'Risk is currently high — prices may change more than usual this month. Be cautious about large commitments.',
+    si: 'දැනට මිල අවදානම ඉහළයි — මෙම මාසයේ මිල සාමාන්‍යයට වඩා වෙනස් විය හැක. විශාල තීරණ ගැනීමේදී ප්‍රවේශමෙන් සිටින්න.',
+    ta: 'தற்போது விலை ஆபத்து அதிகமாக உள்ளது — இந்த மாதம் விலைகள் வழக்கத்திற்கு மாறாக மாறலாம். பெரிய முடிவுகளில் கவனமாக இருங்கள்.',
+  },
+  alertRiskMTitle: {
+    en: 'Moderate Price Uncertainty',
+    si: 'මධ්‍යස්ථ මිල අවිනිශ්චිතතාව',
+    ta: 'மிதமான விலை நிச்சயமின்மை',
+  },
+  alertRiskMBody: {
+    en: 'Prices are somewhat uncertain this month. Consider your options carefully before deciding when to sell.',
+    si: 'මෙම මාසයේ මිල යම් තරමකට අස්ථිර ය. විකිණීම ගැන තීරණය කිරීමට පෙර ඔබේ විකල්ප හොඳින් සලකා බලන්න.',
+    ta: 'இந்த மாதம் விலைகள் ஓரளவு நிச்சயமற்றவை. எப்போது விற்க வேண்டும் என முடிவெடுக்கும் முன் உங்கள் விருப்பங்களை கவனமாக கவனியுங்கள்.',
+  },
+  alertSwingTitle: {
+    en: 'Large Price Movement Expected',
+    si: 'විශාල මිල වෙනසක් අපේක්ෂිතයි',
+    ta: 'பெரிய விலை மாற்றம் எதிர்பார்க்கப்படுகிறது',
+  },
+  alertSwingUp: {
+    en: 'Prices are expected to rise significantly next month. This could be a good opportunity to wait before selling.',
+    si: 'ඊළඟ මාසයේ මිල සැලකිය යුතු ලෙස ඉහළ යනු ඇතැයි අපේක්ෂා කෙරේ. විකිණීමට පෙර රැඳී සිටීම හොඳ අවස්ථාවක් විය හැක.',
+    ta: 'அடுத்த மாதம் விலைகள் கணிசமாக உயரும் என எதிர்பார்க்கப்படுகிறது. விற்பதற்கு முன் காத்திருப்பது நல்ல வாய்ப்பாக இருக்கலாம்.',
+  },
+  alertSwingDown: {
+    en: 'Prices are expected to fall significantly next month. Consider selling sooner rather than waiting.',
+    si: 'ඊළඟ මාසයේ මිල සැලකිය යුතු ලෙස පහළ යනු ඇතැයි අපේක්ෂා කෙරේ. රැඳී නොසිට ඉක්මනින් විකිණීම ගැන සිතන්න.',
+    ta: 'அடுத்த மாதம் விலைகள் கணிசமாக குறையும் என எதிர்பார்க்கப்படுகிறது. காத்திராமல் விரைவில் விற்பதை கவனியுங்கள்.',
+  },
+  noAlerts: {
+    en: 'No alerts at this time.',
+    si: 'මේ මොහොතේ දැනුම්දීම් නොමැත.',
+    ta: 'தற்போது எச்சரிக்கைகள் இல்லை.',
+  },
 };
 
 // ── Helpers ───────────────────────────────────────────────────────
