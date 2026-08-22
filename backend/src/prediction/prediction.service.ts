@@ -28,11 +28,27 @@ export interface PredictionResult {
   rmse:                number;
 }
 
+const CACHE_TTL_MS = 30 * 60 * 1000; // 30 minutes
+
 @Injectable()
 export class PredictionService {
   private readonly logger = new Logger(PredictionService.name);
+  private readonly cache = new Map<string, { result: PredictionResult; exp: number }>();
+
+  private getCached(key: string): PredictionResult | null {
+    const entry = this.cache.get(key);
+    if (!entry || Date.now() > entry.exp) return null;
+    return entry.result;
+  }
+
+  private setCached(key: string, result: PredictionResult): void {
+    this.cache.set(key, { result, exp: Date.now() + CACHE_TTL_MS });
+  }
 
   async predict(elevation?: string): Promise<PredictionResult> {
+    const cacheKey = elevation ?? 'national';
+    const cached = this.getCached(cacheKey);
+    if (cached) return cached;
     const scriptPath = path.join(ML_ENGINE, 'predict.py');
     const args       = elevation
       ? [scriptPath, `--elevation=${elevation}`]
@@ -55,6 +71,7 @@ export class PredictionService {
             this.logger.error(`[predict.py] ${result['message']}`);
             reject(new InternalServerErrorException(result['message']));
           } else {
+            this.setCached(cacheKey, result);
             resolve(result);
           }
         } catch {
