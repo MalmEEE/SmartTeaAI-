@@ -47,10 +47,12 @@ export default function WhatIfPage() {
     setLoading(true);
     try {
       const body: Record<string, unknown> = {
-        usd_lkr_avg:    parseFloat(params.usd_lkr_avg),
-        oil_price:      parseFloat(params.oil_price),
-        mombasa_usd_kg: parseFloat(params.mombasa_usd_kg),
-        rainfall_mm:    parseFloat(params.rainfall_mm),
+        overrides: {
+          usd_lkr_avg:    parseFloat(params.usd_lkr_avg),
+          oil_price:      parseFloat(params.oil_price),
+          mombasa_usd_kg: parseFloat(params.mombasa_usd_kg),
+          rainfall_mm:    parseFloat(params.rainfall_mm),
+        },
       };
       if (params.elevation !== 'none') body.elevation = params.elevation;
       const r = await api.post<ForecastResult>('/predict/whatif', body);

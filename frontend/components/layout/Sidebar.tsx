@@ -2,8 +2,10 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { useAuth } from '@/lib/auth';
 import type { UserRole } from '@/types';
+import { T, type Lang } from '@/lib/translations';
 
 interface NavItem {
   href: string;
@@ -31,12 +33,34 @@ export function Sidebar() {
   const pathname = usePathname();
   const { user, can, logout } = useAuth();
 
-  const visible = NAV.filter(n => !n.roles || can(...n.roles));
+  const isFarmer = user?.role === 'farmer';
+
+  const [farmerLang, setFarmerLang] = useState<Lang>(() => {
+    if (typeof window === 'undefined') return 'en';
+    return (localStorage.getItem('smartteaai_farmer_lang') as Lang | null) ?? 'en';
+  });
+
+  useEffect(() => {
+    const onLangChange = (e: Event) => setFarmerLang((e as CustomEvent<Lang>).detail);
+    window.addEventListener('smartteaai:lang', onLangChange);
+    return () => window.removeEventListener('smartteaai:lang', onLangChange);
+  }, []);
+
+  const lang = isFarmer ? farmerLang : 'en';
+
+  const farmerNav = [
+    { href: '/dashboard/farmer',  label: T.myDashboard[lang], icon: '🏠' },
+    { href: '/dashboard/alerts',  label: T.alerts[lang],      icon: '🔔' },
+    { href: '/dashboard/reports', label: T.reports[lang],     icon: '📄' },
+  ];
+
+  const visible = isFarmer
+    ? farmerNav
+    : NAV.filter(n => !n.roles || can(...n.roles));
 
   return (
     <aside
-      className="w-64 shrink-0 h-screen sticky top-0 flex flex-col overflow-y-auto z-20
-        border-r border-white/10"
+      className="w-60 shrink-0 h-screen sticky top-0 flex flex-col overflow-y-auto z-20 border-r border-white/10"
       style={{ background: 'rgba(10, 30, 10, 0.55)', backdropFilter: 'blur(20px)' }}
     >
       {/* Logo */}
@@ -44,23 +68,25 @@ export function Sidebar() {
         <img src="/tea-leaf.png" alt="" className="w-9 h-9 object-contain" />
         <div>
           <p className="font-bold text-white text-base leading-tight">SmartTeaAI</p>
-          <p className="text-[10px] text-white/40 uppercase tracking-wider">Price Intelligence</p>
+          <p className="text-[10px] text-white/40 uppercase tracking-wider">
+            {isFarmer ? T.tagline[lang] : 'Price Intelligence'}
+          </p>
         </div>
       </div>
 
       {/* Nav */}
       <nav className="flex-1 px-3 py-4 space-y-0.5">
         {visible.map(item => {
-          const active = item.href === '/dashboard'
-            ? pathname === '/dashboard'
+          const active = item.href === '/dashboard' || item.href === '/dashboard/farmer'
+            ? pathname === item.href
             : pathname.startsWith(item.href);
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150
+              className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all duration-150
                 ${active
-                  ? 'bg-white/15 text-white shadow-sm backdrop-blur-sm'
+                  ? 'bg-white/15 text-white shadow-sm'
                   : 'text-white/60 hover:text-white hover:bg-white/8'
                 }`}
             >
@@ -83,8 +109,8 @@ export function Sidebar() {
             className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm
               text-white/60 hover:text-white hover:bg-white/10 transition-colors"
           >
-            <span className="text-base">↩</span>
-            Sign out
+            <span>↩</span>
+            {isFarmer ? T.signOut[lang] : 'Sign out'}
           </button>
         </div>
       )}
