@@ -13,6 +13,9 @@ import { AuthModule } from './auth/auth.module';
 import { AdminModule } from './admin/admin.module';
 import { User } from './users/user.entity';
 import { RoleRequest } from './users/role-request.entity';
+import { MlModel } from './prediction/ml-model.entity';
+import { Prediction } from './prediction/prediction.entity';
+import { Recommendation } from './prediction/recommendation.entity';
 import { ReportsModule } from './reports/reports.module';
 
 @Module({
@@ -31,7 +34,7 @@ import { ReportsModule } from './reports/reports.module';
         username:    config.get('DB_USER'),
         password:    config.get('DB_PASS'),
         database:    config.get('DB_NAME'),
-        entities:    [User, RoleRequest],
+        entities:    [User, RoleRequest, MlModel, Prediction, Recommendation],
         synchronize: false,
       }),
     }),

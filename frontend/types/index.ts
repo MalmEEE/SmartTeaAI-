@@ -64,11 +64,14 @@ export interface ModelInfo {
   status?: string;
   message?: string;
   best_model?: string;
+  model_file?: string;
+  feature_set?: string;
   mape_pct?: number;
   rmse?: number;
   r2?: number;
   trained_on?: string;
   test_period?: string;
+  test_rows?: number;
   all_results?: ModelResult[];
 }
 
