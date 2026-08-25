@@ -46,11 +46,45 @@ export default function OverviewPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-white">Overview</h1>
-        <p className="text-sm text-white/50 mt-0.5">
-          Welcome back, <span className="font-medium text-white/80 capitalize">{user?.name ?? user?.email}</span>
-        </p>
+
+      {/* ── Hero banner ─────────────────────────────────────────────── */}
+      <div className="relative rounded-2xl overflow-hidden h-52 md:h-64">
+        {/* Plantation image — center crop shows terraces + workers + sky */}
+        <img
+          src="/tea2.jpg"
+          alt="Sri Lanka tea plantation at sunrise"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+        {/* Dark vignette on both sides so both text blocks are readable */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-black/75" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40" />
+
+        {/* Left — page title + welcome */}
+        <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 pointer-events-none">
+          <p className="text-xs font-semibold uppercase tracking-widest text-emerald-400 mb-1">Overview</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-white leading-tight">
+            Welcome back,{' '}
+            <span className="text-white/80">{user?.name ?? user?.email}</span>
+          </h1>
+          <p className="text-sm text-white/50 mt-1">Sri Lanka Tea Price Intelligence</p>
+        </div>
+
+        {/* Right — system description + feature tags */}
+        <div className="absolute inset-0 flex flex-col justify-center items-end p-6 md:p-8 pointer-events-none">
+          <div className="max-w-xs text-right space-y-2">
+            <p className="text-2xl font-bold tracking-wide text-white">SmartTeaAI</p>
+            <p className="text-sm text-white/75 leading-relaxed">
+              Machine-learning forecasts, economic signals, and plain-language recommendations for every role in the tea supply chain.
+            </p>
+            <div className="flex flex-wrap gap-1.5 justify-end pt-1">
+              {['Price Forecasts', 'Elevation Analysis', 'What-If Simulator', 'SHAP Explainability', 'Trilingual Farmer View'].map(tag => (
+                <span key={tag} className="text-xs bg-white/10 backdrop-blur-sm border border-white/20 text-white/65 px-2 py-0.5 rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       {forecast && (
@@ -67,16 +101,34 @@ export default function OverviewPage() {
           <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 space-y-4 relative overflow-hidden">
             {/* Decorative leaf */}
             <img
-              src="/tea-leaf2.png"
+              src="/tea-leaf.png"
               alt=""
               aria-hidden
-              className="pointer-events-none absolute -bottom-4 -right-4 w-48 opacity-50 rotate-6 select-none drop-shadow-lg"
+              className="pointer-events-none absolute -bottom-20 -right-6 w-44 opacity-40 rotate-6 select-none drop-shadow-lg"
             />
             <h3 className="font-semibold text-white">Market Signal</h3>
             <div className="flex items-center gap-3 flex-wrap">
               <SignalBadge signal={forecast.recommendation.signal} />
               <RiskBadge level={forecast.risk_level} />
             </div>
+
+            {/* Driving factors */}
+            {forecast.recommendation.factors && forecast.recommendation.factors.length > 0 && (
+              <div className="space-y-1.5">
+                <p className="text-xs font-semibold uppercase tracking-wider text-white/30">Key drivers</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {forecast.recommendation.factors.map(f => (
+                    <span
+                      key={f}
+                      className="text-xs bg-emerald-500/15 border border-emerald-400/20 text-emerald-300 px-2.5 py-1 rounded-full"
+                    >
+                      {f}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <p className="text-sm text-white/60 leading-relaxed">{forecast.recommendation.justification}</p>
             <div className="pt-2 border-t border-white/10">
               <p className="text-xs text-white/40">Model: <span className="text-white/70 font-medium">{forecast.model}</span></p>

@@ -112,6 +112,23 @@ export default function ForecastPage() {
                 <SignalBadge signal={forecast.recommendation.signal} />
                 <RiskBadge level={forecast.risk_level} />
               </div>
+
+              {forecast.recommendation.factors && forecast.recommendation.factors.length > 0 && (
+                <div className="space-y-1.5">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-white/30">Key drivers</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {forecast.recommendation.factors.map(f => (
+                      <span
+                        key={f}
+                        className="text-xs bg-emerald-500/15 border border-emerald-400/20 text-emerald-300 px-2.5 py-1 rounded-full"
+                      >
+                        {f}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <p className="text-sm text-white/60 leading-relaxed">
                 {forecast.recommendation.justification}
               </p>
