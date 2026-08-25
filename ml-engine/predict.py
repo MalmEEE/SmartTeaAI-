@@ -105,29 +105,125 @@ def classify_risk(change_pct: float) -> str:
         return "High"
 
 
-def get_recommendation(change_pct: float) -> dict:
+def get_factor_context(df: pd.DataFrame) -> list:
     """
-    Rule-based Sell/Hold/Monitor signal, matching the proposal's own
-    example format (Section 9.1): a plain-language justification alongside
-    the signal, not just a bare label.
+    Compare the most recent data row against the prior 3-month average to
+    identify the 2-3 most notable market factors driving the current signal.
+    Returns plain-language strings for use in the justification sentence.
     """
+    if len(df) < 4:
+        return []
+
+    last  = df.iloc[-1]
+    prev3 = df.iloc[-4:-1]
+    factors = []
+
+    # Exchange rate (weakening/strengthening rupee)
+    if 'fx_change_pct' in df.columns:
+        fx_chg = float(last.get('fx_change_pct', 0) or 0)
+        if fx_chg > 3:
+            factors.append("a weakening rupee (USD/LKR rising)")
+        elif fx_chg < -3:
+            factors.append("a strengthening rupee (USD/LKR falling)")
+    elif 'usd_lkr_avg' in df.columns:
+        cur = float(last['usd_lkr_avg']); avg = prev3['usd_lkr_avg'].mean()
+        if cur > avg * 1.02:
+            factors.append("a weakening rupee (USD/LKR rising)")
+        elif cur < avg * 0.98:
+            factors.append("a strengthening rupee (USD/LKR falling)")
+
+    # Production volume (supply-side pressure)
+    if 'prod_total_kg' in df.columns:
+        cur = float(last['prod_total_kg']); avg = prev3['prod_total_kg'].mean()
+        if cur < avg * 0.93:
+            factors.append("below-average production volumes tightening supply")
+        elif cur > avg * 1.07:
+            factors.append("above-average production volumes adding supply pressure")
+
+    # Export demand
+    if 'export_black_qty_kg' in df.columns:
+        cur = float(last['export_black_qty_kg']); avg = prev3['export_black_qty_kg'].mean()
+        if cur > avg * 1.05:
+            factors.append("strong export demand")
+        elif cur < avg * 0.95:
+            factors.append("softening export demand")
+
+    # Oil / fuel cost
+    if 'oil_change_pct' in df.columns:
+        oil_chg = float(last.get('oil_change_pct', 0) or 0)
+        if oil_chg > 5:
+            factors.append("rising oil prices increasing production costs")
+        elif oil_chg < -5:
+            factors.append("falling oil prices easing production costs")
+    elif 'oil_price' in df.columns:
+        cur = float(last['oil_price']); avg = prev3['oil_price'].mean()
+        if cur > avg * 1.06:
+            factors.append("rising oil prices increasing production costs")
+
+    # Mombasa competitor prices
+    if 'mombasa_usd_kg' in df.columns:
+        cur = float(last['mombasa_usd_kg']); avg = prev3['mombasa_usd_kg'].mean()
+        if cur > avg * 1.05:
+            factors.append("rising Mombasa competitor prices")
+        elif cur < avg * 0.95:
+            factors.append("falling Mombasa competitor prices")
+
+    # Peak season
+    if 'is_peak_season' in df.columns and int(last.get('is_peak_season', 0) or 0) == 1:
+        factors.append("peak season demand (Jan–Apr)")
+
+    # Rainfall
+    if 'rainfall_mm' in df.columns:
+        cur = float(last['rainfall_mm']); avg = prev3['rainfall_mm'].mean()
+        if cur < avg * 0.75:
+            factors.append("below-average rainfall in recent months")
+
+    return factors[:3]  # at most three driving factors in the sentence
+
+
+def _format_factors(factors: list) -> str:
+    if not factors:
+        return ""
+    if len(factors) == 1:
+        return f" driven by {factors[0]}"
+    if len(factors) == 2:
+        return f" driven by {factors[0]} and {factors[1]}"
+    return f" driven by {factors[0]}, {factors[1]}, and {factors[2]}"
+
+
+def get_recommendation(change_pct: float, factors: list = None) -> dict:
+    """
+    Rule-based Sell/Hold/Monitor signal with a factor-aware plain-language
+    justification (Section 9.1 of the proposal).
+    """
+    factor_str = _format_factors(factors or [])
+
     if change_pct >= 2:
         return {
             "signal": "Hold",
-            "justification": f"Prices are predicted to rise by {change_pct:.1f}% next month. "
-                              f"Holding stock may be beneficial if storage costs allow."
+            "factors": factors or [],
+            "justification": (
+                f"Prices are predicted to rise by {change_pct:.1f}%{factor_str}. "
+                f"Holding stock may be beneficial if storage costs allow."
+            ),
         }
     elif change_pct <= -2:
         return {
             "signal": "Sell",
-            "justification": f"Prices are predicted to fall by {abs(change_pct):.1f}% next month. "
-                              f"Selling before the decline may be advantageous."
+            "factors": factors or [],
+            "justification": (
+                f"Prices are predicted to fall by {abs(change_pct):.1f}%{factor_str}. "
+                f"Selling before the decline may be advantageous."
+            ),
         }
     else:
         return {
             "signal": "Monitor",
-            "justification": f"Prices are predicted to move only {change_pct:+.1f}% next month. "
-                              f"No strong signal either way -- continue monitoring the market."
+            "factors": factors or [],
+            "justification": (
+                f"Prices are predicted to move only {change_pct:+.1f}%{factor_str}. "
+                f"No strong signal either way — continue monitoring the market."
+            ),
         }
 
 
@@ -310,7 +406,7 @@ def main():
                 'price_range_high':    round(price + rmse, 2),
                 'range_basis':         'predicted price +/- 1 RMSE (test-set typical error)',
                 'risk_level':          classify_risk(change_pct),
-                'recommendation':      get_recommendation(change_pct),
+                'recommendation':      get_recommendation(change_pct, get_factor_context(df)),
                 'model':               elev_cfg['best_model'],
                 'mape_pct':            elev_cfg['mape_pct'],
                 'rmse':                rmse,
@@ -349,7 +445,7 @@ def main():
             'price_range_high':    round(price + rmse, 2),
             'range_basis':         'predicted price +/- 1 RMSE (test-set typical error)',
             'risk_level':          classify_risk(change_pct),
-            'recommendation':      get_recommendation(change_pct),
+            'recommendation':      get_recommendation(change_pct, get_factor_context(df)),
             'model':               best['best_model'],
             'mape_pct':            best['mape_pct'],
             'rmse':                best['rmse'],

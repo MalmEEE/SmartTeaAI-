@@ -21,7 +21,7 @@ export interface ForecastResult {
   price_range_high: number;
   range_basis: string;
   risk_level: 'Low' | 'Medium' | 'High';
-  recommendation: { signal: 'Sell' | 'Hold' | 'Monitor'; justification: string };
+  recommendation: { signal: 'Sell' | 'Hold' | 'Monitor'; justification: string; factors?: string[] };
   model: string;
   mape_pct: number;
   rmse: number;
