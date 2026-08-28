@@ -6,13 +6,16 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../users/user.entity';
 
+const ALL_ROLES = [UserRole.FARMER, UserRole.BROKER, UserRole.EXPORTER, UserRole.BUYER, UserRole.ANALYST, UserRole.ADMIN];
+const NON_FARMER_ROLES = [UserRole.BROKER, UserRole.EXPORTER, UserRole.BUYER, UserRole.ANALYST, UserRole.ADMIN];
+
 @Controller('reports')
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Roles(UserRole.BROKER, UserRole.EXPORTER, UserRole.ANALYST, UserRole.ADMIN)
 export class ReportsController {
   constructor(private readonly reports: ReportsService) {}
 
   @Get('forecast')
+  @Roles(...ALL_ROLES)
   async getForecastReport(@Res() res: Response) {
     const pdf = await this.reports.generateReport();
     res.set({
@@ -24,6 +27,7 @@ export class ReportsController {
   }
 
   @Get('history')
+  @Roles(...ALL_ROLES)
   getHistoryCsv(@Res() res: Response) {
     const csv = this.reports.generateHistoryCsv();
     res.set({
@@ -34,6 +38,7 @@ export class ReportsController {
   }
 
   @Get('model')
+  @Roles(...NON_FARMER_ROLES)
   async getModelReport(@Res() res: Response) {
     const pdf = await this.reports.generateModelReport();
     res.set({

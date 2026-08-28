@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { api } from '@/lib/api';
+import { useAuth } from '@/lib/auth';
 import { Button } from '@/components/ui/Button';
 
 type ReportType = 'forecast' | 'history' | 'model';
@@ -28,6 +29,8 @@ const REPORTS: { key: ReportType; label: string; desc: string; icon: string }[] 
 ];
 
 export default function ReportsPage() {
+  const { user } = useAuth();
+  const isFarmer = user?.role === 'farmer';
   const [loading, setLoading] = useState<ReportType | null>(null);
   const [error, setError] = useState('');
 
@@ -65,7 +68,7 @@ export default function ReportsPage() {
       )}
 
       <div className="grid md:grid-cols-3 gap-5">
-        {REPORTS.map(r => (
+        {REPORTS.filter(r => !(isFarmer && r.key === 'model')).map(r => (
           <div key={r.key} className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 flex flex-col gap-4">
             <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-2xl">
               {r.icon}
