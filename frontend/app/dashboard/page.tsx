@@ -9,6 +9,7 @@ import { KpiCard } from '@/components/ui/Card';
 import { RiskBadge, SignalBadge } from '@/components/ui/Badge';
 import { CardSkeleton } from '@/components/ui/Skeleton';
 import { ErrorState } from '@/components/ui/NotAvailable';
+import { RoleRequestBanner } from '@/components/ui/RoleRequestBanner';
 import {
   ResponsiveContainer, AreaChart, Area,
   XAxis, YAxis, Tooltip, CartesianGrid,
@@ -86,6 +87,8 @@ export default function OverviewPage() {
           </div>
         </div>
       </div>
+
+      <RoleRequestBanner />
 
       {forecast && (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">

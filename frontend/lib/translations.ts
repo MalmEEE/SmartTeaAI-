@@ -114,7 +114,93 @@ export const T: Record<string, Tr> = {
   myDashboard: { en: 'My Dashboard', si: 'මගේ මුල් පිටුව',  ta: 'என் டாஷ்போர்டு'   },
   alerts:      { en: 'Alerts',       si: 'දැනුම්දීම්',       ta: 'எச்சரிக்கைகள்'     },
   reports:     { en: 'Reports',      si: 'වාර්තා',           ta: 'அறிக்கைகள்'        },
+  myAccount:   { en: 'My Account',   si: 'මගේ ගිණුම',        ta: 'என் கணக்கு'        },
   signOut:     { en: 'Sign out',     si: 'ඉවත් වෙන්න',       ta: 'வெளியேறு'          },
+
+  // ── Profile page ──────────────────────────────────────────────
+  profileSubtitle: {
+    en: 'Your profile and role settings',
+    si: 'ඔබේ පැතිකඩ සහ භූමිකා සැකසුම්',
+    ta: 'உங்கள் சுயவிவரம் மற்றும் பாத்திர அமைப்புகள்',
+  },
+  profileSection: { en: 'Profile',   si: 'පැතිකඩ',           ta: 'சுயவிவரம்'  },
+  profileName:    { en: 'Name',      si: 'නම',               ta: 'பெயர்'       },
+  profileEmail:   { en: 'Email',     si: 'විද්‍යුත් තැපෑල', ta: 'மின்னஞ்சல்'  },
+  profileRole:    { en: 'Role',      si: 'භූමිකාව',          ta: 'பாத்திரம்'   },
+
+  roleUpgradeTitle: {
+    en: 'Request Role Upgrade',
+    si: 'භූමිකා උසස්වීමක් ඉල්ලන්න',
+    ta: 'பாத்திர தரவுயர்வு கோரவும்',
+  },
+  roleUpgradeDesc: {
+    en: 'Farmer is the default role. Apply for a professional role to unlock advanced analytics. An administrator will review your request.',
+    si: 'ගොවියා සාමාන්‍ය භූමිකාවයි. උසස් විශ්ලේෂණ ලබා ගැනීමට වෘත්තීය භූමිකාවක් ඉල්ලන්න. පරිපාලකයෙකු ඔබේ ඉල්ලීම සමාලෝචනය කරනු ඇත.',
+    ta: 'விவசாயி என்பது இயல்புநிலை பாத்திரம். மேம்பட்ட பகுப்பாய்வுகளை அணுக ஒரு தொழில்முறை பாத்திரத்திற்கு விண்ணப்பிக்கவும். ஒரு நிர்வாகி உங்கள் கோரிக்கையை மதிப்பாய்வு செய்வார்.',
+  },
+
+  rolePendingTitle: {
+    en: 'Request pending',
+    si: 'ඉල්ලීම සලකා බලමින්',
+    ta: 'கோரிக்கை நிலுவையில் உள்ளது',
+  },
+  rolePendingNote: {
+    en: 'After approval, sign out and sign back in to activate your new role.',
+    si: 'අනුමැතියෙන් පසු, නව භූමිකාව සක්‍රිය කිරීමට ඉවත් වී නැවත ඇතුළු වන්න.',
+    ta: 'ஒப்புதலுக்குப் பிறகு, புதிய பாத்திரத்தை செயல்படுத்த வெளியேறி மீண்டும் உள்நுழையவும்.',
+  },
+  upgradePromptTitle: {
+    en: 'Are you a tea professional?',
+    si: 'ඔබ තේ වෘත්තිකයෙක්ද?',
+    ta: 'நீங்கள் ஒரு தேயிலை நிபுணரா?',
+  },
+  upgradePromptDesc: {
+    en: 'Brokers, exporters, buyers, and analysts can apply for a professional role to access advanced market analytics and reports.',
+    si: 'තැරැව්කරුවන්, අපනයනකරුවන්, ගැනුම්කරුවන් සහ විශ්ලේෂකයන්ට උසස් වෙළඳ විශ්ලේෂණ සඳහා වෘත්තීය භූමිකාවක් ඉල්ලීමට හැකිය.',
+    ta: 'தரகர்கள், ஏற்றுமதியாளர்கள், வாங்குபவர்கள் மற்றும் ஆய்வாளர்கள் மேம்பட்ட சந்தை பகுப்பாய்வுகளுக்கு தொழில்முறை பாத்திரத்திற்கு விண்ணப்பிக்கலாம்.',
+  },
+  upgradePromptBtn: {
+    en: 'Apply for a role upgrade',
+    si: 'භූමිකා උසස්වීමක් ඉල්ලන්න',
+    ta: 'பாத்திர தரவுயர்வுக்கு விண்ணப்பிக்கவும்',
+  },
+
+  roleSelectPrompt: {
+    en: 'Select a role above',
+    si: 'ඉහත භූමිකාවක් තෝරන්න',
+    ta: 'மேலே ஒரு பாத்திரம் தேர்ந்தெடுக்கவும்',
+  },
+  roleRequestAccess: {
+    en: 'Request Access',
+    si: 'ප්‍රවේශය ඉල්ලන්න',
+    ta: 'அணுகல் கோரவும்',
+  },
+
+  roleBrokerLabel:   { en: 'Tea Broker',     si: 'තේ තැරැව්කරු',     ta: 'தேயிலை தரகர்'              },
+  roleExporterLabel: { en: 'Tea Exporter',   si: 'තේ අපනයනකරු',     ta: 'தேயிலை ஏற்றுமதியாளர்'      },
+  roleBuyerLabel:    { en: 'Buyer',          si: 'ගැනුම්කරු',         ta: 'வாங்குபவர்'                },
+  roleAnalystLabel:  { en: 'Market Analyst', si: 'වෙළඳ විශ්ලේෂකයා',  ta: 'சந்தை ஆய்வாளர்'           },
+
+  roleBrokerDesc: {
+    en: 'Market signals, reports, and what-if analysis for auction decisions.',
+    si: 'වෙන්දේසි තීරණ සඳහා වෙළඳ සංඥා, වාර්තා සහ what-if විශ්ලේෂණ.',
+    ta: 'ஏல முடிவுகளுக்கான சந்தை சமிக்ஞைகள், அறிக்கைகள் மற்றும் பகுப்பாய்வு.',
+  },
+  roleExporterDesc: {
+    en: 'Export-relevant analytics, price trends, and risk reports.',
+    si: 'අපනයනය සඳහා විශ්ලේෂණ, මිල ප්‍රවණතා සහ අවදානම් වාර්තා.',
+    ta: 'ஏற்றுமதி தொடர்பான பகுப்பாய்வுகள், விலை போக்குகள் மற்றும் அபாய அறிக்கைகள்.',
+  },
+  roleBuyerDesc: {
+    en: 'Price forecasts and market intelligence for purchasing decisions.',
+    si: 'ගැනුම් තීරණ සඳහා මිල අනාවැකි සහ වෙළඳ බුද්ධිය.',
+    ta: 'கொள்முதல் முடிவுகளுக்கான விலை முன்கணிப்புகள் மற்றும் சந்தை நுண்ணறிவு.',
+  },
+  roleAnalystDesc: {
+    en: 'Full access including model performance data and economic indicators.',
+    si: 'ආකෘති කාර්ය සාධන දත්ත සහ ආර්ථික දර්ශක ඇතුළු සම්පූර්ණ ප්‍රවේශය.',
+    ta: 'மாதிரி செயல்திறன் தரவு மற்றும் பொருளாதார குறிகாட்டிகள் உட்பட முழு அணுகல்.',
+  },
 
   // ── Alerts page (farmer-specific) ──────────────────────────────
   alertsSubtitle: {

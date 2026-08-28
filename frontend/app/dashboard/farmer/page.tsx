@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { cachedGet } from '@/lib/cache';
+import Link from 'next/link';
 import { useAuth } from '@/lib/auth';
 import type { ForecastResult, ElevationPricePoint } from '@/types';
 import { T, type Lang, formatMonth, buildRecommendationSentence } from '@/lib/translations';
@@ -64,6 +65,7 @@ export default function FarmerPage() {
   const [error, setError] = useState('');
   const [helpOpen, setHelpOpen] = useState(false);
   const [retryKey, setRetryKey] = useState(0);
+  const [hasPendingRequest, setHasPendingRequest] = useState(false);
 
   const fetchData = useCallback((elev: Elevation) => {
     setLoading(true);
@@ -83,6 +85,10 @@ export default function FarmerPage() {
   useEffect(() => {
     fetchData(elevation);
   }, [elevation, retryKey, fetchData]);
+
+  useEffect(() => {
+    setHasPendingRequest(!!localStorage.getItem('smartteaai_role_request'));
+  }, []);
 
   function changeLang(l: Lang) {
     setLang(l);
@@ -160,7 +166,23 @@ export default function FarmerPage() {
             </button>
           ))}
         </div>
+
       </div>
+
+      {/* ── Role upgrade discovery ───────────────────────────────── */}
+      {!hasPendingRequest && (
+        <Link
+          href="/dashboard/profile"
+          className="flex items-center gap-4 bg-emerald-500/10 border border-emerald-400/25 rounded-2xl px-5 py-4 hover:bg-emerald-500/20 hover:border-emerald-400/40 transition-all duration-200 group"
+        >
+          <span className="text-3xl shrink-0">💼</span>
+          <div className="flex-1 min-w-0">
+            <p className="text-emerald-300 font-semibold text-sm">{T.upgradePromptTitle[lang]}</p>
+            <p className="text-white/50 text-xs mt-0.5 leading-relaxed">{T.upgradePromptDesc[lang]}</p>
+          </div>
+          <span className="text-emerald-400 font-bold text-lg shrink-0 group-hover:translate-x-1 transition-transform">→</span>
+        </Link>
+      )}
 
       {/* ── Loading ──────────────────────────────────────────────── */}
       {loading && (
@@ -319,6 +341,7 @@ export default function FarmerPage() {
               </div>
             )}
           </div>
+
         </>
       )}
     </div>

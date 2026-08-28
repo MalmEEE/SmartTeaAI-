@@ -26,6 +26,7 @@ const NAV: NavItem[] = [
   { href: '/dashboard/reports',      label: 'Reports',          icon: '📄' },
   { href: '/dashboard/data',         label: 'Historical Data',  icon: '🗄️' },
   { href: '/dashboard/alerts',       label: 'Alerts',           icon: '🔔' },
+  { href: '/dashboard/profile',     label: 'My Account',       icon: '👤' },
   { href: '/dashboard/admin',        label: 'Admin',            icon: '⚙️', roles: ['admin'] },
 ];
 
@@ -52,6 +53,7 @@ export function Sidebar() {
     { href: '/dashboard/farmer',  label: T.myDashboard[lang], icon: '🏠' },
     { href: '/dashboard/alerts',  label: T.alerts[lang],      icon: '🔔' },
     { href: '/dashboard/reports', label: T.reports[lang],     icon: '📄' },
+    { href: '/dashboard/profile', label: T.myAccount[lang],   icon: '👤' },
   ];
 
   const visible = isFarmer
