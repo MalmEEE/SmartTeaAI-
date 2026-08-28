@@ -72,6 +72,13 @@ export const T: Record<string, Tr> = {
   priceUp:      { en: 'up',                     si: 'ඉහළ',                      ta: 'அதிகம்'                       },
   priceDown:    { en: 'down',                   si: 'පහළ',                      ta: 'குறைவு'                       },
 
+  // ── Price disclaimer ──────────────────────────────────────────
+  priceDisclaimer: {
+    en: 'National average auction price. Your actual local price may vary.',
+    si: 'ජාතික සාමාන්‍ය වෙන්දේසි මිලයි. ඔබේ ප්‍රාදේශීය මිල වෙනස් විය හැකිය.',
+    ta: 'தேசிய சராசரி ஏல விலை. உங்கள் உள்ளூர் விலை மாறுபடலாம்.',
+  },
+
   // ── Chart ─────────────────────────────────────────────────────
   chartTitle: {
     en: "How your tea's price has changed recently",

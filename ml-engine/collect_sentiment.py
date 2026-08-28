@@ -4,7 +4,7 @@ SmartTeaAI — Sentiment Data Collector
 Collects tea-market-related news and scores sentiment using FinBERT
 (ProsusAI/finbert), aggregated to monthly values in range [-1.0, +1.0].
 
-IMPORTANT — free-tier limitation (documented in dissertation limitations):
+IMPORTANT: free-tier limitation (documented in dissertation limitations):
 NewsAPI's free "Developer" plan only returns articles from roughly the
 last 29 days. This collector CANNOT backfill historical sentiment for
 months before it started running. Months outside its reach keep the
@@ -12,9 +12,8 @@ neutral placeholder (0.0) set in preprocess_features.py's clean_dataset().
 
 This is intentionally the ONLY non-blocking collector in the pipeline.
 If it fails (API down, rate limited, key expired), the rest of the
-pipeline must still run — sentiment is a supplementary feature, not
-core price data. See data-pipeline.service.ts: its failure does not
-abort Step 2.
+pipeline must still run - sentiment is a supplementary feature, not
+core price data. 
 
 What gets saved:
     CSV : data/sentiment_monthly.csv   (year_month, sentiment_score, article_count)
@@ -175,11 +174,6 @@ def aggregate_monthly(articles):
 
 
 def merge_with_existing(new_monthly):
-    """
-    Same resume pattern as collect_weather.py: drop the most recent
-    month from the existing file before appending, since a partial month
-    (fetched mid-month) should be re-scored once more articles exist.
-    """
     if os.path.exists(MONTHLY_CSV):
         existing = pd.read_csv(MONTHLY_CSV, dtype={"year_month": str})
         if not existing.empty:
@@ -196,7 +190,7 @@ def merge_with_existing(new_monthly):
 
 
 # ---------------------------------------------------------------------------
-# MAIN — called by NestJS DataPipelineService (non-blocking on failure)
+# MAIN — called by NestJS DataPipelineService 
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
@@ -238,7 +232,7 @@ if __name__ == "__main__":
             print(new_monthly.to_string(index=False), file=sys.stderr)
 
     except Exception as e:
-        # Non-fatal by design — data-pipeline.service.ts does not abort on
+        # Non-fatal by design - data-pipeline.service.ts does not abort on
         # this step's failure. Logged as a warning there, not an error.
         result["status"] = "error"
         result["message"] = str(e)

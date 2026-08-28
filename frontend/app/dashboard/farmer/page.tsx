@@ -238,6 +238,10 @@ export default function FarmerPage() {
                 <p className="text-white/50 text-sm mt-1">
                   {T.forMonth[lang]} {formatMonth(forecast.predicted_month, lang)}
                 </p>
+                <p className="text-white/35 text-xs mt-2 flex items-center gap-1">
+                  <span>ℹ</span>
+                  {T.priceDisclaimer[lang]}
+                </p>
               </div>
               <div className="border-t border-white/10 pt-4 flex items-center justify-between mt-auto">
                 <span className="text-white/50 text-sm">{T.lastKnown[lang]}</span>
