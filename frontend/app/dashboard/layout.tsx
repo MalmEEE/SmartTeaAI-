@@ -55,6 +55,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <main className="flex-1 overflow-y-auto p-6">
           {children}
         </main>
+        <footer className="shrink-0 border-t border-white/10 px-6 py-3 flex items-center justify-between gap-4">
+          <p className="text-white/30 text-xs">
+            © {new Date().getFullYear()} SmartTeaAI - Sri Lanka Tea Price Intelligence
+          </p>
+          <p className="text-white/20 text-xs">
+            Forecasts are AI-generated estimates for decision support only.
+          </p>
+        </footer>
       </div>
     </div>
   );

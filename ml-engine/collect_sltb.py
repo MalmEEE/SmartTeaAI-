@@ -2,20 +2,20 @@
 SmartTeaAI — SLTB Data Collector
 ==================================
 Collects all 6 categories from the Sri Lanka Tea Board statistics page.
-After scraping, merges everything into raw_sltb_features table —
-one row per month per elevation — ready for the ML feature pipeline.
+After scraping, merges everything into raw_sltb_features table -
+one row per month per elevation ready for the ML feature pipeline.
 
 Data sources collected here:
-  - Sub District Price      → Year | Sub District | Month Price (Rs) | Cumulative Price (Rs)
-  - Sales Volume Direct     → Year | Sale Type | Elevation | Quantity (Kg) | Price (Rs.)
-  - Production by Process   → Year | Processing Method | Quantity (Kg)
-  - Production by Elevation → Year | Elevation | Quantity (Kg)
-  - Export                  → Year | Category | Package Type | Quantity (Kg) | Price (Rs.)
-  - Reexport                → Year | Category | Package Type | Quantity (Kg) | Price (Rs.)
+   Sub District Price → Year | Sub District | Month Price (Rs) | Cumulative Price (Rs)
+   Sales Volume Direct → Year | Sale Type | Elevation | Quantity (Kg) | Price (Rs.)
+   Production by Process → Year | Processing Method | Quantity (Kg)
+   Production by Elevation → Year | Elevation | Quantity (Kg)
+   Export → Year | Category | Package Type | Quantity (Kg) | Price (Rs.)
+   Reexport → Year | Category | Package Type | Quantity (Kg) | Price (Rs.)
 
 The site uses a two-step WordPress AJAX flow:
   Step 1: POST action=ajaxteaprice, req_type=teaprice_category → available year-months
-  Step 2: POST action=ajaxteaprice, req_type=teaprice_data     → HTML table
+  Step 2: POST action=ajaxteaprice, req_type=teaprice_data → HTML table
 
 Output to NestJS (stdout): JSON with status and row counts.
 
@@ -74,7 +74,7 @@ DB_USER = os.environ.get("DB_USER", "root")
 DB_PASS = os.environ.get("DB_PASS", "")
 DB_NAME = os.environ.get("DB_NAME", "smartteaai")
 
-# Scrape from Jan 2015 — 11 years gives ~130 training rows after lag-trimming
+# Scrape from Jan 2015 - 11 years gives ~130 training rows after lag-trimming
 INITIAL_START_YEAR  = 2015
 INITIAL_START_MONTH = 1
 
@@ -126,7 +126,7 @@ def normalise_elevation(raw):
 def get_resume_point(csv_path):
     """
     Read existing CSV to find where to resume scraping.
-    Re-fetches the last saved month (SLTB sometimes publishes late).
+    Re-fetches the last saved month 
     Returns (start_ym_str, existing_df_without_last_month)
       where start_ym_str is "YYYY-MM" or None (meaning start from INITIAL_*)
     """
@@ -356,7 +356,7 @@ PARSERS = {
     "reexport":                    parse_reexport,
 }
 
-# Raw MySQL table names (one per category — audit layer)
+# Raw MySQL table names (one per category - audit layer)
 RAW_TABLES = {
     "sub_district_price":          "raw_sltb_sub_district_price",
     "production_volume_elevation": "raw_sltb_production_elevation",
@@ -383,7 +383,7 @@ def get_db():
 
 
 def insert_ignore(records, table_name):
-    """INSERT IGNORE — skips duplicate rows silently."""
+    """INSERT IGNORE - skips duplicate rows silently."""
     if not records:
         return 0
     conn = get_db()

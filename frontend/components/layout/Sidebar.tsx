@@ -26,6 +26,7 @@ const NAV: NavItem[] = [
   { href: '/dashboard/reports',      label: 'Reports',          icon: '📄' },
   { href: '/dashboard/data',         label: 'Historical Data',  icon: '🗄️' },
   { href: '/dashboard/alerts',       label: 'Alerts',           icon: '🔔' },
+  { href: '/dashboard/profile',     label: 'My Account',       icon: '👤' },
   { href: '/dashboard/admin',        label: 'Admin',            icon: '⚙️', roles: ['admin'] },
 ];
 
@@ -52,6 +53,7 @@ export function Sidebar() {
     { href: '/dashboard/farmer',  label: T.myDashboard[lang], icon: '🏠' },
     { href: '/dashboard/alerts',  label: T.alerts[lang],      icon: '🔔' },
     { href: '/dashboard/reports', label: T.reports[lang],     icon: '📄' },
+    { href: '/dashboard/profile', label: T.myAccount[lang],   icon: '👤' },
   ];
 
   const visible = isFarmer
@@ -65,7 +67,7 @@ export function Sidebar() {
     >
       {/* Logo */}
       <div className="px-5 py-5 border-b border-white/10 flex items-center gap-3">
-        <img src="/tea-leaf.png" alt="" className="w-9 h-9 object-contain" />
+        <img src="/tea-leaf.png" alt="" className="w-14 h-14 object-contain" />
         <div>
           <p className="font-bold text-white text-base leading-tight">SmartTeaAI</p>
           <p className="text-[10px] text-white/40 uppercase tracking-wider">

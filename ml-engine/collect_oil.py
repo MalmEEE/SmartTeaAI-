@@ -16,7 +16,7 @@ Source: World Bank Commodity Markets (CMO) — updated monthly, free,
         https://www.worldbank.org/en/research/commodity-markets
 
 This is a STATIC FILE DOWNLOAD, not a dynamic search page like CBSL —
-so unlike process_fx.py, this one IS fully automatable end-to-end.
+so unlike process_fx.py, this one is fully automatable end-to-end.
 
 Verified structure (CMO-Historical-Data-Monthly.xlsx, June 2026 edition):
     Sheet     : "Monthly Prices"
@@ -56,7 +56,7 @@ load_dotenv(os.path.join(os.path.dirname(__file__), "..", "backend", ".env"))
 # CONFIG
 # ---------------------------------------------------------------------------
 
-# World Bank Pink Sheet — monthly prices, updated ~monthly by World Bank
+# World Bank Pink Sheet - monthly prices, updated ~monthly by World Bank
 # This exact URL was verified live on 2026-06-23. If the link 404s in future
 # (World Bank occasionally rotates the doc ID), get the fresh one from:
 #   https://www.worldbank.org/en/research/commodity-markets
@@ -71,8 +71,7 @@ SHEET_NAME  = "Monthly Prices"
 HEADER_ROW  = 5    # 1-indexed: row containing column names like "Crude oil, Brent"
 DATA_START  = 7    # 1-indexed: first row of actual monthly data
 
-# Exact verified column names — confirmed against the live file on 2026-06-23.
-# No fuzzy matching needed; these are the literal header strings.
+# Exact verified column names - confirmed against the live file on 2026-06-23.
 COL_BRENT       = "Crude oil, Brent"      # $/bbl  -> fuel/logistics proxy
 COL_TEA_COLOMBO = "Tea, Colombo"          # $/kg (USD) -> cross-check vs SLTB LKR price
 COL_TEA_MOMBASA = "Tea, Mombasa"          # $/kg (USD) -> East African competitor price
@@ -88,7 +87,7 @@ DB_USER = os.environ.get("DB_USER", "root")
 DB_PASS = os.environ.get("DB_PASS", "")
 DB_NAME = os.environ.get("DB_NAME", "smartteaai")
 
-START_YEAR_MONTH = "2015-01"   # matches extended dataset start
+START_YEAR_MONTH = "2015-01"   
 HEADERS = {"User-Agent": "Mozilla/5.0 (SmartTeaAI/FYP research collector)"}
 
 
