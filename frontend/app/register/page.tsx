@@ -4,7 +4,6 @@ import { useState, FormEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
-import { Button } from '@/components/ui/Button';
 
 export default function RegisterPage() {
   const { register } = useAuth();
@@ -25,7 +24,7 @@ export default function RegisterPage() {
     setLoading(true);
     try {
       await register(name, email, password);
-      router.push('/dashboard');
+      router.push('/dashboard/farmer');
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Registration failed';
       setError(msg);
@@ -35,36 +34,43 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--cream)] flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
+    <div
+      className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden"
+      style={{ background: 'linear-gradient(135deg, #0d2b0d 0%, #1e4a1e 50%, #2d6a2d 100%)' }}
+    >
+      {/* Decorative tea leaves */}
+      <img src="/tea-leaf.png" alt="" aria-hidden className="pointer-events-none select-none absolute -top-16 -right-16 w-[400px] opacity-[0.07] rotate-12" />
+      <img src="/tea-leaf.png" alt="" aria-hidden className="pointer-events-none select-none absolute -bottom-20 -left-12 w-[360px] opacity-[0.06] -rotate-[30deg]" />
+
+      <div className="w-full max-w-sm relative z-10">
+        {/* Logo */}
         <div className="text-center mb-8">
-          <img src="/tea-leaf.png" alt="SmartTeaAI" className="w-40 h-40 object-contain mx-auto" />
-          <h1 className="text-2xl font-bold text-[var(--tea-dark)] mt-3">Create Account</h1>
-          <p className="text-[var(--muted)] text-sm mt-1">Join SmartTeaAI as a Farmer (default role)</p>
+          <img src="/tea-leaf.png" alt="SmartTeaAI" className="w-24 h-24 object-contain mx-auto drop-shadow-lg" />
+          <h1 className="text-2xl font-bold text-white -mt-3">Create Account</h1>
+          <p className="text-white/50 text-sm mt-1">Join SmartTeaAI - registered as Farmer by default</p>
         </div>
 
-        <div className="bg-white rounded-2xl border border-[var(--border)] shadow-sm p-8">
+        {/* Card */}
+        <div className="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-7 shadow-xl">
           {error && (
-            <div className="mb-4 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm">
+            <div className="mb-4 p-3 rounded-xl bg-red-400/10 border border-red-400/25 text-red-300 text-sm">
               {error}
             </div>
           )}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-[var(--text)] mb-1.5">Full name</label>
+              <label className="block text-white/60 text-sm font-medium mb-1.5">Full name</label>
               <input
                 type="text"
                 required
                 value={name}
                 onChange={e => setName(e.target.value)}
                 placeholder="Amal Perera"
-                className="w-full px-3.5 py-2.5 rounded-lg border border-[var(--border)] text-sm
-                  focus:outline-none focus:ring-2 focus:ring-[var(--tea)]/30 focus:border-[var(--tea)]
-                  bg-white text-[var(--text)] placeholder-[var(--muted)]"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/30 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/30 focus:border-emerald-400/50 transition-colors"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[var(--text)] mb-1.5">Email</label>
+              <label className="block text-white/60 text-sm font-medium mb-1.5">Email</label>
               <input
                 type="email"
                 required
@@ -72,13 +78,11 @@ export default function RegisterPage() {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full px-3.5 py-2.5 rounded-lg border border-[var(--border)] text-sm
-                  focus:outline-none focus:ring-2 focus:ring-[var(--tea)]/30 focus:border-[var(--tea)]
-                  bg-white text-[var(--text)] placeholder-[var(--muted)]"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/30 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/30 focus:border-emerald-400/50 transition-colors"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[var(--text)] mb-1.5">Password</label>
+              <label className="block text-white/60 text-sm font-medium mb-1.5">Password</label>
               <input
                 type="password"
                 required
@@ -87,19 +91,21 @@ export default function RegisterPage() {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="Min. 8 characters"
-                className="w-full px-3.5 py-2.5 rounded-lg border border-[var(--border)] text-sm
-                  focus:outline-none focus:ring-2 focus:ring-[var(--tea)]/30 focus:border-[var(--tea)]
-                  bg-white text-[var(--text)] placeholder-[var(--muted)]"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/30 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400/30 focus:border-emerald-400/50 transition-colors"
               />
             </div>
-            <Button type="submit" loading={loading} className="w-full justify-center" size="lg">
-              Create account
-            </Button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-60 text-white font-semibold text-sm transition-colors mt-1"
+            >
+              {loading ? 'Creating account…' : 'Create account'}
+            </button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-[var(--muted)]">
+          <p className="mt-5 text-center text-sm text-white/40">
             Already have an account?{' '}
-            <Link href="/login" className="text-[var(--tea)] font-medium hover:underline">
+            <Link href="/login" className="text-emerald-400 font-medium hover:text-emerald-300 transition-colors">
               Sign in
             </Link>
           </p>

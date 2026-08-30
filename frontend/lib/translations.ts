@@ -214,9 +214,9 @@ export const T: Record<string, Tr> = {
     ta: 'அதிக விலை ஆபத்து',
   },
   alertRiskHBody: {
-    en: 'Risk is currently high — prices may change more than usual this month. Be cautious about large commitments.',
-    si: 'දැනට මිල අවදානම ඉහළයි — මෙම මාසයේ මිල සාමාන්‍යයට වඩා වෙනස් විය හැක. විශාල තීරණ ගැනීමේදී ප්‍රවේශමෙන් සිටින්න.',
-    ta: 'தற்போது விலை ஆபத்து அதிகமாக உள்ளது — இந்த மாதம் விலைகள் வழக்கத்திற்கு மாறாக மாறலாம். பெரிய முடிவுகளில் கவனமாக இருங்கள்.',
+    en: 'Risk is currently high - prices may change more than usual this month. Be cautious about large commitments.',
+    si: 'දැනට මිල අවදානම ඉහළයි - මෙම මාසයේ මිල සාමාන්‍යයට වඩා වෙනස් විය හැක. විශාල තීරණ ගැනීමේදී ප්‍රවේශමෙන් සිටින්න.',
+    ta: 'தற்போது விலை ஆபத்து அதிகமாக உள்ளது - இந்த மாதம் விலைகள் வழக்கத்திற்கு மாறாக மாறலாம். பெரிய முடிவுகளில் கவனமாக இருங்கள்.',
   },
   alertRiskMTitle: {
     en: 'Moderate Price Uncertainty',

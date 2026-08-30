@@ -67,7 +67,7 @@ export function Sidebar() {
     >
       {/* Logo */}
       <div className="px-5 py-5 border-b border-white/10 flex items-center gap-3">
-        <img src="/tea-leaf.png" alt="" className="w-9 h-9 object-contain" />
+        <img src="/tea-leaf.png" alt="" className="w-14 h-14 object-contain" />
         <div>
           <p className="font-bold text-white text-base leading-tight">SmartTeaAI</p>
           <p className="text-[10px] text-white/40 uppercase tracking-wider">

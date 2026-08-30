@@ -90,7 +90,7 @@ export default function SeasonalPage() {
       <div>
         <h1 className="text-2xl font-bold text-white">Seasonal Trends</h1>
         <p className="text-sm text-white/50 mt-0.5">
-          Historical average auction price by month — Sri Lanka Tea Board data
+          Historical average auction price by month - Sri Lanka Tea Board data
         </p>
       </div>
 
