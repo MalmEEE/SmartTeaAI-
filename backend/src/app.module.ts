@@ -27,16 +27,27 @@ import { ReportsModule } from './reports/reports.module';
     TypeOrmModule.forRootAsync({
       imports:    [ConfigModule],
       inject:     [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        type:        'mysql',
-        host:        config.get('DB_HOST', 'localhost'),
-        port:        config.get<number>('DB_PORT', 3306),
-        username:    config.get('DB_USER'),
-        password:    config.get('DB_PASS'),
-        database:    config.get('DB_NAME'),
-        entities:    [User, RoleRequest, MlModel, Prediction, Recommendation],
-        synchronize: false,
-      }),
+      useFactory: (config: ConfigService) => {
+        const url = config.get('MYSQL_URL') || config.get('DATABASE_URL');
+        if (url) {
+          return {
+            type: 'mysql',
+            url,
+            entities: [User, RoleRequest, MlModel, Prediction, Recommendation],
+            synchronize: true,
+          };
+        }
+        return {
+          type:        'mysql',
+          host:        config.get('DB_HOST', 'localhost'),
+          port:        config.get<number>('DB_PORT', 3306),
+          username:    config.get('DB_USER'),
+          password:    config.get('DB_PASS'),
+          database:    config.get('DB_NAME'),
+          entities:    [User, RoleRequest, MlModel, Prediction, Recommendation],
+          synchronize: true,
+        };
+      },
     }),
 
     UsersModule,
