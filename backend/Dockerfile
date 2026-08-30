@@ -20,9 +20,9 @@ RUN pip3 install --no-cache-dir --break-system-packages \
 
 # Build NestJS backend
 WORKDIR /app/backend
-COPY package*.json ./
+COPY backend/package*.json ./
 RUN npm install
-COPY . .
+COPY backend/ .
 RUN npm run build
 RUN npm prune --omit=dev
 
