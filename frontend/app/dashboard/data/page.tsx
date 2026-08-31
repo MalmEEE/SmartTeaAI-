@@ -67,7 +67,7 @@ export default function DataPage() {
         <p className="text-sm text-white/50 mt-0.5">
           Previous auction prices published by the{' '}
           <span className="text-white/80 font-medium">Sri Lanka Tea Board (SLTB)</span>
-          {' '}— used as the training dataset for the forecasting models.
+          {' '}- used as the training dataset for the forecasting models.
         </p>
       </div>
 
